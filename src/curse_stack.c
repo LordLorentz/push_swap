@@ -1,42 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   curse_stack.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/01/19 16:15:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/01/26 15:57:17 by mmosk         ########   odam.nl         */
+/*   Created: 2024/01/26 15:01:46 by mmosk         #+#    #+#                 */
+/*   Updated: 2024/01/26 15:58:11 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main(int argc, char **argv)
+t_uint	*curse_stack(t_uint *stack, t_uint size, t_uint *start)
 {
-	const t_uint	size = argc - 1;
-	t_uint			start;
-	t_uint			*stack;
+	t_uint *const	out = malloc(sizeof(t_uint) * size);
 	t_uint			i;
 
-	stack = read_stack(argv + 1, size);
-	if (stack == NULL || argc < 2)
-		ft_exit();
+	ft_printf("__-|size - 1 = %u\n", size - 1);
+	*start = stack[0];
 	i = 0;
-	while (i < size)
+	while (i < size - 1)
 	{
-		ft_printf("%u\n", stack[i]);
+		out[stack[i]] = stack[i + 1];
 		i++;
 	}
-	stack = curse_stack(stack, size, &start);
-	if (stack == NULL)
-		ft_exit();
-	ft_printf("------\n");
-	i = 0;
-	while (i < size)
-	{
-		ft_printf("%u\n", stack[i]);
-		i++;
-	}
-	exit(0);
+	out[stack[i]] = END_OF_STACK;
+	free(stack);
+	return (out);
 }

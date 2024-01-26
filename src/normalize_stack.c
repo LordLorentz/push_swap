@@ -6,19 +6,17 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:35:03 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/01/23 22:33:53 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/01/26 15:12:50 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//O(n) = n^2
-
-inline unsigned int	stack_highest_index(int *stack, unsigned int size)
+static inline t_uint	stack_highest_index(int *stack, t_uint size)
 {
-	unsigned int	i;
-	int				highest;
-	unsigned int	highest_index;
+	t_uint	i;
+	int		highest;
+	t_uint	highest_index;
 
 	i = 0;
 	highest = INT_MIN;
@@ -34,11 +32,11 @@ inline unsigned int	stack_highest_index(int *stack, unsigned int size)
 	return (highest_index);
 }
 
-inline unsigned int	stack_lowest_index(int *stack, unsigned int size)
+static inline t_uint	stack_lowest_index(int *stack, t_uint size)
 {
-	unsigned int	i;
-	int				lowest;
-	unsigned int	lowest_index;
+	t_uint	i;
+	int		lowest;
+	t_uint	lowest_index;
 
 	i = 0;
 	lowest = INT_MAX;
@@ -54,33 +52,28 @@ inline unsigned int	stack_lowest_index(int *stack, unsigned int size)
 	return (lowest_index);
 }
 
-unsigned int	*normalize_stack(int *stack, unsigned int size)
+//O(n) = n^2
+//Normalizes a stack while preserving the order of its contents.
+t_uint	*normalize_stack(int *stack, t_uint size)
 {
-	unsigned int *const	out = malloc(sizeof(unsigned int) * size);
-	int					lowest;
-	unsigned int		i;
-	unsigned int		j;
-	unsigned int		target;
+	t_uint *const	out = malloc(sizeof(t_uint) * size);
+	t_uint			highest;
+	t_uint			i;
+	t_uint			target;
 
 	if (out == NULL)
 		return (0);
+	highest = stack_highest_index(stack, size);
+	out[highest] = INT_MAX;
 	i = 0;
-	while (i < size)
+	while (i < size - 1)
 	{
-		lowest = INT_MAX;
-		j = 0;
-		while (j < size)
-		{
-			if (stack[j] < lowest)
-			{
-				target = j;
-				lowest = stack[j];
-			}
-			j++;
-		}
+		target = stack_lowest_index(stack, size);
 		stack[target] = INT_MAX;
 		out[target] = i;
 		i++;
 	}
-	return (free(stack), out);
+	out[highest] = i;
+	free(stack);
+	return (out);
 }
