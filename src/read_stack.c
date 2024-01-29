@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 13:15:58 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/01/26 15:40:25 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/01/29 13:00:41 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static inline int	str_isnum(char *str)
 {
+	if (*str == '-')
+		str++;
 	while (*str)
 	{
 		if (ft_isdigit(*str) == 0)

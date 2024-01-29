@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   curse_stack.c                                      :+:    :+:            */
+/*   pb.c                                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/01/26 15:01:46 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/01/29 14:54:12 by mmosk         ########   odam.nl         */
+/*   Created: 2024/01/29 14:21:10 by mmosk         #+#    #+#                 */
+/*   Updated: 2024/01/29 14:48:31 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_uint	*curse_stack(t_uint *stack, t_uint size, t_uint *start)
+void	pa(t_stack *a, t_stack *b)
 {
-	t_uint *const	out = malloc(sizeof(t_uint) * size);
-	t_uint			i;
-
-	*start = stack[0];
-	i = 0;
-	while (i < size - 1)
-	{
-		out[stack[i]] = stack[i + 1];
-		i++;
-	}
-	out[stack[i]] = END_OF_STACK;
-	free(stack);
-	return (out);
+	if (b->start == END_OF_STACK)
+		return ;
+	a->val[b->start] = a->start;
+	a->start = b->start;
+	b->start = b->val[b->start];
 }
