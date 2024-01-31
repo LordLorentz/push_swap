@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 13:15:58 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/01/29 13:00:41 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/01/31 14:20:15 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ int	does_stack_contain(int *stack, t_uint size, int query)
 
 t_uint	*read_stack(char **input, t_uint size)
 {
-	int *const		stack = malloc(sizeof(int) * size);
-	t_uint	*out;
-	t_uint	i;
-	int				current;
+	int *const	stack = malloc(sizeof(int) * size);
+	t_uint		*out;
+	t_uint		i;
+	int			current;
 
 	if (stack == NULL)
-		return (NULL);
+		ft_exit();
 	i = 0;
 	while (input[i] && i < size)
 	{

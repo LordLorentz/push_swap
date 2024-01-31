@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/23 14:40:26 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/01/15 15:30:42 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/01/30 12:36:03 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,25 @@ char	*c_uint(int *size, t_flags flags, va_list args)
 	numb.base = &decode_dec;
 	numb.base_sz = 10;
 	in = (size_t)va_arg(args, unsigned int);
+	numb.num = &in;
+	numb.sign = "";
+	if (flags.flags & SPACE_NOSIGN)
+		numb.sign = " ";
+	if (flags.flags & FORCE_SIGN)
+		numb.sign = "+";
+	out = fill_num(size, numb, flags);
+	return (out);
+}
+
+char	*c_ulong(int *size, t_flags flags, va_list args)
+{
+	size_t	in;
+	char	*out;
+	t_numb	numb;
+
+	numb.base = &decode_dec;
+	numb.base_sz = 10;
+	in = (size_t)va_arg(args, unsigned long);
 	numb.num = &in;
 	numb.sign = "";
 	if (flags.flags & SPACE_NOSIGN)

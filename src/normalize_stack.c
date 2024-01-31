@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:35:03 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/01/26 15:12:50 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/01/29 22:22:17 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_uint	*normalize_stack(int *stack, t_uint size)
 	t_uint			target;
 
 	if (out == NULL)
-		return (0);
+		ft_exit();
 	highest = stack_highest_index(stack, size);
 	out[highest] = INT_MAX;
 	i = 0;

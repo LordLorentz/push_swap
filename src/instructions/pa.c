@@ -6,19 +6,24 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/29 14:21:10 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/01/29 14:38:49 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/01/31 14:16:02 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	pb(t_stack *a, t_stack *b)
+void	pa(t_stack *a, t_stack *b)
 {
-	if (a->start == END_OF_STACK)
+	if (__builtin_expect(b->start == END_OF_STACK, 0))
 		return ;
-	if (b->start == END_OF_STACK)
-		b->end = a->start;
-	b->val[a->start] = b->start;
-	b->start = a->start;
-	a->start = a->val[a->start];
+	if (__builtin_expect(a->start != END_OF_STACK, 0))
+		a->val[a->start]
+			= (t_ulong)b->start << 32 | a->val[a->start] << 32 >> 32;
+	else
+		a->end = b->start;
+	a->val[b->start] = END_OF_STACK << 32 | (t_ulong)a->start;
+	a->start = b->start;
+	b->start = b->val[b->start] << 32 >> 32;
+	if (__builtin_expect(b->start != END_OF_STACK, 0))
+		b->val[b->start] |= END_OF_STACK << 32;
 }

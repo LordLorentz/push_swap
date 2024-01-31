@@ -10,14 +10,26 @@ LINKERS	= -lm
 
 LIBS	= $(LIBFT)/build/libft.a
 
-INCLUDE_DIRS = -I $(LIBFT)/include
+INCLUDE_DIRS = -I $(LIBFT)/include -I src
 
 FILES := \
 	curse_stack.c \
+	discriminant.c \
 	error_handling.c \
 	main.c \
 	normalize_stack.c \
 	read_stack.c \
+	instructions/pa.c \
+	instructions/pb.c \
+	instructions/ra.c \
+	instructions/rb.c \
+	instructions/rra.c \
+	instructions/rrb.c \
+	instructions/rr.c \
+	instructions/rrr.c \
+	instructions/sa.c \
+	instructions/sb.c \
+	instructions/ss.c
 
 
 OBJECTS := $(FILES:.c=.o)
@@ -40,6 +52,7 @@ fsanitize: build $(OBJECTS)
 
 build:
 	mkdir build
+	mkdir build/instructions
 
 build/%.o: src/%.c
 	$(CC) -c $(INCLUDE_DIRS) $(CFLAGS) $(CPPFLAGS) $< -o $@

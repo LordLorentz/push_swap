@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/20 17:39:04 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/01/19 15:42:31 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/01/30 12:36:20 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char		*c_chr(int *size, t_flags flags, va_list args);
 char		*c_str(int *size, t_flags flags, va_list args);
 char		*c_int(int *size, t_flags flags, va_list args);
 char		*c_uint(int *size, t_flags flags, va_list args);
+char		*c_ulong(int *size, t_flags flags, va_list args);
 char		*c_dbl(int *size, t_flags flags, va_list args);
 char		*c_hexl(int *size, t_flags flags, va_list args);
 char		*c_hexu(int *size, t_flags flags, va_list args);
