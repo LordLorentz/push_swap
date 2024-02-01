@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/01/31 14:19:56 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/01 13:48:51 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,14 @@
 
 # include <stdlib.h>
 # include <limits.h>
+# include <stdint.h>
 # include "libft.h"
 # include "ft_printf.h"
 
 # define END_OF_STACK 0xFFFFFFFFUL
+
+# define DSC_START 0x0000000011111111UL
+# define DSC_LAST 0xFFFFFFFFFFFFFFF0UL
 # define DSC_SIZE 4
 
 typedef unsigned int	t_uint;

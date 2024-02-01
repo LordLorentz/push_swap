@@ -1,38 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   discriminant.c                                     :+:    :+:            */
+/*   jumptable.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/01/31 13:50:28 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/01 13:57:24 by mmosk         ########   odam.nl         */
+/*   Created: 2024/02/01 13:45:35 by mmosk         #+#    #+#                 */
+/*   Updated: 2024/02/01 13:53:02 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-const static unsigned char	g_crazebase[16][16]
+const static t_inst	g_jumptable[16]
 	= {
-	{0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF}
-	{}
-	{}
-	{}
-	{}
-	{}
-	{}
-	{}
-	{}
-	{}
-	{}
-	{}
-	{}
-	{}
-	{}
-	{}
+	NULL, &pa, &sa, &sb,
+	&ss, &ra, &rb, &rr,
+	&rrr, &rrb, &rra, &ss,
+	&sb, &sa, &pb, NULL
 };
-
-t_ulong	iterate_discriminant(t_ulong discriminant)
-{
-	t_ulong	current;
-}
