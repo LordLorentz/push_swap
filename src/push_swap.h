@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/01 13:48:51 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/02 14:20:51 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,21 @@
 
 # define END_OF_STACK 0xFFFFFFFFUL
 
-# define DSC_START 0x0000000011111111UL
-# define DSC_LAST 0xFFFFFFFFFFFFFFF0UL
+# if ITERATIONS < 1
+#  undef ITERATIONS
+# endif
+
+# if ITERATIONS > 16
+#  undef ITERATIONS
+# endif
+
+# ifndef ITERATIONS
+#  define ITERATIONS 8
+# endif
+
+# define DSC_START 0x1111111111111111UL
+# define DSC_END 0xFFFFFFFFFFFFFFFFUL
+# define DSC_LAST 0x000000000000000FUL
 # define DSC_SIZE 4
 
 typedef unsigned int	t_uint;
