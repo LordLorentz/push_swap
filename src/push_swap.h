@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/02 14:20:51 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/02 18:49:12 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,10 @@
 
 # define END_OF_STACK 0xFFFFFFFFUL
 
-# if ITERATIONS < 1
-#  undef ITERATIONS
-# endif
-
-# if ITERATIONS > 16
-#  undef ITERATIONS
-# endif
-
-# ifndef ITERATIONS
-#  define ITERATIONS 8
-# endif
-
-# define DSC_START 0x1111111111111111UL
+# define DSC_START 0x0000000011111111UL
 # define DSC_END 0xFFFFFFFFFFFFFFFFUL
 # define DSC_LAST 0x000000000000000FUL
+# define DSC_BODY 0xFFFFFFFFFFFFFFF0UL
 # define DSC_SIZE 4
 
 typedef unsigned int	t_uint;
@@ -48,17 +37,20 @@ typedef struct s_stack
 	t_uint	end;
 }	t_stack;
 
+typedef void			(*t_inst)(t_stack *a, t_stack *b);
+
 ////////////					Input handling						////////////
 
 t_uint			*read_stack(char **input, t_uint size);
 t_uint			*normalize_stack(int *stack, t_uint size);
+t_stack			*create_stack(t_uint size, t_uint start, t_uint end);
 t_stack			*curse_stack(t_uint *stack, t_uint size);
 
+////////////					Discriminant Wizardry				////////////
+
+t_ulong			iter_dsc(t_ulong discriminant);
+
 ////////////					Stack manipulation					////////////
-
-t_stack			*create_stack(t_uint size, t_uint start, t_uint end);
-
-typedef void			(*t_inst)(t_stack *a, t_stack *b);
 
 void			pa(t_stack *a, t_stack *b);
 void			pb(t_stack *a, t_stack *b);

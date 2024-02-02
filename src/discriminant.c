@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/31 13:50:28 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/02 14:29:16 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/02 18:37:16 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,29 @@ const static unsigned char	g_crazebase[16][16]
 	{0x0},
 	{0x0},
 	{0x2, 0x0, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA, 0xE, 0x0, 0x0, 0x0, 0xF},
-	{0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA, 0xE, 0x0, 0x0, 0x0, 0xF}
+	{0xF}
 };
 
-t_ulong	iterate_discriminant(t_ulong discriminant)
+static inline unsigned char	deref_crazebase(t_ulong dsc)
 {
-	int				depth;
+	return (g_crazebase[dsc >> DSC_SIZE & DSC_LAST][dsc & DSC_LAST]);
+}
+
+//ft_printf("__-Current: %X\n--_Cut: %X\n", (unsigned long)current, 
+//(discriminant & DSC_BODY));
+
+t_ulong	iter_dsc(t_ulong discriminant)
+{
 	unsigned char	current;
 
-	depth = 0;
-	while (depth < ITERATIONS)
+	current = deref_crazebase(discriminant);
+	if (current == 0xF)
 	{
-		current = g_crazebase[discriminant << (depth + 1) * DSC_SIZE & DSC_LAST]
-			[discriminant << depth * DSC_SIZE & DSC_LAST];
+		if ((discriminant >> DSC_SIZE & DSC_LAST) == 0x0)
+			return (DSC_END);
+		discriminant = iter_dsc(discriminant >> DSC_SIZE) << DSC_SIZE;
+		current = deref_crazebase(discriminant);
 	}
+	discriminant = (discriminant & DSC_BODY) | current;
+	return (discriminant);
 }
