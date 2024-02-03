@@ -20,6 +20,7 @@ static inline t_uint	stack_highest_index(int *stack, t_uint size)
 
 	i = 0;
 	highest = INT_MIN;
+	highest_index = 0;
 	while (i < size)
 	{
 		if (stack[i] > highest)
@@ -40,6 +41,7 @@ static inline t_uint	stack_lowest_index(int *stack, t_uint size)
 
 	i = 0;
 	lowest = INT_MAX;
+	lowest_index = 0;
 	while (i < size)
 	{
 		if (stack[i] < lowest)
