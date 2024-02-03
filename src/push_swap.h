@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/02 18:49:12 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/03 20:11:24 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@
 # define DSC_LAST 0x000000000000000FUL
 # define DSC_BODY 0xFFFFFFFFFFFFFFF0UL
 # define DSC_SIZE 4
+
+# define GAP_DISAPPROVAL 4
+# define GAP_INCREMENT 2
+# define BREAK_DISAPPROVAL 8
+# define INLAND_MULTIPLIER 2
+# define INLAND_DISTANCE 10
 
 typedef unsigned int	t_uint;
 typedef unsigned long	t_ulong;
