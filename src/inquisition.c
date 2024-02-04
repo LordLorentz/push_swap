@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/03 20:04:07 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/04 13:56:26 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/04 21:01:57 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_ulong	inquisit(t_stack *a, t_uint size)
 	i = 0;
 	while (current != a->end)
 	{
-		disapproval += test_disapproval(current, a->val[current] & STACK_RIGHT)
+		disapproval += get_disapproval(current, a->val[current] & STACK_RIGHT)
 			* (1 + (OUTREACH_COST * (i > REACH || size - i > REACH)));
 		current = a->val[current] & STACK_RIGHT;
 		i++;

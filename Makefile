@@ -16,6 +16,7 @@ FILES := \
 	curse_stack.c \
 	discriminant.c \
 	error_handling.c \
+	hunter_seeker.c \
 	inquisition.c \
 	jumptable.c \
 	main.c \

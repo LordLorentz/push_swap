@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/04 13:41:55 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/04 20:36:26 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_stack			*curse_stack(t_uint *stack, t_uint size);
 
 t_ulong			iter_dsc(t_ulong discriminant);
 t_ulong			inquisit(t_stack *a, t_uint size);
+void			scuttle_dsc(t_stack *a, t_stack *b, t_ulong prev, t_ulong next);
 
 ////////////					Stack manipulation					////////////
 

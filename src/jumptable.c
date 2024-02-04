@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/01 13:45:35 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/03 21:49:33 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/04 21:48:49 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,45 @@
 
 //Jumptable for push_swap instructions
 // f() ^ 0xF = `f()  
-// const static t_inst	g_jumptable[16]
-// 	= {
-// 	NULL, &pa, &sa, &sb,
-// 	&ss, &ra, &rb, &rr,
-// 	&rrr, &rrb, &rra, &ss,
-// 	&sb, &sa, &pb, NULL
-// };
+const static t_inst	g_jumptable[16]
+	= {
+	NULL, &pa, &sa, &sb,
+	&ss, &ra, &rb, &rr,
+	&rrr, &rrb, &rra, &ss,
+	&sb, &sa, &pb, NULL
+};
+
+//Algorithm specifications:
+//--Takes two stacks and two discriminants
+//--Performs the operations necessary to have the stacks represent discriminant
+//		`next`, assuming they were entered representing discriminant `prev`
+//--If `prev` is 0, simply executes all instructions in `next`
+//--Any values before the beginning of the discriminant are assumed to be 
+//		the same in both `prev` and `next`, and either 0xF or 0x0.
+//--(sizeof(t_ulong) * 8) % DSC_SIZE should evaluate to 0.
+
+void	scuttle_dsc(t_stack *a, t_stack *b, t_ulong prev, t_ulong next)
+{
+	int		shift;
+	int		i;
+	t_inst	current;
+
+	shift = sizeof(t_ulong) * 8 - DSC_SIZE;
+	while ((prev >> shift & DSC_LAST) == (next >> shift & DSC_LAST) && shift)
+		shift -= DSC_SIZE;
+	i = shift / DSC_SIZE;
+	while (i-- >= 0)
+	{
+		current = g_jumptable[(prev & DSC_LAST) ^ 0xF];
+		if (current != NULL)
+			current(a, b);
+		prev >>= DSC_SIZE;
+	}
+	while (shift >= 0)
+	{
+		current = g_jumptable[(next >> shift) & DSC_LAST];
+		if (current != NULL)
+			current(a, b);
+		shift -= 4;
+	}
+}
