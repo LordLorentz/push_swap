@@ -16,6 +16,8 @@ FILES := \
 	curse_stack.c \
 	discriminant.c \
 	error_handling.c \
+	inquisition.c \
+	jumptable.c \
 	main.c \
 	normalize_stack.c \
 	read_stack.c \

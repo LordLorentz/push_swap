@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/31 13:50:28 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/02 18:37:16 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/03 20:55:09 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ static const unsigned char	g_crazebase[16][16]
 	{0x2, 0x0, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA, 0xE, 0x0, 0x0, 0x0, 0xF},
 	{0xF}
 };
+
+//You made it through!
+//You may now laugh, scream, or turn into a murder of crows and peck my eyes out
 
 static inline unsigned char	deref_crazebase(t_ulong dsc)
 {

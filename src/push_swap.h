@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/03 20:11:24 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/04 13:41:55 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include "ft_printf.h"
 
 # define END_OF_STACK 0xFFFFFFFFUL
+# define STACK_RIGHT 0x00000000FFFFFFFFUL
+# define STACK_LEFT 0xFFFFFFFF00000000UL
 
 # define DSC_START 0x0000000011111111UL
 # define DSC_END 0xFFFFFFFFFFFFFFFFUL
@@ -27,11 +29,12 @@
 # define DSC_BODY 0xFFFFFFFFFFFFFFF0UL
 # define DSC_SIZE 4
 
+# define EMPTY_DISAPPROVAL 0xFFFFFFFFFFFFFFFFUL
 # define GAP_DISAPPROVAL 4
-# define GAP_INCREMENT 2
+# define GAP_INCREMENT 1
 # define BREAK_DISAPPROVAL 8
-# define INLAND_MULTIPLIER 2
-# define INLAND_DISTANCE 10
+# define OUTREACH_COST 1
+# define REACH 10
 
 typedef unsigned int	t_uint;
 typedef unsigned long	t_ulong;
@@ -52,9 +55,10 @@ t_uint			*normalize_stack(int *stack, t_uint size);
 t_stack			*create_stack(t_uint size, t_uint start, t_uint end);
 t_stack			*curse_stack(t_uint *stack, t_uint size);
 
-////////////					Discriminant Wizardry				////////////
+////////////					Inane Wizardry						////////////
 
 t_ulong			iter_dsc(t_ulong discriminant);
+t_ulong			inquisit(t_stack *a, t_uint size);
 
 ////////////					Stack manipulation					////////////
 

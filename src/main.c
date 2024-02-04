@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:15:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/02 18:49:58 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/03 21:49:44 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ int	main(int argc, char **argv)
 	t_uint			*temp;
 	t_stack			*a;
 	t_stack			*b;
-	t_ulong			discriminant;
-	int				i;
 
 	if (argc < 2)
 		ft_exit();
@@ -54,13 +52,6 @@ int	main(int argc, char **argv)
 	a = curse_stack(temp, size);
 	b = create_stack(size, END_OF_STACK, END_OF_STACK);
 	print_stacks(a, b);
-	discriminant = DSC_START;
-	i = 0;
-	while (discriminant != DSC_END)
-	{
-		discriminant = iter_dsc(discriminant);
-		if (i++ % 100 == 0)
-			ft_printf("Discriminant: %20p\n", discriminant);
-	}
+	ft_printf("A -> %20p\nB -> %20p\n", inquisit(a, size), inquisit(b, size));
 	exit(0);
 }
