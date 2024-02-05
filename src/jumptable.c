@@ -14,7 +14,7 @@
 
 //Jumptable for push_swap instructions
 // f() ^ 0xF = `f()  
-const static t_inst	g_jumptable[16]
+static const t_inst	g_jumptable[16]
 	= {
 	NULL, &pa, &sa, &sb,
 	&ss, &ra, &rb, &rr,

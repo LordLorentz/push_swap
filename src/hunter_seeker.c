@@ -34,6 +34,8 @@ t_ulong	run_cycle(t_stack *a, t_stack *b, t_ulong start, t_uint size)
 	current_dsc = iter_dsc(prev_dsc);
 	while (current_dsc != DSC_END)
 	{
+		ft_printf("--_-dsc: %p\n", prev_dsc);
+		print_stacks(a, b);
 		scuttle_dsc(a, b, prev_dsc, current_dsc);
 		current_dpp = inquisit(a, b, size);
 		if (current_dpp < best_dpp)

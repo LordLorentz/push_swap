@@ -49,15 +49,19 @@ typedef struct s_stack
 
 typedef void			(*t_inst)(t_stack *a, t_stack *b);
 
+////////////					Debug functions						////////////
+
+void			print_stacks(t_stack *a, t_stack *b);
+
 ////////////					Input handling						////////////
 
 t_uint			*read_stack(char **input, t_uint size);
 t_uint			*normalize_stack(int *stack, t_uint size);
 t_stack			*create_stack(t_uint size, t_uint start, t_uint end);
-t_stack			*curse_stack(t_uint *stack, t_uint size);
 
 ////////////					Inane Wizardry						////////////
 
+t_stack			*curse_stack(t_uint *stack, t_uint size);
 t_ulong			iter_dsc(t_ulong discriminant);
 t_ulong			inquisit(t_stack *a, t_stack *b, t_uint size);
 void			scuttle_dsc(t_stack *a, t_stack *b, t_ulong prev, t_ulong next);
