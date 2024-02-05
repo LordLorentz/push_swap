@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/03 20:04:07 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/04 21:01:57 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/05 12:25:40 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 //--Speed is paramount.
 //--Should show improvement within ~8 instructions.
 
-static inline t_ulong	get_disapproval(t_uint left, t_uint right)
+static inline t_ulong	test_comb(t_uint left, t_uint right)
 {
 	t_ulong	disapproval;
 
@@ -32,7 +32,7 @@ static inline t_ulong	get_disapproval(t_uint left, t_uint right)
 }
 
 //Returns the disapproval rating for this stack.
-t_ulong	inquisit(t_stack *a, t_uint size)
+t_ulong	get_disapproval(t_stack *a, t_uint size)
 {
 	t_uint	current;
 	t_ulong	disapproval;
@@ -48,12 +48,24 @@ t_ulong	inquisit(t_stack *a, t_uint size)
 	i = 0;
 	while (current != a->end)
 	{
-		disapproval += get_disapproval(current, a->val[current] & STACK_RIGHT)
+		disapproval += test_comb(current, a->val[current] & STACK_RIGHT)
 			* (1 + (OUTREACH_COST * (i > REACH || size - i > REACH)));
 		current = a->val[current] & STACK_RIGHT;
 		i++;
 	}
 	return (disapproval);
+}
+
+t_ulong	inquisit(t_stack *a, t_stack *b, t_uint size)
+{
+	const t_ulong	disapproval_a = get_disapproval(a, size);
+	const t_ulong	disapproval_b = get_disapproval(b, size);
+	t_ulong			out;
+
+	out = disapproval_a;
+	if (disapproval_b != EMPTY_DISAPPROVAL)
+		out += disapproval_b;
+	return (out);
 }
 
 // static inline t_ulong	test_disapproval(t_uint left, t_uint right)

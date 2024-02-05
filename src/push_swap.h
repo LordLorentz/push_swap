@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/04 20:36:26 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/05 12:58:40 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 typedef unsigned int	t_uint;
 typedef unsigned long	t_ulong;
 
+//END is badly set in some situations! check pa & pb
 typedef struct s_stack
 {
 	t_ulong	*val;
@@ -58,8 +59,9 @@ t_stack			*curse_stack(t_uint *stack, t_uint size);
 ////////////					Inane Wizardry						////////////
 
 t_ulong			iter_dsc(t_ulong discriminant);
-t_ulong			inquisit(t_stack *a, t_uint size);
+t_ulong			inquisit(t_stack *a, t_stack *b, t_uint size);
 void			scuttle_dsc(t_stack *a, t_stack *b, t_ulong prev, t_ulong next);
+t_ulong			run_cycle(t_stack *a, t_stack *b, t_ulong start, t_uint size);
 
 ////////////					Stack manipulation					////////////
 
