@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/05 12:58:40 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/05 21:39:57 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef void			(*t_inst)(t_stack *a, t_stack *b);
 ////////////					Debug functions						////////////
 
 void			print_stacks(t_stack *a, t_stack *b);
+void			debug_stacks(t_stack *a, t_stack *b);
 
 ////////////					Input handling						////////////
 

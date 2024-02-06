@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/01 13:45:35 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/04 21:48:49 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/05 21:40:24 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static const t_inst	g_jumptable[16]
 //--Any values before the beginning of the discriminant are assumed to be 
 //		the same in both `prev` and `next`, and either 0xF or 0x0.
 //--(sizeof(t_ulong) * 8) % DSC_SIZE should evaluate to 0.
+//Returns 1 if the discriminant was invalid. Leaves the stacks representing
+//		`prev`, in this case. X
 
 void	scuttle_dsc(t_stack *a, t_stack *b, t_ulong prev, t_ulong next)
 {

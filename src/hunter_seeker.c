@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/04 21:52:04 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/05 12:36:26 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/05 21:41:20 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_ulong	run_cycle(t_stack *a, t_stack *b, t_ulong start, t_uint size)
 	while (current_dsc != DSC_END)
 	{
 		ft_printf("--_-dsc: %p\n", prev_dsc);
-		print_stacks(a, b);
+		debug_stacks(a, b);
 		scuttle_dsc(a, b, prev_dsc, current_dsc);
 		current_dpp = inquisit(a, b, size);
 		if (current_dpp < best_dpp)
