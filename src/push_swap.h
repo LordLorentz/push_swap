@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/07 14:34:06 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/07 18:59:26 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ typedef struct s_stack
 
 typedef int				(*t_inst)(t_stack *a, t_stack *b);
 
-////////////					Debug functions						////////////
+////////////					Output functions					////////////
 
+void			print_dsc(t_ulong dsc, int size);
 void			print_stacks(t_stack *a, t_stack *b);
 void			debug_stacks(t_stack *a, t_stack *b);
 
@@ -66,6 +67,7 @@ t_ulong			iter_dsc(t_ulong discriminant);
 t_ulong			inquisit(t_stack *a, t_stack *b, t_uint size);
 int				scuttle_dsc(t_stack *a, t_stack *b, t_ulong prev, t_ulong next);
 t_ulong			run_cycle(t_stack *a, t_stack *b, t_ulong start, t_uint size);
+void			agent_sort(t_stack *a, t_stack *b, t_uint size);
 
 ////////////					Stack manipulation					////////////
 

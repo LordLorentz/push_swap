@@ -13,10 +13,10 @@ LIBS	= $(LIBFT)/build/libft.a
 INCLUDE_DIRS = -I $(LIBFT)/include -I src
 
 FILES := \
+	agent_sort.c \
 	curse_stack.c \
 	discriminant.c \
 	error_handling.c \
-	hunter_seeker.c \
 	inquisition.c \
 	jumptable.c \
 	main.c \

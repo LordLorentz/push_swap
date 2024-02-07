@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   hunter_seeker.c                                    :+:    :+:            */
+/*   agent_sort.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/04 21:52:04 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/07 14:31:38 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/07 18:59:02 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,19 @@ t_ulong	run_cycle(t_stack *a, t_stack *b, t_ulong start, t_uint size)
 	}
 	scuttle_dsc(a, b, prev_dsc, best_dsc);
 	return (best_dsc);
+}
+
+//Named Gossman, after both the stupidest and most intelligent clone I've ever
+//		had the privilege to command.
+void	agent_sort(t_stack *a, t_stack *b, t_uint size)
+{
+	t_ulong	disapproval;
+
+	disapproval = inquisit(a, b, size);
+	while (disapproval != 0)
+	{
+		ft_printf("DSC: %p\n", run_cycle(a, b, DSC_START, size));
+		print_stacks(a, b);
+		disapproval = inquisit(a, b, size);
+	}
 }

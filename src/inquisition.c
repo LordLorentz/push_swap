@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/03 20:04:07 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/07 14:32:59 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/07 19:01:28 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ inline t_ulong	get_disapproval(t_stack *a, t_uint size)
 	return (disapproval);
 }
 
+//! Invert for stack B!
 t_ulong	inquisit(t_stack *a, t_stack *b, t_uint size)
 {
 	const t_ulong	disapproval_a = get_disapproval(a, size);
