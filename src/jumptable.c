@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/01 13:45:35 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/05 21:40:24 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/07 14:31:51 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,30 +31,65 @@ static const t_inst	g_jumptable[16]
 //		the same in both `prev` and `next`, and either 0xF or 0x0.
 //--(sizeof(t_ulong) * 8) % DSC_SIZE should evaluate to 0.
 //Returns 1 if the discriminant was invalid. Leaves the stacks representing
-//		`prev`, in this case. X
+//		`prev`, in this case.
 
-void	scuttle_dsc(t_stack *a, t_stack *b, t_ulong prev, t_ulong next)
+inline void	apply_dsc(t_stack *a, t_stack *b, t_ulong dsc, int shift)
+{
+	t_inst	current;
+	
+	while (shift >= 0)
+	{
+		current = g_jumptable[(dsc >> shift) & DSC_LAST];
+		if (current != NULL)
+			current(a, b);
+		shift -= 4;
+	}
+}
+
+inline void	revert_dsc(t_stack *a, t_stack *b, t_ulong dsc, int i)
+{
+	t_inst	current;
+
+	while (i-- > 0)
+	{
+		current = g_jumptable[(dsc & DSC_LAST) ^ 0xF];
+		if (current != NULL)
+			current(a, b);
+		dsc >>= DSC_SIZE;
+	}
+}
+
+inline int	advance_dsc(t_stack *a, t_stack *b, t_ulong dsc, int shift)
+{
+	t_inst	current;
+	int		i;
+	
+	i = 0;
+	while (shift >= 0)
+	{
+		current = g_jumptable[(dsc >> shift) & DSC_LAST];
+		if (current != NULL)
+			if (current(a, b))
+				return (revert_dsc(a, b, dsc >> (shift + DSC_SIZE), i), 1);
+		shift -= DSC_SIZE;
+		i++;
+	}
+	return (0);
+}
+
+int	scuttle_dsc(t_stack *a, t_stack *b, t_ulong prev, t_ulong next)
 {
 	int		shift;
 	int		i;
-	t_inst	current;
+	int		out;
 
 	shift = sizeof(t_ulong) * 8 - DSC_SIZE;
 	while ((prev >> shift & DSC_LAST) == (next >> shift & DSC_LAST) && shift)
 		shift -= DSC_SIZE;
 	i = shift / DSC_SIZE;
-	while (i-- >= 0)
-	{
-		current = g_jumptable[(prev & DSC_LAST) ^ 0xF];
-		if (current != NULL)
-			current(a, b);
-		prev >>= DSC_SIZE;
-	}
-	while (shift >= 0)
-	{
-		current = g_jumptable[(next >> shift) & DSC_LAST];
-		if (current != NULL)
-			current(a, b);
-		shift -= 4;
-	}
+	revert_dsc(a, b, prev, i + 1);
+	out = advance_dsc(a, b, next, shift);
+	if (out)
+		apply_dsc(a, b, prev, shift);
+	return (out);
 }

@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/05 21:39:57 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/07 14:34:06 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@
 typedef unsigned int	t_uint;
 typedef unsigned long	t_ulong;
 
-//END is badly set in some situations! check pa & pb
 typedef struct s_stack
 {
 	t_ulong	*val;
@@ -47,7 +46,7 @@ typedef struct s_stack
 	t_uint	end;
 }	t_stack;
 
-typedef void			(*t_inst)(t_stack *a, t_stack *b);
+typedef int				(*t_inst)(t_stack *a, t_stack *b);
 
 ////////////					Debug functions						////////////
 
@@ -65,22 +64,22 @@ t_stack			*create_stack(t_uint size, t_uint start, t_uint end);
 t_stack			*curse_stack(t_uint *stack, t_uint size);
 t_ulong			iter_dsc(t_ulong discriminant);
 t_ulong			inquisit(t_stack *a, t_stack *b, t_uint size);
-void			scuttle_dsc(t_stack *a, t_stack *b, t_ulong prev, t_ulong next);
+int				scuttle_dsc(t_stack *a, t_stack *b, t_ulong prev, t_ulong next);
 t_ulong			run_cycle(t_stack *a, t_stack *b, t_ulong start, t_uint size);
 
 ////////////					Stack manipulation					////////////
 
-void			pa(t_stack *a, t_stack *b);
-void			pb(t_stack *a, t_stack *b);
-void			ra(t_stack *a, t_stack *b);
-void			rb(t_stack *a, t_stack *b);
-void			rr(t_stack *a, t_stack *b);
-void			rra(t_stack *a, t_stack *b);
-void			rrb(t_stack *a, t_stack *b);
-void			rrr(t_stack *a, t_stack *b);
-void			sa(t_stack *a, t_stack *b);
-void			sb(t_stack *a, t_stack *b);
-void			ss(t_stack *a, t_stack *b);
+int				pa(t_stack *a, t_stack *b);
+int				pb(t_stack *a, t_stack *b);
+int				ra(t_stack *a, t_stack *b);
+int				rb(t_stack *a, t_stack *b);
+int				rr(t_stack *a, t_stack *b);
+int				rra(t_stack *a, t_stack *b);
+int				rrb(t_stack *a, t_stack *b);
+int				rrr(t_stack *a, t_stack *b);
+int				sa(t_stack *a, t_stack *b);
+int				sb(t_stack *a, t_stack *b);
+int				ss(t_stack *a, t_stack *b);
 
 void			ft_exit(void);
 
