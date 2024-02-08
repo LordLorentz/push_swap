@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/08 20:51:13 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/08 21:01:00 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@
 # define MAX_DEPTH 7
 
 # define EMPTY_DISAPPROVAL 0xFFFFFFFFFFFFFFFFUL
-# define GAP_DISAPPROVAL 12
+# define GAP_DISAPPROVAL 8
 # define GAP_INCREMENT 0
-# define BREAK_DISAPPROVAL 32
-# define BREAK_INCREMENT 0
+# define BREAK_DISAPPROVAL 48
+# define BREAK_INCREMENT 0 
 
 # define REACH_ANGLE -1
 // # define MAX_OUTREACH_COST 12

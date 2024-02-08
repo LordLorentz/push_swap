@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/03 20:04:07 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/08 20:27:24 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/08 21:02:15 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 //O(n) = n
 
+//None of the reach functions worked in the first place cause size varies lmao.
 static inline t_ulong	get_reach(t_uint size, int i)
 {
 	const int	p = size / 2;
