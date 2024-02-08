@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/03 20:04:07 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/07 19:01:28 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/08 12:33:47 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,36 +33,44 @@ static inline t_ulong	test_comb(t_uint left, t_uint right)
 	return (disapproval);
 }
 
+static inline t_ulong	get_reach(t_uint size, t_uint i)
+{
+	return ((1 + (OUTREACH_COST * (i > REACH || size - i > REACH))));
+}
+
 //Returns the disapproval rating for this stack.
-inline t_ulong	get_disapproval(t_stack *a, t_uint size)
+inline t_ulong	get_disapproval(t_stack *stack, t_uint size, t_dir dir)
 {
 	t_uint	current;
+	t_ulong	dpp_inc;
 	t_ulong	disapproval;
 	t_uint	i;
 
-	if (__builtin_expect(a->start == END_OF_STACK, 0))
+	if (__builtin_expect(stack->start == END_OF_STACK, 0))
 		return (EMPTY_DISAPPROVAL);
-	current = a->start;
-	if (a->start < size / 2)
-		disapproval = a->start;
+	current = stack->start;
+	if (stack->start <= size / 2)
+		disapproval = stack->start;
 	else
-		disapproval = size - a->start + 1;
+		disapproval = size - stack->start + 1;
 	i = 0;
-	while (__builtin_expect(current != a->end, 1))
+	while (__builtin_expect(current != stack->end, 1))
 	{
-		disapproval += test_comb(current, a->val[current] & STACK_RIGHT)
-			* (1 + (OUTREACH_COST * (i > REACH || size - i > REACH)));
-		current = a->val[current] & STACK_RIGHT;
+		if (dir == STACK_A)
+			dpp_inc = test_comb(current, stack->val[current] & STACK_RIGHT);
+		else
+			dpp_inc = test_comb(stack->val[current] & STACK_RIGHT, current);
+		disapproval += dpp_inc * get_reach(size, i);
+		current = stack->val[current] & STACK_RIGHT;
 		i++;
 	}
 	return (disapproval);
 }
 
-//! Invert for stack B!
 t_ulong	inquisit(t_stack *a, t_stack *b, t_uint size)
 {
-	const t_ulong	disapproval_a = get_disapproval(a, size);
-	const t_ulong	disapproval_b = get_disapproval(b, size);
+	const t_ulong	disapproval_a = get_disapproval(a, size, STACK_A);
+	const t_ulong	disapproval_b = get_disapproval(b, size, STACK_B);
 	t_ulong			out;
 
 	out = disapproval_a;

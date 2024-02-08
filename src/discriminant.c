@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/31 13:50:28 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/07 18:52:17 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/08 12:35:59 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,17 @@ t_ulong	iter_dsc(t_ulong discriminant)
 	}
 	discriminant = (discriminant & DSC_BODY) | current;
 	return (discriminant);
+}
+
+t_ulong	mk_dsc(t_uint depth)
+{
+	t_ulong out;
+
+	out = 0;
+	while (depth--)
+	{
+		out <<= DSC_SIZE;
+		out |= 0x1;
+	}
+	return (out);
 }

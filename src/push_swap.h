@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/07 18:59:26 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/08 12:37:54 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,16 @@
 # define STACK_RIGHT 0x00000000FFFFFFFFUL
 # define STACK_LEFT 0xFFFFFFFF00000000UL
 
-# define DSC_START 0x0000000011111111UL
+# define DSC_EMPTY 0x0000000000000000UL
 # define DSC_END 0xFFFFFFFFFFFFFFFFUL
 # define DSC_LAST 0x000000000000000FUL
 # define DSC_BODY 0xFFFFFFFFFFFFFFF0UL
 # define DSC_SIZE 4
 
+# define MAX_DEPTH 8
+
 # define EMPTY_DISAPPROVAL 0xFFFFFFFFFFFFFFFFUL
-# define GAP_DISAPPROVAL 4
+# define GAP_DISAPPROVAL 8
 # define GAP_INCREMENT 1
 # define BREAK_DISAPPROVAL 8
 # define OUTREACH_COST 1
@@ -38,6 +40,12 @@
 
 typedef unsigned int	t_uint;
 typedef unsigned long	t_ulong;
+
+typedef enum
+{
+	STACK_A = 0,
+	STACK_B = 1
+}	t_dir;
 
 typedef struct s_stack
 {
@@ -64,10 +72,11 @@ t_stack			*create_stack(t_uint size, t_uint start, t_uint end);
 
 t_stack			*curse_stack(t_uint *stack, t_uint size);
 t_ulong			iter_dsc(t_ulong discriminant);
+t_ulong			mk_dsc(t_uint depth);
 t_ulong			inquisit(t_stack *a, t_stack *b, t_uint size);
 int				scuttle_dsc(t_stack *a, t_stack *b, t_ulong prev, t_ulong next);
 t_ulong			run_cycle(t_stack *a, t_stack *b, t_ulong start, t_uint size);
-void			agent_sort(t_stack *a, t_stack *b, t_uint size);
+void			agent_sort(t_stack *a, t_stack *b, t_uint size, t_uint depth);
 
 ////////////					Stack manipulation					////////////
 
