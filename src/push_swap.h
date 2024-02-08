@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/08 12:37:54 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/08 20:51:13 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,19 @@
 # define DSC_BODY 0xFFFFFFFFFFFFFFF0UL
 # define DSC_SIZE 4
 
-# define MAX_DEPTH 8
+# define MAX_DEPTH 7
 
 # define EMPTY_DISAPPROVAL 0xFFFFFFFFFFFFFFFFUL
-# define GAP_DISAPPROVAL 8
-# define GAP_INCREMENT 1
-# define BREAK_DISAPPROVAL 8
-# define OUTREACH_COST 1
-# define REACH 10
+# define GAP_DISAPPROVAL 12
+# define GAP_INCREMENT 0
+# define BREAK_DISAPPROVAL 32
+# define BREAK_INCREMENT 0
+
+# define REACH_ANGLE -1
+// # define MAX_OUTREACH_COST 12
+# define BASE_REACH_COST 2048
+
+# define RIFLE_START 0x300
 
 typedef unsigned int	t_uint;
 typedef unsigned long	t_ulong;

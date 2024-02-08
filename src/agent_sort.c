@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/04 21:52:04 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/08 12:41:34 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/08 14:45:17 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	agent_sort(t_stack *a, t_stack *b, t_uint size, t_uint depth)
 		
 	while (disapproval != 0)
 	{
-		if (disapproval < 0x40)
+		if (disapproval < RIFLE_START)
 			ft_printf("__-DSC: %p\n", rifle_cycle(a, b, depth, size));
 		else
 			ft_printf("__-DSC: %p\n", run_cycle(a, b, mk_dsc(depth), size));

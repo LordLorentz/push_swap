@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:15:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/08 12:36:17 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/08 14:05:39 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ int	main(int argc, char **argv)
 	b = create_stack(size, END_OF_STACK, END_OF_STACK);
 	ft_printf("DPP: %p\n", inquisit(a, b, size));
 	print_stacks(a, b);
-	agent_sort(a, b, size, 8);
+	agent_sort(a, b, size, MAX_DEPTH);
 	exit(0);
 }
