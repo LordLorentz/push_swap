@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/03 20:04:07 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/08 21:02:15 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/09 12:23:01 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 //O(n) = n
 
 //None of the reach functions worked in the first place cause size varies lmao.
-static inline t_ulong	get_reach(t_uint size, int i)
+static inline t_ulong	get_reach(t_uint count, int i)
 {
-	const int	p = size / 2;
+	const int	p = count / 2;
 	const int	p2c = (p * p) + BASE_REACH_COST;
 	const int	x_p = i - p;
 	const int	ax2 = REACH_ANGLE * (x_p * x_p);
@@ -56,10 +56,10 @@ static inline t_ulong	get_reach(t_uint size, int i)
 // 	return (BASE_REACH_COST);
 // }
 
-inline t_ulong	test_comb(t_uint left, t_uint right, t_uint size, t_uint i)
+inline t_ulong	test_comb(t_uint left, t_uint right, t_uint count, t_uint i)
 {
 	t_ulong			disapproval;
-	const t_ulong	reach = get_reach(size, i);
+	const t_ulong	reach = get_reach(count, i);
 
 	disapproval = 0;
 	if (left + 1 < right)
@@ -95,9 +95,9 @@ inline t_ulong	get_disapproval(t_stack *stack, t_uint size, t_dir dir)
 	{
 		next = stack->val[current] & STACK_RIGHT;
 		if (dir == STACK_A)
-			disapproval += test_comb(current, next, size, i);
+			disapproval += test_comb(current, next, stack->count, i);
 		else
-			disapproval += test_comb(next, current, size, i);
+			disapproval += test_comb(next, current, stack->count, i);
 		current = next;
 		i++;
 	}

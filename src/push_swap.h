@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/08 21:01:00 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/09 13:33:55 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,19 @@
 # define DSC_SIZE 4
 
 # define MAX_DEPTH 7
+# define JOLT 0x0000000088888888UL
 
 # define EMPTY_DISAPPROVAL 0xFFFFFFFFFFFFFFFFUL
-# define GAP_DISAPPROVAL 8
-# define GAP_INCREMENT 0
-# define BREAK_DISAPPROVAL 48
-# define BREAK_INCREMENT 0 
+# define GAP_DISAPPROVAL 0x18
+# define GAP_INCREMENT 1
+# define BREAK_DISAPPROVAL 0x40
+# define BREAK_INCREMENT 1
 
 # define REACH_ANGLE -1
 // # define MAX_OUTREACH_COST 12
-# define BASE_REACH_COST 2048
+# define BASE_REACH_COST 0x2000
 
-# define RIFLE_START 0x300
+# define RIFLE_START 0x2000
 
 typedef unsigned int	t_uint;
 typedef unsigned long	t_ulong;
@@ -57,7 +58,14 @@ typedef struct s_stack
 	t_ulong	*val;
 	t_uint	start;
 	t_uint	end;
+	t_uint	count;
 }	t_stack;
+
+typedef struct s_stackstate
+{
+	t_ulong	dsc;
+	t_ulong	dpp;
+}	t_stackstate;
 
 typedef int				(*t_inst)(t_stack *a, t_stack *b);
 
@@ -71,7 +79,7 @@ void			debug_stacks(t_stack *a, t_stack *b);
 
 t_uint			*read_stack(char **input, t_uint size);
 t_uint			*normalize_stack(int *stack, t_uint size);
-t_stack			*create_stack(t_uint size, t_uint start, t_uint end);
+t_stack			*create_stack(t_uint size, t_uint start, t_uint end, t_uint cn);
 
 ////////////					Inane Wizardry						////////////
 
@@ -80,7 +88,7 @@ t_ulong			iter_dsc(t_ulong discriminant);
 t_ulong			mk_dsc(t_uint depth);
 t_ulong			inquisit(t_stack *a, t_stack *b, t_uint size);
 int				scuttle_dsc(t_stack *a, t_stack *b, t_ulong prev, t_ulong next);
-t_ulong			run_cycle(t_stack *a, t_stack *b, t_ulong start, t_uint size);
+t_stackstate	run_cycle(t_stack *a, t_stack *b, t_ulong start, t_uint size);
 void			agent_sort(t_stack *a, t_stack *b, t_uint size, t_uint depth);
 
 ////////////					Stack manipulation					////////////
