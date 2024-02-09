@@ -12,6 +12,8 @@ LIBS	= $(LIBFT)/build/libft.a
 
 INCLUDE_DIRS = -I $(LIBFT)/include -I src
 
+HEADER = src/push_swap.h
+
 FILES := \
 	agent_sort.c \
 	curse_stack.c \
@@ -47,7 +49,7 @@ bonus: all
 $(LIBFT):
 	make -C $(LIBFT) all
 
-$(NAME): build $(OBJECTS) $(LIBS)
+$(NAME): build $(OBJECTS) $(LIBS) $(HEADER)
 	$(CC) $(CFLAGS) $(OBJECTS) $(LIBS) $(LINKERS) -o $(NAME)
 
 fsanitize: build $(OBJECTS)
@@ -57,7 +59,7 @@ build:
 	mkdir build
 	mkdir build/instructions
 
-build/%.o: src/%.c
+build/%.o: src/%.c $(HEADER)
 	$(CC) -c $(INCLUDE_DIRS) $(CFLAGS) $(CPPFLAGS) $< -o $@
 
 clean:
