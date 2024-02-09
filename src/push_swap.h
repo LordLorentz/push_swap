@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/09 13:33:55 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/09 14:35:05 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define DSC_SIZE 4
 
 # define MAX_DEPTH 7
-# define JOLT 0x0000000088888888UL
+# define JOLT 0x8888888888888888UL
 
 # define EMPTY_DISAPPROVAL 0xFFFFFFFFFFFFFFFFUL
 # define GAP_DISAPPROVAL 0x18

@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/04 21:52:04 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/09 13:38:58 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/09 14:34:28 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,9 @@ void	agent_sort(t_stack *a, t_stack *b, t_uint size, t_uint depth)
 			scuttle_dsc(a, b, current.dsc, JOLT);
 			current.dsc = JOLT;
 			current.dpp = inquisit(a, b, size);
+			ft_printf("__-JOLT\n");
 		}
+		ft_printf("__-DSC: %p\n", current.dsc);
 		ft_printf("__-DPP: %p\n", current.dpp);
 		print_stacks(a, b);
 		prev = current;
