@@ -40,9 +40,9 @@
 
 # define REACH_ANGLE -1
 // # define MAX_OUTREACH_COST 12
-# define BASE_REACH_COST 0x2000
+# define BASE_REACH_COST 0x1000
 
-# define RIFLE_START 0x2000
+# define RIFLE_START 0x0800
 
 typedef unsigned int	t_uint;
 typedef unsigned long	t_ulong;
@@ -53,6 +53,7 @@ typedef enum
 	STACK_B = 1
 }	t_dir;
 
+//Braid this chain (pain)
 typedef struct s_stack
 {
 	t_ulong	*val;

@@ -12,20 +12,23 @@
 
 #include "push_swap.h"
 
-//Algorithm specifications:
-//--Takes one stack, and the total amount of integers in both stacks.
-//--Returns a disapproval rating which is lower the easier to sort the input
-//		stack is, and 0 if perfectly sorted.
-//--_-Returns EMPTY_DISAPPROVAL if the stack is empty.
-//--Speed is paramount.
-//--Should show improvement within 6-8 instructions.
-
 //O(n) = n
 
-//None of the reach functions worked in the first place cause size varies lmao.
+//Arithmetic function to properly map absolute difference to circular difference
+static inline t_uint	wrap_dif(t_uint dif, t_uint size)
+{
+	return (
+		(dif <= (size >> 1)) * dif
+		+ (dif > (size >> 1)) * size - dif
+		);
+}
+
+//Equation specifications:
+//--Takes the amount of entries in a stack, and the position of the query point.
+//--Returns a value that is higher the closer i is to count / 2.
 static inline t_ulong	get_reach(t_uint count, int i)
 {
-	const int	p = count / 2;
+	const int	p = count >> 1;
 	const int	p2c = (p * p) + BASE_REACH_COST;
 	const int	x_p = i - p;
 	const int	ax2 = REACH_ANGLE * (x_p * x_p);
@@ -33,74 +36,62 @@ static inline t_ulong	get_reach(t_uint count, int i)
 	return (ax2 + p2c);
 }
 
-// static inline t_ulong	get_reach(t_uint size, t_uint i)
-// {
-// 	const t_ulong	step_size = (size / MAX_OUTREACH_COST) + 1;
-// 	t_ulong			current_step;
-
-// 	if (i <= (size >> 1))
-// 		current_step = i / step_size;
-// 	else
-// 		current_step = (size - i) / step_size;
-// 	return (BASE_REACH_COST + current_step);
-// }
-
-// static inline t_ulong	get_reach(t_uint size, t_uint i)
-// {
-// 	static const t_ulong	max_reach = MAX_DEPTH / 2 - 1;
-
-// 	if (i <= (size >> 1) && i > max_reach)
-// 		return (BASE_REACH_COST + MAX_OUTREACH_COST);
-// 	else if ((size - i) > max_reach)
-// 		return (BASE_REACH_COST + MAX_OUTREACH_COST);
-// 	return (BASE_REACH_COST);
-// }
-
-inline t_ulong	test_comb(t_uint left, t_uint right, t_uint count, t_uint i)
+static inline t_ulong	test_comb(t_uint left, t_uint right,
+	t_ulong reach, t_uint size)
 {
 	t_ulong			disapproval;
-	const t_ulong	reach = get_reach(count, i);
 
 	disapproval = 0;
 	if (left + 1 < right)
 	{
 		disapproval += GAP_DISAPPROVAL * BASE_REACH_COST;
-		disapproval += (right - (left + 1)) * GAP_INCREMENT * BASE_REACH_COST;
+		disapproval += wrap_dif(right - (left + 1), size)
+			* GAP_INCREMENT * BASE_REACH_COST;
 	}
 	else if (left + 1 > right)
 	{
 		disapproval += BREAK_DISAPPROVAL * reach;
-		disapproval += ((left + 1) - right) * BREAK_INCREMENT * reach;
+		disapproval += wrap_dif((left + 1) - right, size)
+			* BREAK_INCREMENT * reach;
 	}
 	return (disapproval);
 }
 
-//Returns the disapproval rating for this stack.
-inline t_ulong	get_disapproval(t_stack *stack, t_uint size, t_dir dir)
+//Algorithm specifications:
+//--Takes one stack, and the total amount of integers in both stacks.
+//--Returns a disapproval rating which is lower the easier to sort the input
+//		stack is, and 0 if perfectly sorted.
+//--_-Returns EMPTY_DISAPPROVAL if the stack is empty.
+//--Should show smooth improvement within 6-8 instructions.
+//--Speed is paramount.
+static inline t_ulong	get_disapproval(t_stack *stack, t_uint size, t_dir dir)
 {
 	t_uint	current;
 	t_uint	next;
 	t_ulong	disapproval;
 	t_uint	i;
+	t_ulong	reach;
 
 	if (__builtin_expect(stack->start == END_OF_STACK, 0))
 		return (EMPTY_DISAPPROVAL);
 	current = stack->start;
-	if (stack->start <= (size >> 1))
-		disapproval = stack->start;
-	else
-		disapproval = size - stack->start + 1;
+	disapproval = wrap_dif(stack->start, size);
 	i = 0;
 	while (__builtin_expect(current != stack->end, 1))
 	{
 		next = stack->val[current] & STACK_RIGHT;
+		reach = get_reach(stack->count, i++);
 		if (dir == STACK_A)
-			disapproval += test_comb(current, next, stack->count, i);
+			disapproval += test_comb(current, next, reach, size);
 		else
-			disapproval += test_comb(next, current, stack->count, i);
+			disapproval += test_comb(next, current, reach, size);
 		current = next;
-		i++;
 	}
+	reach = get_reach(stack->count, i++);
+	if (current != stack->end && dir == STACK_A)
+		disapproval += test_comb(stack->end, stack->start, reach, size);
+	else if (current != stack->end)
+		disapproval += test_comb(stack->start, stack->end, reach, size);
 	return (disapproval);
 }
 
@@ -170,4 +161,29 @@ t_ulong	inquisit(t_stack *a, t_stack *b, t_uint size)
 // 		i++;
 // 	}
 // 	return (disapproval);
+// }
+
+
+
+// static inline t_ulong	get_reach(t_uint size, t_uint i)
+// {
+// 	const t_ulong	step_size = (size / MAX_OUTREACH_COST) + 1;
+// 	t_ulong			current_step;
+
+// 	if (i <= (size >> 1))
+// 		current_step = i / step_size;
+// 	else
+// 		current_step = (size - i) / step_size;
+// 	return (BASE_REACH_COST + current_step);
+// }
+
+// static inline t_ulong	get_reach(t_uint size, t_uint i)
+// {
+// 	static const t_ulong	max_reach = MAX_DEPTH / 2 - 1;
+
+// 	if (i <= (size >> 1) && i > max_reach)
+// 		return (BASE_REACH_COST + MAX_OUTREACH_COST);
+// 	else if ((size - i) > max_reach)
+// 		return (BASE_REACH_COST + MAX_OUTREACH_COST);
+// 	return (BASE_REACH_COST);
 // }

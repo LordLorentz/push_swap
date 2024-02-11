@@ -33,7 +33,7 @@ static const t_inst	g_jumptable[16]
 //Returns 1 if the discriminant was invalid. Leaves the stacks representing
 //		`prev`, in this case.
 
-inline void	apply_dsc(t_stack *a, t_stack *b, t_ulong dsc, int shift)
+static inline void	apply_dsc(t_stack *a, t_stack *b, t_ulong dsc, int shift)
 {
 	t_inst	current;
 	
@@ -46,7 +46,7 @@ inline void	apply_dsc(t_stack *a, t_stack *b, t_ulong dsc, int shift)
 	}
 }
 
-inline void	revert_dsc(t_stack *a, t_stack *b, t_ulong dsc, int i)
+static inline void	revert_dsc(t_stack *a, t_stack *b, t_ulong dsc, int i)
 {
 	t_inst	current;
 
@@ -59,7 +59,7 @@ inline void	revert_dsc(t_stack *a, t_stack *b, t_ulong dsc, int i)
 	}
 }
 
-inline int	advance_dsc(t_stack *a, t_stack *b, t_ulong dsc, int shift)
+static inline int	advance_dsc(t_stack *a, t_stack *b, t_ulong dsc, int shift)
 {
 	t_inst	current;
 	int		i;

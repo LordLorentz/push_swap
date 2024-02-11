@@ -15,16 +15,20 @@
 static t_uint	print_val(char *format, t_stack *stack, t_uint current, int f)
 {
 	t_uint	next;
+	t_uint	circular_next;
+	int		val;
 
 	next = stack->val[current] & STACK_RIGHT;
-	if ((current + 1 < next) ^ f)
-		write(1, "\x1b[32m", 5);
-	if ((current + 1 > next) ^ f)
-		write(1, "\x1b[31m", 5);
+	circular_next = next;
 	if (next == END_OF_STACK)
-		write(1, "\x1b[0m", 5);
+		circular_next = stack->start;
+	if ((current + 1 < circular_next) ^ f)
+		val = write(1, "\x1b[32m", 5);
+	if ((current + 1 > circular_next) ^ f)
+		val = write(1, "\x1b[31m", 5);
 	ft_printf(format, current);
-	write(1, "\x1b[0m", 5);
+	val = write(1, "\x1b[0m", 5);
+	(void)val;
 	return (next);
 }
 
