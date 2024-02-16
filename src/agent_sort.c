@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/04 21:52:04 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/09 14:34:28 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/15 13:45:54 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ void	agent_sort(t_stack *a, t_stack *b, t_uint size, t_uint depth)
 	t_stackstate	prev;
 
 	current.dpp = inquisit(a, b, size);
+	ft_printf("DPP: %p\n", current.dpp);
+	print_stacks(a, b);
 	prev.dpp = EMPTY_DISAPPROVAL;
+	t_uint	total = 0;
 	while (current.dpp != 0)
 	{
 		if (current.dpp < RIFLE_START)
@@ -84,14 +87,20 @@ void	agent_sort(t_stack *a, t_stack *b, t_uint size, t_uint depth)
 			current = run_cycle(a, b, mk_dsc(depth), size);
 		if (current.dpp == prev.dpp)
 		{
+			ft_printf("Disapproval: %p\n", elucidate(a, b, size));
+			ft_exit();
 			scuttle_dsc(a, b, current.dsc, JOLT);
 			current.dsc = JOLT;
 			current.dpp = inquisit(a, b, size);
-			ft_printf("__-JOLT\n");
+			total += 16;
+			ft_printf("JOLT\n");
 		}
-		ft_printf("__-DSC: %p\n", current.dsc);
-		ft_printf("__-DPP: %p\n", current.dpp);
-		print_stacks(a, b);
+		else
+			total += MAX_DEPTH;
+		// print_dsc(current.dsc);
 		prev = current;
+		ft_printf("DPP: %p\nDSC: %p\n", current.dpp, current.dsc);
+		print_stacks(a, b);
 	}
+	ft_printf("TOTAL: %u\n", total);
 }

@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 13:33:29 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/08 20:47:03 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/13 14:26:23 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ static t_uint	print_val(char *format, t_stack *stack, t_uint current, int f)
 	circular_next = next;
 	if (next == END_OF_STACK)
 		circular_next = stack->start;
-	if ((current + 1 < circular_next) ^ f)
+	if ((current + f < circular_next) ^ (f == -1))
 		val = write(1, "\x1b[32m", 5);
-	if ((current + 1 > circular_next) ^ f)
+	if ((current + f > circular_next) ^ (f == -1))
 		val = write(1, "\x1b[31m", 5);
+	if ((current + f == circular_next))
+		val = write(1, "\x1b[0m", 5);
 	ft_printf(format, current);
 	val = write(1, "\x1b[0m", 5);
 	(void)val;
@@ -43,12 +45,12 @@ void	print_stacks(t_stack *a, t_stack *b)
 	while (current_a != END_OF_STACK || current_b != END_OF_STACK)
 	{
 		if (current_a != END_OF_STACK)
-			current_a = print_val("-_%8u    |", a, current_a, 0);
+			current_a = print_val("-_%8u    |", a, current_a, 1);
 			
 		else
 			ft_printf("-_%8c    |", '-');
 		if (current_b != END_OF_STACK)
-			current_b = print_val("|    %-8u_-\n", b, current_b, 1);
+			current_b = print_val("|    %-8u_-\n", b, current_b, -1);
 		else
 			ft_printf("|    %-8c_-\n", '-');
 	}

@@ -20,9 +20,11 @@ FILES := \
 	discriminant.c \
 	error_handling.c \
 	inquisition.c \
+	elucidate_inquisition.c \
 	jumptable.c \
 	main.c \
 	normalize_stack.c \
+	print_discriminant.c \
 	read_stack.c \
 	instructions/pa.c \
 	instructions/pb.c \

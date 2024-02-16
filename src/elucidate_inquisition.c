@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   inquisition.c                                      :+:    :+:            */
+/*   elucidate_inquisition.c                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/03 20:04:07 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/15 13:09:12 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/15 14:24:28 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,13 @@ static inline t_ulong	get_reach(t_uint size, t_uint i)
 }
 
 static inline t_ulong	test_comb(t_uint left, t_uint right,
-	t_ulong reach, t_uint size)
+	t_ulong reach, t_uint size, int print)
 {
 	t_ulong			disapproval;
+	static t_ulong	gap_dpp;
+	static t_ulong	gap_inc;
+	static t_ulong	break_dpp;
+	static t_ulong	break_inc;
 
 	disapproval = 0;
 	if (left + 1 < right)
@@ -51,6 +55,24 @@ static inline t_ulong	test_comb(t_uint left, t_uint right,
 		disapproval += BREAK_DISAPPROVAL * reach;
 		disapproval += wrap_dif((left + 1) - right, size)
 			* BREAK_INCREMENT * reach;
+	}
+	if (left + 1 < right)
+	{
+		gap_dpp += GAP_DISAPPROVAL * BASE_REACH_COST;
+		gap_inc += wrap_dif(right - (left + 1), size)
+			* GAP_INCREMENT * BASE_REACH_COST;
+	}
+	else if (left + 1 > right)
+	{
+		break_dpp += BREAK_DISAPPROVAL * reach;
+		break_inc += wrap_dif((left + 1) - right, size)
+			* BREAK_INCREMENT * reach;
+	}
+	if (print)
+	{
+		ft_printf("--_|gap_dpp: \t%10p	\n--_|gap_inc: \t%10p	\n--_|break_dpp: \t%10p	\n--_|break_inc: \t%10p	\n",
+			gap_dpp, gap_inc, break_dpp, break_inc);
+		gap_dpp = gap_inc = break_dpp = break_inc = 0;
 	}
 	return (disapproval);
 }
@@ -67,6 +89,7 @@ static inline t_ulong	get_disapproval(t_stack *stack, t_uint size, t_dir dir)
 	t_uint	current;
 	t_uint	next;
 	t_ulong	disapproval;
+	t_ulong	b_disapproval = 0;
 	t_uint	i;
 	t_ulong	reach;
 
@@ -80,24 +103,31 @@ static inline t_ulong	get_disapproval(t_stack *stack, t_uint size, t_dir dir)
 		next = stack->val[current] & STACK_RIGHT;
 		reach = get_reach(stack->count, i++);
 		if (dir == STACK_A)
-			disapproval += test_comb(current, next, reach, size);
-		else if (dir == STACK_B) 
-			disapproval += test_comb(next, current, reach, size) + B_DISAPPROVAL;
+			disapproval += test_comb(current, next, reach, size, 0);
+		else if (dir == STACK_B)
+		{
+			disapproval += test_comb(next, current, reach, size, 0) + B_DISAPPROVAL;
+			b_disapproval += B_DISAPPROVAL;
+		}
 		current = next;
 	}
 	reach = get_reach(stack->count, i);
 	if (current != stack->end && dir == STACK_A)
-		disapproval += test_comb(stack->end, stack->start, reach, size);
+		disapproval += test_comb(stack->end, stack->start, reach, size, 0);
 	else if (current != stack->end)
-		disapproval += test_comb(stack->start, stack->end, reach, size);
+		disapproval += test_comb(stack->start, stack->end, reach, size, 0);
+	test_comb(0, 0, 0, 0, 1);
 	return (disapproval);
 }
 
-t_ulong	inquisit(t_stack *a, t_stack *b, t_uint size)
+t_ulong	elucidate(t_stack *a, t_stack *b, t_uint size)
 {
 	const t_ulong	disapproval_a = get_disapproval(a, size, STACK_A);
+	ft_printf("--A_dpp: \t%10p	\n", disapproval_a);
 	const t_ulong	disapproval_b = get_disapproval(b, size, STACK_B);
+	ft_printf("--B_dpp: \t%10p	\n", disapproval_b);
 	t_ulong			out;
+	t_ulong			interface = 0;
 
 	out = disapproval_a;
 	if (__builtin_expect(disapproval_b != EMPTY_DISAPPROVAL, 0))
@@ -106,15 +136,15 @@ t_ulong	inquisit(t_stack *a, t_stack *b, t_uint size)
 		if (a->start + 1 != (a->val[a->start] & STACK_RIGHT))
 		{
 			if (a->start > b->start + INTERFACE_GRACE)
-				out += wrap_dif((a->start - b->start) - INTERFACE_GRACE, size)
+				interface += wrap_dif((a->start - b->start) - INTERFACE_GRACE, size)
 					* INTERFACE_INCREMENT * BASE_REACH_COST;
 			else if (b->start > a->start + INTERFACE_GRACE)
-				out += wrap_dif((b->start - a->start) - INTERFACE_GRACE, size)
+				interface += wrap_dif((b->start - a->start) - INTERFACE_GRACE, size)
 					* INTERFACE_INCREMENT * BASE_REACH_COST;
 		}
 		else
-			out += (size / INTERFACE_DISGRACE) * BASE_REACH_COST;
-		
+			interface += (size / INTERFACE_DISGRACE) * BASE_REACH_COST;
+		ft_printf("--Interface: \t%10p	\n", interface);
 	}
 	return (out);
 }

@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/09 14:40:02 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/02/15 13:16:55 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,28 @@
 # define DSC_BODY 0xFFFFFFFFFFFFFFF0UL
 # define DSC_SIZE 4
 
-# define MAX_DEPTH 7
+# define MAX_DEPTH 6
 # define JOLT 0x8888888888888888UL
 
 # define EMPTY_DISAPPROVAL 0xFFFFFFFFFFFFFFFFUL
-# define GAP_DISAPPROVAL 0x18
-# define GAP_INCREMENT 1
-# define BREAK_DISAPPROVAL 0x40
-# define BREAK_INCREMENT 1
 
-# define REACH_ANGLE -1
-// # define MAX_OUTREACH_COST 12
-# define BASE_REACH_COST 0x1000
+# define GAP_DISAPPROVAL 0x00
+# define GAP_INCREMENT 0x08
+# define BREAK_DISAPPROVAL 0x00
+# define BREAK_INCREMENT 0x010
+# define INTERFACE_INCREMENT 0x012
 
-# define RIFLE_START 0x0800
+# define INTERFACE_DISGRACE 4
+# define INTERFACE_GRACE 1
+
+// # define REACH_ANGLE -1
+
+# define MAX_OUTREACH_COST 0x600
+# define BASE_REACH_COST 0xC00
+
+# define B_DISAPPROVAL 0x200
+
+# define RIFLE_START 0x8000
 
 typedef unsigned int	t_uint;
 typedef unsigned long	t_ulong;
@@ -72,7 +80,7 @@ typedef int				(*t_inst)(t_stack *a, t_stack *b);
 
 ////////////					Output functions					////////////
 
-void			print_dsc(t_ulong dsc, int size);
+void			print_dsc(t_ulong dsc);
 void			print_stacks(t_stack *a, t_stack *b);
 void			debug_stacks(t_stack *a, t_stack *b);
 
@@ -88,6 +96,7 @@ t_stack			*curse_stack(t_uint *stack, t_uint size);
 t_ulong			iter_dsc(t_ulong discriminant);
 t_ulong			mk_dsc(t_uint depth);
 t_ulong			inquisit(t_stack *a, t_stack *b, t_uint size);
+t_ulong			elucidate(t_stack *a, t_stack *b, t_uint size);
 int				scuttle_dsc(t_stack *a, t_stack *b, t_ulong prev, t_ulong next);
 t_stackstate	run_cycle(t_stack *a, t_stack *b, t_ulong start, t_uint size);
 void			agent_sort(t_stack *a, t_stack *b, t_uint size, t_uint depth);
