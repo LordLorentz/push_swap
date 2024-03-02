@@ -87,7 +87,6 @@ void	agent_sort(t_stack *a, t_stack *b, t_uint size, t_uint depth)
 			current = run_cycle(a, b, mk_dsc(depth), size);
 		if (current.dpp == prev.dpp)
 		{
-			ft_printf("Disapproval: %p\n", elucidate(a, b, size));
 			ft_exit();
 			scuttle_dsc(a, b, current.dsc, JOLT);
 			current.dsc = JOLT;

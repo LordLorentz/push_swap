@@ -34,14 +34,15 @@
 
 # define EMPTY_DISAPPROVAL 0xFFFFFFFFFFFFFFFFUL
 
-# define GAP_DISAPPROVAL 0x00
+# define GAP_ALLOTMENT 0x02
 # define GAP_INCREMENT 0x08
-# define BREAK_DISAPPROVAL 0x00
-# define BREAK_INCREMENT 0x010
-# define INTERFACE_INCREMENT 0x012
 
+# define BREAK_ALLOTMENT 0x03
+# define BREAK_INCREMENT 0x010
+
+# define INTERFACE_INCREMENT 0x08
 # define INTERFACE_DISGRACE 4
-# define INTERFACE_GRACE 1
+# define INTERFACE_GRACE 2
 
 // # define REACH_ANGLE -1
 
@@ -82,7 +83,6 @@ typedef int				(*t_inst)(t_stack *a, t_stack *b);
 
 void			print_dsc(t_ulong dsc);
 void			print_stacks(t_stack *a, t_stack *b);
-void			debug_stacks(t_stack *a, t_stack *b);
 
 ////////////					Input handling						////////////
 
@@ -96,7 +96,6 @@ t_stack			*curse_stack(t_uint *stack, t_uint size);
 t_ulong			iter_dsc(t_ulong discriminant);
 t_ulong			mk_dsc(t_uint depth);
 t_ulong			inquisit(t_stack *a, t_stack *b, t_uint size);
-t_ulong			elucidate(t_stack *a, t_stack *b, t_uint size);
 int				scuttle_dsc(t_stack *a, t_stack *b, t_ulong prev, t_ulong next);
 t_stackstate	run_cycle(t_stack *a, t_stack *b, t_ulong start, t_uint size);
 void			agent_sort(t_stack *a, t_stack *b, t_uint size, t_uint depth);

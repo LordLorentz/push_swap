@@ -42,15 +42,15 @@ static inline t_ulong	test_comb(t_uint left, t_uint right,
 	disapproval = 0;
 	if (left + 1 < right)
 	{
-		disapproval += GAP_DISAPPROVAL * BASE_REACH_COST;
 		disapproval += wrap_dif(right - (left + 1), size)
 			* GAP_INCREMENT * BASE_REACH_COST;
+		disapproval -= GAP_ALLOTMENT * BASE_REACH_COST;
 	}
 	else if (left + 1 > right)
 	{
-		disapproval += BREAK_DISAPPROVAL * reach;
 		disapproval += wrap_dif((left + 1) - right, size)
 			* BREAK_INCREMENT * reach;
+		disapproval -= BREAK_ALLOTMENT * reach;
 	}
 	return (disapproval);
 }
@@ -100,7 +100,7 @@ t_ulong	inquisit(t_stack *a, t_stack *b, t_uint size)
 	t_ulong			out;
 
 	out = disapproval_a;
-	if (__builtin_expect(disapproval_b != EMPTY_DISAPPROVAL, 0))
+	if (__builtin_expect(disapproval_b != EMPTY_DISAPPROVAL && disapproval_a != EMPTY_DISAPPROVAL, 0))
 	{
 		out += disapproval_b;
 		if (a->start + 1 != (a->val[a->start] & STACK_RIGHT))
