@@ -62,6 +62,23 @@ typedef enum
 	STACK_B = 1
 }	t_dir;
 
+typedef enum
+{
+	NON = 0x0,
+	_PA = 0x1,
+	_SA = 0x2,
+	_SB = 0x3,
+	_SS = 0x4,
+	_RA = 0x5,
+	_RB = 0x6,
+	_RR = 0x7,
+	RRR = 0x8,
+	RRB = 0x9,
+	RRA = 0xA,
+	_PB = 0xE,
+	END = 0xF
+}	t_inst;
+
 //Braid this chain (pain)
 typedef struct s_stack
 {
