@@ -18,6 +18,7 @@ FILES := \
 	agent_sort.c \
 	curse_stack.c \
 	discriminant.c \
+	distillate.c \
 	error_handling.c \
 	inquisition.c \
 	jumptable.c \

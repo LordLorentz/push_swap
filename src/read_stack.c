@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 13:15:58 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/01/31 14:20:15 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/11 18:12:22 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,21 @@ t_uint	*read_stack(char **input, t_uint size)
 	int			current;
 
 	if (stack == NULL)
-		ft_exit();
+		return (NULL);
 	i = 0;
 	while (input[i] && i < size)
 	{
 		if (str_isnum(input[i]) == 0)
-			ft_exit();
+			return (free(stack), NULL);
 		current = ft_atoi(input[i]);
 		if (does_stack_contain(stack, i, current))
-			ft_exit();
+			return (free(stack), NULL);
 		stack[i] = current;
 		i++;
 	}
 	if (input[i] || i < size)
-		ft_exit();
+		return (free(stack), NULL);
 	out = normalize_stack(stack, size);
+	free(stack);
 	return (out);
 }

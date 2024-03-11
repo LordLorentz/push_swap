@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:15:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/12 14:29:19 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/11 18:39:59 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,15 @@ int	main(int argc, char **argv)
 	t_stack			*b;
 
 	if (argc < 2)
-		ft_exit();
+		exit_wrapper();
 	temp = read_stack(argv + 1, size);
+	if (temp == NULL)
+		exit_wrapper();
 	a = curse_stack(temp, size);
 	b = create_stack(size, END_OF_STACK, END_OF_STACK, 0);
+	free(temp);
 	agent_sort(a, b, size, MAX_DEPTH);
-	free(a->val);
-	free(b->val);
-	free(a);
-	free(b);
-	exit(0);
+	free_stack(a);
+	free_stack(b);
+	return (0);
 }

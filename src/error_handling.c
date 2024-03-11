@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 13:33:29 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/13 14:26:23 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/11 18:33:40 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	print_stacks(t_stack *a, t_stack *b)
 // 	ft_printf("TOTAL: %u\n", total);
 // }
 
-void	ft_exit(void)
+void	exit_wrapper(void)
 {
 	ft_printf("Error!\n");
 	exit(1);

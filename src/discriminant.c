@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/31 13:50:28 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/08 12:35:59 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/11 17:58:45 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,28 @@
 //Y is the value of the previous digit in the discriminant.
 //X is the current value of the current digit in the discriminant.
 //Stored value is the next value of the current digit in the discriminant.
-//0x0 should not appear, 0xF means the digit has reached the end of its base
+//NON should not appear, END means the digit has reached the end of its base
 //and should increment the previous digit.
 //I shan't be held accountable for any optometric costs you incur in trying to
 //read it.
 static const unsigned char	g_crazebase[16][16]
 	= {
-{0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA, 0xE, 0x0, 0x0, 0x0, 0xF},
-{0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA, 0xF},
-{0x1, 0x5, 0x0, 0x0, 0x0, 0x6, 0x7, 0x8, 0x9, 0xA, 0xE, 0x0, 0x0, 0x0, 0xF},
-{0x1, 0x5, 0x0, 0x0, 0x0, 0x6, 0x7, 0x8, 0x9, 0xA, 0xE, 0x0, 0x0, 0x0, 0xF},
-{0x1, 0x5, 0x0, 0x0, 0x0, 0x6, 0x7, 0x8, 0x9, 0xA, 0xE, 0x0, 0x0, 0x0, 0xF},
-{0x1, 0x2, 0x3, 0x4, 0x5, 0xE, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xF},
-{0x1, 0x2, 0x3, 0x4, 0x6, 0x0, 0xA, 0x0, 0x0, 0x0, 0xE, 0x0, 0x0, 0x0, 0xF},
-{0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0xE, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xF},
-{0x1, 0x2, 0x3, 0x4, 0x8, 0x0, 0x0, 0x0, 0x9, 0xA, 0xE, 0x0, 0x0, 0x0, 0xF},
-{0x1, 0x2, 0x3, 0x4, 0x5, 0x9, 0x0, 0x0, 0x0, 0xE, 0x0, 0x0, 0x0, 0x0, 0xF},
-{0x1, 0x2, 0x3, 0x4, 0xA, 0x0, 0x0, 0x0, 0x0, 0x0, 0xE, 0x0, 0x0, 0x0, 0xF},
-{0x0},
-{0x0},
-{0x0},
-{0x2, 0x0, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA, 0xE, 0x0, 0x0, 0x0, 0xF},
-{0xF}
+{_PA, _SA, _SB, _SS, _RA, _RB, _RR, RRR, RRB, RRA, _PB, NON, NON, NON, END},
+{_PA, _SA, _SB, _SS, _RA, _RB, _RR, RRR, RRB, RRA, END},
+{_PA, _RA, NON, NON, NON, _RB, _RR, RRR, RRB, RRA, _PB, NON, NON, NON, END},
+{_PA, _RA, NON, NON, NON, _RB, _RR, RRR, RRB, RRA, _PB, NON, NON, NON, END},
+{_PA, _RA, NON, NON, NON, _RB, _RR, RRR, RRB, RRA, _PB, NON, NON, NON, END},
+{_PA, _SA, _SS, NON, _RA, _PB, NON, NON, NON, NON, NON, NON, NON, NON, END},
+{_PA, _SB, NON, _SS, _RB, NON, RRA, NON, NON, NON, _PB, NON, NON, NON, END},
+{_PA, _SA, _SB, _SS, _RA, _RB, _RR, _PB, NON, NON, NON, NON, NON, NON, END},
+{_PA, _SA, _SB, _SS, RRR, NON, NON, NON, RRB, RRA, _PB, NON, NON, NON, END},
+{_PA, _SB, NON, _SS, _RA, RRB, NON, NON, NON, _PB, NON, NON, NON, NON, END},
+{_PA, _SA, _SS, NON, RRA, NON, NON, NON, NON, NON, _PB, NON, NON, NON, END},
+{NON},
+{NON},
+{NON},
+{_SA, NON, _SB, _SS, _RA, _RB, _RR, RRR, RRB, RRA, _PB, NON, NON, NON, END},
+{END}
 };
 
 //You made it through!
@@ -54,9 +54,9 @@ static inline t_ulong	cull_associative(t_ulong dsc)
 
 	i = 0;
 	current = dsc >> (i * DSC_SIZE) & DSC_LAST;
-	while (current != 0x0)
+	while (current != NON)
 	{
-		if (current == 0x5)
+		if (current == _RA)
 		i++;
 		current = dsc >> (i * DSC_SIZE) & DSC_LAST;
 	}
@@ -76,9 +76,9 @@ t_ulong	iter_dsc(t_ulong discriminant)
 	unsigned char	current;
 
 	current = deref_crazebase(discriminant);
-	if (current == 0xF)
+	if (current == END)
 	{
-		if ((discriminant >> DSC_SIZE & DSC_LAST) == 0x0)
+		if ((discriminant >> DSC_SIZE & DSC_LAST) == NON)
 			return (DSC_END);
 		discriminant = iter_dsc(discriminant >> DSC_SIZE) << DSC_SIZE;
 		current = deref_crazebase(discriminant);
@@ -95,7 +95,7 @@ t_ulong	mk_dsc(t_uint depth)
 	while (depth--)
 	{
 		out <<= DSC_SIZE;
-		out |= 0x1;
+		out |= _PA;
 	}
 	return (out);
 }

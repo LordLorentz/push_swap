@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/04 21:52:04 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/15 13:45:54 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/11 18:33:40 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	agent_sort(t_stack *a, t_stack *b, t_uint size, t_uint depth)
 			current = run_cycle(a, b, mk_dsc(depth), size);
 		if (current.dpp == prev.dpp)
 		{
-			ft_exit();
+			exit_wrapper();
 			scuttle_dsc(a, b, current.dsc, JOLT);
 			current.dsc = JOLT;
 			current.dpp = inquisit(a, b, size);

@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/15 13:16:55 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/11 18:46:16 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef enum
 	STACK_B = 1
 }	t_dir;
 
-typedef enum
+typedef enum inst
 {
 	NON = 0x0,
 	_PA = 0x1,
@@ -87,6 +87,26 @@ typedef struct s_stack
 	t_uint	end;
 	t_uint	count;
 }	t_stack;
+
+typedef struct s_proposal
+{
+	t_ulong	dsc;
+	t_ulong	dpp;
+	t_uint	parent_number;
+}	t_proposal;
+
+typedef struct s_dsclist
+{
+	struct s_dsclist	*next;
+	t_ulong				dsc;
+}	t_dsclist;
+
+typedef struct s_branch
+{
+	t_dsclist	dsclist;
+	t_stack		*a;
+	t_stack		*b;
+}	t_branch;
 
 typedef struct s_stackstate
 {
@@ -131,6 +151,9 @@ int				sa(t_stack *a, t_stack *b);
 int				sb(t_stack *a, t_stack *b);
 int				ss(t_stack *a, t_stack *b);
 
-void			ft_exit(void);
+////////////					Memory & Error management			////////////
+
+void			free_stack(t_stack *stack);
+void			exit_wrapper(void);
 
 #endif
