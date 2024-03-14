@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/01 13:45:35 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/07 14:31:51 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/13 19:34:31 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static const t_inst	g_jumptable[16]
 //Returns 1 if the discriminant was invalid. Leaves the stacks representing
 //		`prev`, in this case.
 
-static inline void	apply_dsc(t_stack *a, t_stack *b, t_ulong dsc, int shift)
+static inline void	apply_dsc(t_stack *a, t_stack *b, t_dsc dsc, int shift)
 {
 	t_inst	current;
 	
@@ -46,7 +46,7 @@ static inline void	apply_dsc(t_stack *a, t_stack *b, t_ulong dsc, int shift)
 	}
 }
 
-static inline void	revert_dsc(t_stack *a, t_stack *b, t_ulong dsc, int i)
+static inline void	revert_dsc(t_stack *a, t_stack *b, t_dsc dsc, int i)
 {
 	t_inst	current;
 
@@ -59,7 +59,7 @@ static inline void	revert_dsc(t_stack *a, t_stack *b, t_ulong dsc, int i)
 	}
 }
 
-static inline int	advance_dsc(t_stack *a, t_stack *b, t_ulong dsc, int shift)
+static inline int	advance_dsc(t_stack *a, t_stack *b, t_dsc dsc, int shift)
 {
 	t_inst	current;
 	int		i;
@@ -77,13 +77,13 @@ static inline int	advance_dsc(t_stack *a, t_stack *b, t_ulong dsc, int shift)
 	return (0);
 }
 
-int	scuttle_dsc(t_stack *a, t_stack *b, t_ulong prev, t_ulong next)
+int	scuttle_dsc(t_stack *a, t_stack *b, t_dsc prev, t_dsc next)
 {
 	int		shift;
 	int		i;
 	int		out;
 
-	shift = sizeof(t_ulong) * 8 - DSC_SIZE;
+	shift = sizeof(t_dsc) * 8 - DSC_SIZE;
 	while ((prev >> shift & DSC_LAST) == (next >> shift & DSC_LAST) && shift)
 		shift -= DSC_SIZE;
 	i = shift / DSC_SIZE;

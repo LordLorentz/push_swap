@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/04 21:52:04 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/11 18:33:40 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/13 19:35:44 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 //--Returns the discriminant with the lowest disapproval rating.
 //--Leaves the stacks in the state representing the returned discriminant.
 
-t_stackstate	run_cycle(t_stack *a, t_stack *b, t_ulong start, t_uint size)
+t_stackstate	run_cycle(t_stack *a, t_stack *b, t_dsc start, t_uint size)
 {
 	t_stackstate	current;
 	t_stackstate	best;
-	t_ulong			prev_dsc;
+	t_dsc			prev_dsc;
 
 	while (scuttle_dsc(a, b, DSC_EMPTY, start))
 		start = iter_dsc(start);

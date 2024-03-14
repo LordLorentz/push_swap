@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_fprintf.c                                       :+:    :+:            */
+/*   council_sort.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/10/20 17:39:01 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/13 11:52:46 by mmosk         ########   odam.nl         */
+/*   Created: 2024/03/12 14:02:57 by mmosk         #+#    #+#                 */
+/*   Updated: 2024/03/14 22:39:39 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "push_swap.h"
 
-int	ft_fprintf(int fd, const char *format, ...)
+// t_proposal	proliferate_branch(t_branch branch, t_dsc prev, t_uint size)
+// {
+// 	t_proposal	out;
+
+// 	out.dsc = iter_dsc(prev);
+// 	out.parent_branch = branch.location;
+	
+// }//this?
+
+int	initialize_council(t_stack *a, t_stack *b, t_uint size, t_uint depth)
 {
-	char	*out;
-	int		out_size;
-	va_list	args;
-
-	va_start(args, format);
-	out_size = ft_vsprintf(format, &out, args);
-	va_end(args);
-	if (out_size == -1)
-		return (-1);
-	if (write(fd, out, out_size) < 0)
-		return (free(out), -1);
-	return (free(out), out_size);
+	
 }

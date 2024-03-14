@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/07 18:52:29 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/12 14:24:18 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/13 19:35:09 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,21 @@ static const char *const	g_stringtable[16]
 	"sb\n", "sa\n", "pb\n", NULL
 };
 
-void	print_dsc(t_ulong dsc)
+int	print_dsc(t_dsc dsc)
 {
 	const char	*current;
 	int			shift;
 	
-	shift = sizeof(t_ulong) * 8 - DSC_SIZE;
+	shift = sizeof(t_dsc) * 8 - DSC_SIZE;
 	while ((dsc >> shift & DSC_LAST) == 0 && shift)
 		shift -= DSC_SIZE;
 	while (shift >= 0)
 	{
 		current = g_stringtable[(dsc >> shift) & DSC_LAST];
 		if (current != NULL)
-			ft_printf("%s", current);
+			if (ft_printf("%s", current) == -1)
+				return (-1);
 		shift -= 4;
 	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/11 18:46:16 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/14 21:06:07 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 # define INTERFACE_GRACE 2
 
 // # define REACH_ANGLE -1
+//Inverse reach angle?
 
 # define MAX_OUTREACH_COST 0x600
 # define BASE_REACH_COST 0xC00
@@ -55,6 +56,8 @@
 
 typedef unsigned int	t_uint;
 typedef unsigned long	t_ulong;
+
+typedef unsigned long	t_dsc;
 
 typedef enum
 {
@@ -90,27 +93,28 @@ typedef struct s_stack
 
 typedef struct s_proposal
 {
-	t_ulong	dsc;
+	t_dsc	dsc;
 	t_ulong	dpp;
-	t_uint	parent_number;
+	t_uint	parent_branch;
 }	t_proposal;
 
 typedef struct s_dsclist
 {
 	struct s_dsclist	*next;
-	t_ulong				dsc;
+	t_dsc				dsc;
 }	t_dsclist;
 
 typedef struct s_branch
 {
-	t_dsclist	dsclist;
+	t_dsclist	*dsclist;
+	t_uint		location;
 	t_stack		*a;
 	t_stack		*b;
 }	t_branch;
 
 typedef struct s_stackstate
 {
-	t_ulong	dsc;
+	t_dsc	dsc;
 	t_ulong	dpp;
 }	t_stackstate;
 
@@ -118,26 +122,41 @@ typedef int				(*t_inst)(t_stack *a, t_stack *b);
 
 ////////////					Output functions					////////////
 
-void			print_dsc(t_ulong dsc);
+int				print_dsc(t_dsc dsc);
 void			print_stacks(t_stack *a, t_stack *b);
 
 ////////////					Input handling						////////////
 
 t_uint			*read_stack(char **input, t_uint size);
 t_uint			*normalize_stack(int *stack, t_uint size);
-t_stack			*create_stack(t_uint size, t_uint start, t_uint end, t_uint cn);
 
 ////////////					Inane Wizardry						////////////
 
-t_stack			*curse_stack(t_uint *stack, t_uint size);
-t_ulong			iter_dsc(t_ulong discriminant);
-t_ulong			mk_dsc(t_uint depth);
 t_ulong			inquisit(t_stack *a, t_stack *b, t_uint size);
-int				scuttle_dsc(t_stack *a, t_stack *b, t_ulong prev, t_ulong next);
-t_stackstate	run_cycle(t_stack *a, t_stack *b, t_ulong start, t_uint size);
+int				scuttle_dsc(t_stack *a, t_stack *b, t_dsc prev, t_dsc next);
+t_stackstate	run_cycle(t_stack *a, t_stack *b, t_dsc start, t_uint size);
 void			agent_sort(t_stack *a, t_stack *b, t_uint size, t_uint depth);
 
+////////////					Discriminant functions				////////////
+
+t_dsc			mk_dsc(t_uint depth);
+t_dsc			iter_dsc(t_dsc discriminant);
+
+////////////					Discriminant lists					////////////
+
+t_dsclist		*make_dsclist(t_dsc dsc);
+void			free_dsclist(t_dsclist **head);
+t_dsclist		*append_dsclist(t_dsclist **head, t_dsc dsc);
+void			overwrite_dsclist(t_dsclist *dst, t_dsclist *src);
+int				print_dsclist(t_dsclist *list);
+
 ////////////					Stack manipulation					////////////
+
+t_stack			*curse_stack(t_uint *stack, t_uint size);
+t_stack			*create_stack(t_uint size, t_uint start, t_uint end, t_uint cn);
+void			free_stack(t_stack *stack);
+
+////////////					Push_Swap instructions				////////////
 
 int				pa(t_stack *a, t_stack *b);
 int				pb(t_stack *a, t_stack *b);
@@ -151,9 +170,8 @@ int				sa(t_stack *a, t_stack *b);
 int				sb(t_stack *a, t_stack *b);
 int				ss(t_stack *a, t_stack *b);
 
-////////////					Memory & Error management			////////////
+////////////					Error management					////////////
 
-void			free_stack(t_stack *stack);
 void			exit_wrapper(void);
 
 #endif

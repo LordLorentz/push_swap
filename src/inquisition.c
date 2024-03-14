@@ -6,11 +6,36 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/03 20:04:07 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/15 13:09:12 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/14 12:50:48 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+//Multi-step heuristics??!
+
+//Heuristics:
+//The "interface" is the connection between the two stacks, currently
+//	implemented as the difference between the topmost numbers of the two stacks.
+//Disapproving the interface seems like a good thing in any situation.
+//A "gap" is a sequence in which a number is missing.
+//		Example: 1 3 (in stack A)
+//Disapproving gaps should cause the algorithm to finely sort numbers.
+//	It may be detrimental to have active at the start of sorting.
+//A "break" is a sequence in which two numbers follow in the wrong order.
+//		Example: 2 1 (in stack A)
+//Tracking breaks might be less effective than tracking shifts,
+//	because inverting a part of the list is not that expensive compared to
+//	braiding two gapped lists together (at least on stack B).
+//A "shift" is a reversal in the order in which a stack is sorted.
+//		Example: 4 5 6 3 2 1
+//Removing shifts makes a stack easier to sort, but disapproving it becomes
+//	counterproductive once a few cohesive lists have popped up, because to
+//	remove a shift in that situation, some temporary ones need to be created,
+//	and that would cause peaks in the disapproval graph.
+//The "reach" is the idea of disapprovable items in the middle of the stack
+//	weighing more heavily than at the edges, as only the edges of the stacks
+//	can be manipulated. Useful to apply on any fault that can be directly solved
 
 //O(n) = n
 

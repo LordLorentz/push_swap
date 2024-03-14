@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 15:01:46 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/11 18:38:16 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/14 22:05:22 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,23 @@ t_stack	*create_stack(t_uint size, t_uint start, t_uint end, t_uint count)
 	out = malloc(sizeof(t_stack));
 	if (out == NULL)
 		return (NULL);
-	out->val = malloc(sizeof(t_ulong) * size);
+	out->val = malloc(size * sizeof(t_ulong));
 	if (out->val == NULL)
 		return (free(out), NULL);
 	out->start = start;
 	out->end = end;
 	out->count = count;
+	return (out);
+}
+
+t_stack	*copy_stack(t_uint size, t_stack *stack)
+{
+	t_stack	*out;
+
+	out = create_stack(size, stack->start, stack->end, stack->count);
+	if (out == NULL)
+		return (NULL);
+	ft_memcpy(out->val, stack->val, size * sizeof(t_ulong));
 	return (out);
 }
 

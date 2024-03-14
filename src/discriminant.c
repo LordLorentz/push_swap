@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/31 13:50:28 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/11 17:58:45 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/14 21:53:04 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static const unsigned char	g_crazebase[16][16]
 //You made it through!
 //You may now laugh, scream, or turn into a murder of crows and peck my eyes out
 
-static inline t_ulong	cull_associative(t_ulong dsc)
+static inline t_dsc	cull_associative(t_dsc dsc)
 {
 	t_uint			i;
 	unsigned char	current;
@@ -57,13 +57,14 @@ static inline t_ulong	cull_associative(t_ulong dsc)
 	while (current != NON)
 	{
 		if (current == _RA)
+			;
 		i++;
 		current = dsc >> (i * DSC_SIZE) & DSC_LAST;
 	}
 	return (dsc);
 }
 
-static inline unsigned char	deref_crazebase(t_ulong dsc)
+static inline unsigned char	deref_crazebase(t_dsc dsc)
 {
 	return (g_crazebase[dsc >> DSC_SIZE & DSC_LAST][dsc & DSC_LAST]);
 }
@@ -71,7 +72,7 @@ static inline unsigned char	deref_crazebase(t_ulong dsc)
 //ft_printf("__-Current: %X\n--_Cut: %X\n", (unsigned long)current, 
 //(discriminant & DSC_BODY));
 
-t_ulong	iter_dsc(t_ulong discriminant)
+t_dsc	iter_dsc(t_dsc discriminant)
 {
 	unsigned char	current;
 
@@ -87,9 +88,9 @@ t_ulong	iter_dsc(t_ulong discriminant)
 	return (discriminant);
 }
 
-t_ulong	mk_dsc(t_uint depth)
+t_dsc	mk_dsc(t_uint depth)
 {
-	t_ulong out;
+	t_dsc out;
 
 	out = 0;
 	while (depth--)
