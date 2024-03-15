@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/14 21:06:07 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/15 17:07:02 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,13 @@ typedef struct s_stackstate
 	t_ulong	dpp;
 }	t_stackstate;
 
+//Bite me.
+typedef struct s_twoint
+{
+	t_uint	stack;
+	t_uint	panel;
+}	t_twoint;
+
 typedef int				(*t_inst)(t_stack *a, t_stack *b);
 
 ////////////					Output functions					////////////
@@ -147,13 +154,21 @@ t_dsc			iter_dsc(t_dsc discriminant);
 t_dsclist		*make_dsclist(t_dsc dsc);
 void			free_dsclist(t_dsclist **head);
 t_dsclist		*append_dsclist(t_dsclist **head, t_dsc dsc);
-void			overwrite_dsclist(t_dsclist *dst, t_dsclist *src);
+int				overwrite_dsclist(t_dsclist *dst, t_dsclist *src);
 int				print_dsclist(t_dsclist *list);
+
+////////////					Panel and proposal					////////////
+
+t_proposal		init_proposal(t_dsc dsc, t_ulong dpp, t_uint parent_branch);
+void			init_panel(t_proposal *panel, size_t panel_size);
+int				insert_proposal(t_proposal *panel, size_t pn_sz, t_proposal p);
 
 ////////////					Stack manipulation					////////////
 
-t_stack			*curse_stack(t_uint *stack, t_uint size);
 t_stack			*create_stack(t_uint size, t_uint start, t_uint end, t_uint cn);
+t_stack			*clone_stack(t_uint size, t_stack *stack);
+t_stack			*copy_stack(t_stack *dst, t_stack *src, t_uint size);
+t_stack			*curse_stack(t_uint *stack, t_uint size);
 void			free_stack(t_stack *stack);
 
 ////////////					Push_Swap instructions				////////////

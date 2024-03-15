@@ -6,13 +6,13 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 19:33:29 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/14 20:47:42 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/15 12:25:40 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_proposal	make_proposal(t_dsc dsc, t_ulong dpp, t_uint parent_branch)
+t_proposal	init_proposal(t_dsc dsc, t_ulong dpp, t_uint parent_branch)
 {
 	t_proposal	out;
 
@@ -22,14 +22,14 @@ t_proposal	make_proposal(t_dsc dsc, t_ulong dpp, t_uint parent_branch)
 	return (out);
 }
 
-void	initialize_panel(t_proposal *panel, size_t panel_size)
+void	init_panel(t_proposal *panel, size_t panel_size)
 {
 	size_t i;
 
 	i = 0;
 	while (i < panel_size)
 	{
-		panel[i] = make_proposal(DSC_EMPTY, EMPTY_DISAPPROVAL, 0);
+		panel[i] = init_proposal(DSC_EMPTY, EMPTY_DISAPPROVAL, 0);
 		i++;
 	}
 }

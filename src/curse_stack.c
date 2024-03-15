@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 15:01:46 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/14 22:05:22 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/15 13:34:46 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_stack	*create_stack(t_uint size, t_uint start, t_uint end, t_uint count)
 	return (out);
 }
 
-t_stack	*copy_stack(t_uint size, t_stack *stack)
+t_stack	*clone_stack(t_uint size, t_stack *stack)
 {
 	t_stack	*out;
 
@@ -37,6 +37,15 @@ t_stack	*copy_stack(t_uint size, t_stack *stack)
 		return (NULL);
 	ft_memcpy(out->val, stack->val, size * sizeof(t_ulong));
 	return (out);
+}
+
+t_stack	*copy_stack(t_stack *dst, t_stack *src, t_uint size)
+{
+	dst->start = src->start;
+	dst->end = src->end;
+	dst->count = src->count;
+	ft_memcpy(dst->val, src->val, size * sizeof(t_ulong));
+	return (dst);
 }
 
 t_stack	*curse_stack(t_uint *stack, t_uint size)
