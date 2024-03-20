@@ -1,7 +1,9 @@
 
-NAME = push_swap
-CFLAGS = -Wall -Wextra -Werror -O3 -march=native -g
-CC = cc
+NAME	= push_swap
+TITRATE	= titrate
+
+CFLAGS	= -Wall -Wextra -Werror -O3 -march=native -g
+CC		= cc
 ARCHIVE = ar -rcs
 
 LIBFT	= ./libft
@@ -10,56 +12,68 @@ LINKERS	= -lm
 
 LIBS	= $(LIBFT)/build/libft.a
 
-INCLUDE_DIRS = -I $(LIBFT)/include -I src
+INCLUDE_DIRS = -I $(LIBFT)/include -I include
 
-HEADER = src/push_swap.h
+HEADER = include/push_swap.h
 
 FILES := \
-	agent_sort.c \
-	curse_stack.c \
-	discriminant.c \
-	distillate.c \
-	error_handling.c \
-	inquisition.c \
-	jumptable.c \
-	main.c \
-	normalize_stack.c \
-	print_discriminant.c \
-	read_stack.c \
-	instructions/pa.c \
-	instructions/pb.c \
-	instructions/ra.c \
-	instructions/rb.c \
-	instructions/rra.c \
-	instructions/rrb.c \
-	instructions/rr.c \
-	instructions/rrr.c \
-	instructions/sa.c \
-	instructions/sb.c \
-	instructions/ss.c
-
+	sort/agent_sort.c \
+	sort/council_sort.c \
+	sort/main.c \
+	titrate/titrate.c \
+	titrate/hash_stacks.c \
+	tools/discriminant.c \
+	tools/distillate.c \
+	tools/branch.c \
+	tools/curse_stack.c \
+	tools/dsclist.c \
+	tools/jumptable.c \
+	tools/print_discriminant.c \
+	tools/error_handling.c \
+	tools/instructions/sa.c \
+	tools/instructions/sb.c \
+	tools/instructions/ss.c \
+	tools/instructions/pa.c \
+	tools/instructions/pb.c \
+	tools/instructions/ra.c \
+	tools/instructions/rb.c \
+	tools/instructions/rr.c \
+	tools/instructions/rra.c \
+	tools/instructions/rrb.c \
+	tools/instructions/rrr.c \
+	tools/proposal.c \
+	tools/inquisition.c \
+	tools/read_stack.c \
+	tools/normalize_stack.c
 
 OBJECTS := $(FILES:.c=.o)
 
 FILES := $(patsubst %.c, src/%.c, $(FILES))
 OBJECTS := $(patsubst %.o, build/%.o, $(OBJECTS))
 
-all: $(LIBFT) $(NAME)
+SORT_OBJ := $(filter build/sort/%, $(OBJECTS))
+TITRATE_OBJ := $(filter build/titrate/%, $(OBJECTS))
+TOOLS_OBJ := $(filter build/tools/%, $(OBJECTS))
+
+all: $(NAME)
 
 bonus: all
 
 $(LIBFT):
 	make -C $(LIBFT) all
 
-$(NAME): build $(OBJECTS) $(LIBS) $(HEADER)
-	$(CC) $(CFLAGS) $(OBJECTS) $(LIBS) $(LINKERS) -o $(NAME)
+$(NAME): $(LIBFT) build $(SORT_OBJ) $(TOOLS_OBJ) $(LIBS) $(HEADER)
+	$(CC) $(CFLAGS) $(SORT_OBJ) $(TOOLS_OBJ) $(LIBS) $(LINKERS) -o $(NAME)
 
-fsanitize: build $(OBJECTS)
-	$(CC) -fsanitize=address -g $(CFLAGS) $(OBJECTS) $(LINKERS) $(LIBS) -o $(NAME)
+$(TITRATE): $(LIBFT) build $(TITRATE_OBJ) $(TOOLS_OBJ) $(LIBS) $(HEADER)
+	$(CC) $(CFLAGS) $(TITRATE_OBJ) $(TOOLS_OBJ) $(LIBS) $(LINKERS) -o $(TITRATE).out
 
 build:
 	mkdir build
-	mkdir build/instructions
+	mkdir build/sort
+	mkdir build/titrate
+	mkdir build/tools
+	mkdir build/tools/instructions
 
 build/%.o: src/%.c $(HEADER)
 	$(CC) -c $(INCLUDE_DIRS) $(CFLAGS) $(CPPFLAGS) $< -o $@

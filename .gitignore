@@ -5,3 +5,4 @@ push_swap
 push_swap_tester
 checker
 *.log
+*.out

@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/31 13:50:28 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/14 21:53:04 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/20 11:38:24 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,22 @@ static const unsigned char	g_crazebase[16][16]
 //You made it through!
 //You may now laugh, scream, or turn into a murder of crows and peck my eyes out
 
-static inline t_dsc	cull_associative(t_dsc dsc)
-{
-	t_uint			i;
-	unsigned char	current;
+// static inline t_dsc	cull_associative(t_dsc dsc)
+// {
+// 	t_uint			i;
+// 	unsigned char	current;
 
-	i = 0;
-	current = dsc >> (i * DSC_SIZE) & DSC_LAST;
-	while (current != NON)
-	{
-		if (current == _RA)
-			;
-		i++;
-		current = dsc >> (i * DSC_SIZE) & DSC_LAST;
-	}
-	return (dsc);
-}
+// 	i = 0;
+// 	current = dsc >> (i * DSC_SIZE) & DSC_LAST;
+// 	while (current != NON)
+// 	{
+// 		if (current == _RA)
+// 			;
+// 		i++;
+// 		current = dsc >> (i * DSC_SIZE) & DSC_LAST;
+// 	}
+// 	return (dsc);
+// }
 
 static inline unsigned char	deref_crazebase(t_dsc dsc)
 {

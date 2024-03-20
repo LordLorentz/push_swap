@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/15 17:07:02 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/20 14:52:47 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdint.h>
 # include "libft.h"
 # include "ft_printf.h"
+# include "ft_math.h"
 
 # define END_OF_STACK 0xFFFFFFFFUL
 # define STACK_RIGHT 0x00000000FFFFFFFFUL
@@ -65,7 +66,7 @@ typedef enum
 	STACK_B = 1
 }	t_dir;
 
-typedef enum inst
+typedef enum inum
 {
 	NON = 0x0,
 	_PA = 0x1,
@@ -80,7 +81,7 @@ typedef enum inst
 	RRA = 0xA,
 	_PB = 0xE,
 	END = 0xF
-}	t_inst;
+}	t_inum;
 
 //Braid this chain (pain)
 typedef struct s_stack
@@ -162,6 +163,10 @@ int				print_dsclist(t_dsclist *list);
 t_proposal		init_proposal(t_dsc dsc, t_ulong dpp, t_uint parent_branch);
 void			init_panel(t_proposal *panel, size_t panel_size);
 int				insert_proposal(t_proposal *panel, size_t pn_sz, t_proposal p);
+
+////////////					Hedge and branch					////////////
+
+
 
 ////////////					Stack manipulation					////////////
 

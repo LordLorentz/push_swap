@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   distillate.c                                       :+:    :+:            */
+/*   bit_not.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/03/11 12:04:54 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/11 17:56:52 by mmosk         ########   odam.nl         */
+/*   Created: 2024/03/19 13:12:00 by mmosk         #+#    #+#                 */
+/*   Updated: 2024/03/20 11:43:18 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-//Algorithms:
-//--RB can only be followed by RRA if A has not yet been rotated in the current
-//		associative plane.
-//--__Same for the inverse operations.
-//--SA requires an operation that modifies stack A before it can be repeated.
+#include "ft_math.h"
+#include "ft_printf.h"
+
+unsigned long	bit_not(unsigned long in)
+{
+	return (in ^ 0xFFFFFFFFFFFFFFFF);
+}

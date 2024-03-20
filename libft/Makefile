@@ -60,6 +60,8 @@ FILES := \
 	libc/ft_sztoa_base.c \
 	libc/ft_tolower.c \
 	libc/ft_toupper.c \
+	math/bit_not.c \
+	math/factorial.c \
 	printf/converters_char.c \
 	printf/converters_dec.c \
 	printf/converters_hex.c \
@@ -90,6 +92,7 @@ $(NAME): build $(OBJECTS)
 build:
 	mkdir build
 	mkdir build/libc
+	mkdir build/math
 	mkdir build/printf
 	mkdir build/get_next_line
 

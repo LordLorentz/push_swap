@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/03 20:04:07 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/14 12:50:48 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/20 14:49:28 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@
 //The "reach" is the idea of disapprovable items in the middle of the stack
 //	weighing more heavily than at the edges, as only the edges of the stacks
 //	can be manipulated. Useful to apply on any fault that can be directly solved
+
+//Simple cost (in moves) per entry.
+//	Should be very stable.
 
 //O(n) = n
 
