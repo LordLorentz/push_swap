@@ -6,18 +6,19 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/18 13:56:42 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/20 15:52:25 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/21 21:16:19 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "hashlist.h"
 
 //Prime number + modulo hash for testing!
 //Multiply prime of position with prime of n, add into 1 //No.
 
 // |a| * x! = factorial digit
 
-t_ulong	normalize_hash(t_ulong hash, t_ulong offset)
+t_hash	normalize_hash(t_hash hash, t_hash offset)
 {
 	t_ulong	i;
 	t_ulong	j;

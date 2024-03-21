@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/18 13:56:42 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/21 15:22:18 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/21 21:01:55 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,26 @@ int	run_titrate(t_stack *a, t_stack *b, t_dsc start, t_hashlist **result)
 	t_dsc	current_dsc;
 	t_dsc	prev_dsc;
 	t_ulong	hash;
+	t_uint	i;
 
+	i = 1;
 	while (scuttle_dsc(a, b, DSC_EMPTY, start))
-		start = inc_dsc(start);
+		start = iter_dsc(start);
+	hash = hash_stacks(a, b);
+	if (insert_hash(&result[hash % RESULT_SIZE], hash))
+		return (1);
 	prev_dsc = start;
-	current_dsc = inc_dsc(prev_dsc);
+	current_dsc = iter_dsc(prev_dsc);
 	while (__builtin_expect(current_dsc != DSC_END, 1))
 	{
-		while (scuttle_dsc(a, b, prev_dsc, current_dsc))
-			current_dsc = inc_dsc(current_dsc);
+		i++;
+		while (scuttle_dsc(a, b, prev_dsc, current_dsc))//dangerous
+			current_dsc = iter_dsc(current_dsc);
 		hash = hash_stacks(a, b);
 		if (insert_hash(&result[hash % RESULT_SIZE], hash))
 			return (1);
 		prev_dsc = current_dsc;
-		current_dsc = inc_dsc(prev_dsc);
+		current_dsc = iter_dsc(prev_dsc);
 	}
 	scuttle_dsc(a, b, prev_dsc, DSC_EMPTY);
 	return (0);
@@ -63,19 +69,19 @@ int	run_titrate(t_stack *a, t_stack *b, t_dsc start, t_hashlist **result)
 
 int	rifle_titrate(t_stack *a, t_stack *b, t_uint depth, t_hashlist **result)
 {
-	t_uint			i;
+	t_uint	size;
 
-	i = 0;
-	while (i < depth)
+	size = 1;
+	while (size <= depth)
 	{
-		if (run_titrate(a, b, mk_dsc(i), result))
+		if (run_titrate(a, b, mk_dsc(size), result))
 		{
 			free_hashlist_arr(result, RESULT_SIZE);
 			free_stack(a);
 			free_stack(b);
 			return (1);
 		}
-		i++;
+		size++;
 	}
 	return (0);
 }
@@ -84,7 +90,7 @@ int main(void)
 {
 	t_stack		*a;
 	t_stack		*b;
-	t_hashlist **result;
+	t_hashlist	**result;
 
 	a = fill_stack(16, 0, 7);
 	if (a == NULL)
@@ -96,7 +102,7 @@ int main(void)
 	ft_memset(result, 0, RESULT_SIZE * sizeof(t_hashlist *));
 	if (result == NULL)
 		return (free_stack(a), free_stack(b), 1);
-	if (rifle_titrate(a, b, 8, result))
+	if (rifle_titrate(a, b, 3, result))
 		return (1);
 	free_stack(a);
 	free_stack(b);

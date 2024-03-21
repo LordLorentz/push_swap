@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/04 21:52:04 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/13 19:35:44 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/21 20:59:31 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_stackstate	run_cycle(t_stack *a, t_stack *b, t_dsc start, t_uint size)
 	{
 		while (scuttle_dsc(a, b, prev_dsc, current.dsc))
 			current.dsc = iter_dsc(current.dsc);
-		current.dpp = inquisit(a, b, size);
+		current.dpp = inquisit(a, b, size);//dangerous
 		if (current.dpp < best.dpp)
 			best = current;
 		prev_dsc = current.dsc;
@@ -49,18 +49,18 @@ t_stackstate	rifle_cycle(t_stack *a, t_stack *b, t_uint depth, t_uint size)
 {
 	t_stackstate	current;
 	t_stackstate	best;
-	t_uint			i;
+	t_uint			size;
 
 	best.dsc = 0;
 	best.dpp = inquisit(a, b, size);
-	i = 0;
-	while (i < depth)
+	size = 1;
+	while (size <= depth)
 	{
-		current = run_cycle(a, b, mk_dsc(i), size);
+		current = run_cycle(a, b, mk_dsc(size), size);
 		scuttle_dsc(a, b, current.dsc, DSC_EMPTY);
 		if (current.dpp < best.dpp)
 			best = current;
-		i++;
+		size++;
 	}
 	scuttle_dsc(a, b, DSC_EMPTY, best.dsc);
 	return (best);

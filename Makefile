@@ -88,6 +88,7 @@ clean:
 fclean: clean
 	make -C $(LIBFT) fclean
 	rm -rf $(NAME)
+	rm -rf $(TITRATE)
 	rm -rf build
 
 re: fclean all
