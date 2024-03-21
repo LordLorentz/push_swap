@@ -20,8 +20,11 @@ FILES := \
 	sort/agent_sort.c \
 	sort/council_sort.c \
 	sort/main.c \
-	titrate/titrate.c \
+	titrate/dsc_test.c \
 	titrate/hash_stacks.c \
+	titrate/hashlist.c \
+	titrate/interpret_result.c \
+	titrate/titrate.c \
 	tools/discriminant.c \
 	tools/distillate.c \
 	tools/branch.c \

@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/18 13:56:42 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/19 21:01:10 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/20 15:52:25 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ t_ulong	hash_stacks(t_stack *a, t_stack *b)
 	hash <<= (unsigned long)b->count * 4UL;
 	hash |= discern_stack(b);
 	hash = factorialize_hash(hash);
-	hash *= b->count;
+	hash |= (t_ulong)b->count << 48UL;
 	return (hash);
 }
