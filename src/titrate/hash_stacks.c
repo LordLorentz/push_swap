@@ -6,12 +6,12 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/18 13:56:42 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/21 21:50:03 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/22 15:06:07 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "hashlist.h"
+#include "titrate.h"
 
 //Prime number + modulo hash for testing!
 //Multiply prime of position with prime of n, add into 1 //No.

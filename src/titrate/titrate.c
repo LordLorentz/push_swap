@@ -6,16 +6,12 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/18 13:56:42 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/21 22:00:01 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/22 15:06:21 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "hashlist.h"
-
-t_ulong	hash_stacks(t_stack *a, t_stack *b);
-t_dsc	inc_dsc(t_dsc discriminant);
-int 	interpret_result(t_hashlist **result);
+#include "titrate.h"
 
 //horrible sane array mixed with my evil
 t_stack	*fill_stack(t_uint size, t_ulong start, t_ulong end)
@@ -35,52 +31,6 @@ t_stack	*fill_stack(t_uint size, t_ulong start, t_ulong end)
 	}
 	stack->val[end] = ((end - 1) << 32UL) | END_OF_STACK;
 	return (stack);
-}
-
-int	run_titrate(t_stack *a, t_stack *b, t_dsc start, t_hashlist **result)
-{
-	t_dsc	current_dsc;
-	t_dsc	prev_dsc;
-	t_hash	hash;
-
-	while (scuttle_dsc(a, b, DSC_EMPTY, start))
-		start = inc_dsc(start);
-	hash = hash_stacks(a, b);
-	if (insert_hash(&result[hash % RESULT_SIZE], hash))
-		return (1);
-	prev_dsc = start;
-	current_dsc = inc_dsc(prev_dsc);
-	while (__builtin_expect(current_dsc != DSC_END, 1))
-	{
-		while (scuttle_dsc(a, b, prev_dsc, current_dsc))//dangerous
-			current_dsc = inc_dsc(current_dsc);
-		hash = hash_stacks(a, b);
-		if (insert_hash(&result[hash % RESULT_SIZE], hash))
-			return (1);
-		prev_dsc = current_dsc;
-		current_dsc = inc_dsc(prev_dsc);
-	}
-	scuttle_dsc(a, b, prev_dsc, DSC_EMPTY);
-	return (0);
-}
-
-int	rifle_titrate(t_stack *a, t_stack *b, t_uint depth, t_hashlist **result)
-{
-	t_uint	size;
-
-	size = 1;
-	while (size <= depth)
-	{
-		if (run_titrate(a, b, mk_dsc(size), result))
-		{
-			free_hashlist_arr(result, RESULT_SIZE);
-			free_stack(a);
-			free_stack(b);
-			return (1);
-		}
-		size++;
-	}
-	return (0);
 }
 
 int main(void)

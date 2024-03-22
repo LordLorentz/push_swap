@@ -6,12 +6,12 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/21 14:32:13 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/21 21:58:43 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/22 15:06:22 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "hashlist.h"
+#include "titrate.h"
 
 void	sum_hashlist(t_hashlist *list, t_ulong *unique, t_ulong *duplicate)
 {

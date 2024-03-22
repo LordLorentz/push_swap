@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   dsc_test.c                                         :+:    :+:            */
+/*   control_dsc.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/31 13:50:28 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/21 13:53:37 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/22 17:58:46 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "titrate.h"
 
 //Discriminant specifications:
 //--
@@ -58,7 +59,7 @@ t_dsc	inc_dsc(t_dsc discriminant)
 	{
 		if ((discriminant >> DSC_SIZE & DSC_LAST) == NON)
 			return (DSC_END);
-		discriminant = iter_dsc(discriminant >> DSC_SIZE) << DSC_SIZE;
+		discriminant = inc_dsc(discriminant >> DSC_SIZE) << DSC_SIZE;
 		current = deref_crazebase(discriminant);
 	}
 	discriminant = (discriminant & DSC_BODY) | current;
