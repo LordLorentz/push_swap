@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/31 13:50:28 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/20 11:38:24 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/21 22:01:22 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static const unsigned char	g_crazebase[16][16]
 {_SA, NON, _SB, _SS, _RA, _RB, _RR, RRR, RRB, RRA, _PB, NON, NON, NON, END},
 {END}
 };
+
+//!!!THIS VERSION LOSES ONE UNIQUE SOLUTION AT 3 ITERATIONS!!!
 
 //You made it through!
 //You may now laugh, scream, or turn into a murder of crows and peck my eyes out

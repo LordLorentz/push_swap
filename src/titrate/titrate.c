@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/18 13:56:42 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/21 21:01:55 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/21 22:00:01 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,24 @@ int	run_titrate(t_stack *a, t_stack *b, t_dsc start, t_hashlist **result)
 {
 	t_dsc	current_dsc;
 	t_dsc	prev_dsc;
-	t_ulong	hash;
-	t_uint	i;
+	t_hash	hash;
 
-	i = 1;
 	while (scuttle_dsc(a, b, DSC_EMPTY, start))
-		start = iter_dsc(start);
+		start = inc_dsc(start);
 	hash = hash_stacks(a, b);
 	if (insert_hash(&result[hash % RESULT_SIZE], hash))
 		return (1);
 	prev_dsc = start;
-	current_dsc = iter_dsc(prev_dsc);
+	current_dsc = inc_dsc(prev_dsc);
 	while (__builtin_expect(current_dsc != DSC_END, 1))
 	{
-		i++;
 		while (scuttle_dsc(a, b, prev_dsc, current_dsc))//dangerous
-			current_dsc = iter_dsc(current_dsc);
+			current_dsc = inc_dsc(current_dsc);
 		hash = hash_stacks(a, b);
 		if (insert_hash(&result[hash % RESULT_SIZE], hash))
 			return (1);
 		prev_dsc = current_dsc;
-		current_dsc = iter_dsc(prev_dsc);
+		current_dsc = inc_dsc(prev_dsc);
 	}
 	scuttle_dsc(a, b, prev_dsc, DSC_EMPTY);
 	return (0);
@@ -102,7 +99,7 @@ int main(void)
 	ft_memset(result, 0, RESULT_SIZE * sizeof(t_hashlist *));
 	if (result == NULL)
 		return (free_stack(a), free_stack(b), 1);
-	if (rifle_titrate(a, b, 3, result))
+	if (rifle_titrate(a, b, 2, result))
 		return (1);
 	free_stack(a);
 	free_stack(b);
