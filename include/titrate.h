@@ -15,18 +15,18 @@
 
 # include <stdint.h>
 
-# ifdef UINT128MAX
+# if 1
 
 #  define STACK_SIZE 32ULL
 #  define MAX_FRAG 31ULL
-#  define RESULT_SIZE 0x1000000UL
+#  define RESULT_SIZE 0x1000UL
 #  define MAX_FACTORIAL 120ULL
 
 #  ifndef TITRATE_DEPTH
-#   define TITRATE_DEPTH 7
+#   define TITRATE_DEPTH 2
 #  endif
 
-typedef unsigned long long	t_hash;
+typedef __int128_t	t_hash;
 
 # else
 

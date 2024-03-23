@@ -39,17 +39,17 @@ int main(void)
 	t_stack		*b;
 	t_hashlist	**result;
 
-	a = fill_stack(16, 0, 7);
+	a = fill_stack(STACK_SIZE, 0, (STACK_SIZE / 2) - 1);
 	if (a == NULL)
 		return (1);
-	b = fill_stack(16, 8, 15);
+	b = fill_stack(STACK_SIZE, STACK_SIZE / 2, STACK_SIZE - 1);
 	if (b == NULL)
 		return (free_stack(a), 1);
 	result = malloc(RESULT_SIZE * sizeof(t_hashlist *));
-	ft_memset(result, 0, RESULT_SIZE * sizeof(t_hashlist *));
 	if (result == NULL)
 		return (free_stack(a), free_stack(b), 1);
-	if (rifle_titrate(a, b, 2, result))
+	ft_memset(result, 0, RESULT_SIZE * sizeof(t_hashlist *));
+	if (control_rifle(a, b, TITRATE_DEPTH, result))
 		return (1);
 	free_stack(a);
 	free_stack(b);

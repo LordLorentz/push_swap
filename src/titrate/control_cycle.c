@@ -19,6 +19,7 @@ int	control_cycle(t_stack *a, t_stack *b, t_dsc start, t_hashlist **result)
 	t_dsc	prev_dsc;
 	t_hash	hash;
 
+		ft_printf("Check!\n");
 	while (scuttle_dsc(a, b, DSC_EMPTY, start))
 		start = inc_dsc(start);
 	hash = hash_stacks(a, b);
@@ -47,7 +48,7 @@ int	control_rifle(t_stack *a, t_stack *b, t_uint depth, t_hashlist **result)
 	size = 1;
 	while (size <= depth)
 	{
-		if (run_titrate(a, b, mk_dsc(size), result))
+		if (control_cycle(a, b, mk_dsc(size), result))
 		{
 			free_hashlist_arr(result, RESULT_SIZE);
 			free_stack(a);

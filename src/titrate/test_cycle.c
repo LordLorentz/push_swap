@@ -47,7 +47,7 @@ int	test_rifle(t_stack *a, t_stack *b, t_uint depth, t_hashlist **result)
 	size = 1;
 	while (size <= depth)
 	{
-		if (run_titrate(a, b, mk_dsc(size), result))
+		if (test_cycle(a, b, mk_dsc(size), result))
 		{
 			free_hashlist_arr(result, RESULT_SIZE);
 			free_stack(a);

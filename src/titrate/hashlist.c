@@ -35,7 +35,7 @@ void	free_hashlist(t_hashlist *list)
 		return ;
 	if (list->next != NULL)
 		free_hashlist(list->next);
-	free_dsclist(list->dsclist);
+	free_dsclist(&list->dsclist);
 	free(list);
 }
 
