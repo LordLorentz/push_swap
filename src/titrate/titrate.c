@@ -13,6 +13,8 @@
 #include "push_swap.h"
 #include "titrate.h"
 
+int	manage_test(t_stack *a, t_stack *b);
+
 //horrible sane array mixed with my evil
 t_stack	*fill_stack(t_uint size, t_ulong start, t_ulong end)
 {
@@ -37,7 +39,6 @@ int main(void)
 {
 	t_stack		*a;
 	t_stack		*b;
-	t_hashlist	**result;
 
 	a = fill_stack(STACK_SIZE, 0, (STACK_SIZE / 2) - 1);
 	if (a == NULL)
@@ -45,16 +46,26 @@ int main(void)
 	b = fill_stack(STACK_SIZE, STACK_SIZE / 2, STACK_SIZE - 1);
 	if (b == NULL)
 		return (free_stack(a), 1);
-	result = malloc(RESULT_SIZE * sizeof(t_hashlist *));
-	if (result == NULL)
-		return (free_stack(a), free_stack(b), 1);
-	ft_memset(result, 0, RESULT_SIZE * sizeof(t_hashlist *));
-	if (control_rifle(a, b, TITRATE_DEPTH, result))
-		return (1);
+	
+	
 	free_stack(a);
 	free_stack(b);
+	
+	return (0);
+}
+
+int	manage_test(t_stack *a, t_stack *b)
+{
+	t_hashlist	**control;
+	t_hashlist	**test;
+	
+	control = malloc(RESULT_SIZE * sizeof(t_hashlist *));
+	if (control == NULL)
+		return (1);
+	ft_memset(control, 0, RESULT_SIZE * sizeof(t_hashlist *));
+	if (control_rifle(a, b, TITRATE_DEPTH, control))
+		return (1);
 	if (interpret_result(result) == 1)
 		return (free_hashlist_arr(result, RESULT_SIZE), 1);
 	free_hashlist_arr(result, RESULT_SIZE);
-	return (0);
 }

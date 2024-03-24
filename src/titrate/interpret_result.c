@@ -22,7 +22,7 @@ void	sum_hashlist(t_hashlist *list, t_ulong *unique, t_ulong *duplicate)
 	sum_hashlist(list->next, unique, duplicate);
 }
 
-int interpret_result(t_hashlist **result)
+int interpret_result(t_hashlist **control, t_hashlist **test)
 {
 	size_t	i;
 	t_ulong	unique;

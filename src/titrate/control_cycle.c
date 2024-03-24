@@ -19,7 +19,6 @@ int	control_cycle(t_stack *a, t_stack *b, t_dsc start, t_hashlist **result)
 	t_dsc	prev_dsc;
 	t_hash	hash;
 
-		ft_printf("Check!\n");
 	while (scuttle_dsc(a, b, DSC_EMPTY, start))
 		start = inc_dsc(start);
 	hash = hash_stacks(a, b);

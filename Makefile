@@ -84,6 +84,9 @@ build:
 build/%.o: src/%.c $(HEADER)
 	$(CC) -c $(INCLUDE_DIRS) $(CFLAGS) $(CPPFLAGS) $< -o $@
 
+build/titrate/%.o: src/titrate/%.c $(HEADER) $(TITRATE_HEADER)
+	$(CC) -c $(INCLUDE_DIRS) $(CFLAGS) $(CPPFLAGS) $< -o $@
+
 clean:
 	make -C $(LIBFT) clean
 	rm -rf $(OBJECTS)
@@ -98,4 +101,4 @@ re: fclean all
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re libft fsanitize
+.PHONY: all bonus clean fclean re libft

@@ -23,7 +23,7 @@
 #  define MAX_FACTORIAL 120ULL
 
 #  ifndef TITRATE_DEPTH
-#   define TITRATE_DEPTH 2
+#   define TITRATE_DEPTH 7
 #  endif
 
 typedef __int128_t	t_hash;
@@ -53,7 +53,7 @@ typedef struct s_hashlist
 
 ////////////					Logic								////////////
 
-t_ulong		hash_stacks(t_stack *a, t_stack *b);
+t_hash		hash_stacks(t_stack *a, t_stack *b);
 int 		interpret_result(t_hashlist **result);
 
 ////////////					Control systems						////////////
