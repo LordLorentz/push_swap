@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/31 13:50:28 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/21 22:01:22 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/25 12:24:47 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static inline unsigned char	deref_crazebase(t_dsc dsc)
 //ft_printf("__-Current: %X\n--_Cut: %X\n", (unsigned long)current, 
 //(discriminant & DSC_BODY));
 
-t_dsc	iter_dsc(t_dsc discriminant)
+static t_dsc	recurse_dsc(t_dsc discriminant)
 {
 	unsigned char	current;
 
@@ -83,11 +83,19 @@ t_dsc	iter_dsc(t_dsc discriminant)
 	{
 		if ((discriminant >> DSC_SIZE & DSC_LAST) == NON)
 			return (DSC_END);
-		discriminant = iter_dsc(discriminant >> DSC_SIZE) << DSC_SIZE;
+		discriminant = recurse_dsc(discriminant >> DSC_SIZE) << DSC_SIZE;
 		current = deref_crazebase(discriminant);
 	}
 	discriminant = (discriminant & DSC_BODY) | current;
 	return (discriminant);
+}
+
+t_dsc	iter_dsc(t_dsc discriminant)
+{
+	t_dsc	out;
+
+	out = recurse_dsc(discriminant);
+	return (out);
 }
 
 t_dsc	mk_dsc(t_uint depth)

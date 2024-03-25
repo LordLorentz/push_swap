@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/18 13:56:42 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/22 15:06:21 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/25 12:22:13 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int main(void)
 {
 	t_stack		*a;
 	t_stack		*b;
+	int			out;
 
 	a = fill_stack(STACK_SIZE, 0, (STACK_SIZE / 2) - 1);
 	if (a == NULL)
@@ -46,26 +47,32 @@ int main(void)
 	b = fill_stack(STACK_SIZE, STACK_SIZE / 2, STACK_SIZE - 1);
 	if (b == NULL)
 		return (free_stack(a), 1);
-	
-	
+	out = manage_test(a, b);
 	free_stack(a);
 	free_stack(b);
-	
-	return (0);
+	return (out);
 }
 
 int	manage_test(t_stack *a, t_stack *b)
 {
 	t_hashlist	**control;
 	t_hashlist	**test;
+	int			out;
 	
 	control = malloc(RESULT_SIZE * sizeof(t_hashlist *));
 	if (control == NULL)
 		return (1);
+	test = malloc(RESULT_SIZE * sizeof(t_hashlist *));
+	if (test == NULL)
+		return (free(control), 1);
 	ft_memset(control, 0, RESULT_SIZE * sizeof(t_hashlist *));
+	ft_memset(test, 0, RESULT_SIZE * sizeof(t_hashlist *));
 	if (control_rifle(a, b, TITRATE_DEPTH, control))
-		return (1);
-	if (interpret_result(result) == 1)
-		return (free_hashlist_arr(result, RESULT_SIZE), 1);
-	free_hashlist_arr(result, RESULT_SIZE);
+		return (free_hashlist_arr(control, RESULT_SIZE), free(test), 1);
+	out = test_rifle(a, b, TITRATE_DEPTH, test);
+	if (out == 0)
+		out = interpret_result(control, test);
+	free_hashlist_arr(control, RESULT_SIZE);
+	free_hashlist_arr(test, RESULT_SIZE);
+	return (out);
 }

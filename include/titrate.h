@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/20 16:01:47 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/22 18:04:20 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/25 13:26:08 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #  define MAX_FACTORIAL 120ULL
 
 #  ifndef TITRATE_DEPTH
-#   define TITRATE_DEPTH 7
+#   define TITRATE_DEPTH 5
 #  endif
 
 typedef __int128_t	t_hash;
@@ -54,7 +54,7 @@ typedef struct s_hashlist
 ////////////					Logic								////////////
 
 t_hash		hash_stacks(t_stack *a, t_stack *b);
-int 		interpret_result(t_hashlist **result);
+int 		interpret_result(t_hashlist **control, t_hashlist **test);
 
 ////////////					Control systems						////////////
 

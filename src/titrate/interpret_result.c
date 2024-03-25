@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/21 14:32:13 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/22 15:06:22 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/25 13:04:57 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,53 @@ void	sum_hashlist(t_hashlist *list, t_ulong *unique, t_ulong *duplicate)
 	sum_hashlist(list->next, unique, duplicate);
 }
 
+int	is_present(t_hashlist *control, t_hashlist *test)
+{
+	while (test != NULL)
+	{
+		if (control->hash == test->hash)
+			return (1);
+		test = test->next;
+	}
+	return (0);
+}
+
+int	print_missing(t_hashlist *control, t_hashlist **test)
+{
+	while (control != NULL)
+	{
+		if (is_present(control, *test) == 0)
+			if (ft_printf("--Unique hash missing!\n--_Hash: %p, dsc: %p\n",
+				(t_ulong)control->hash, control->dsclist->dsc) == -1)
+				return (1);
+		control = control->next;
+	}
+	return (0);
+}
+
 int interpret_result(t_hashlist **control, t_hashlist **test)
 {
 	size_t	i;
+	t_ulong	control_un;
+	t_ulong	control_dup;
 	t_ulong	unique;
 	t_ulong	duplicate;
 
 	unique = 0;
 	duplicate = 0;
+	control_un = 0;
+	control_dup = 0;
 	i = 0;
 	while (i < RESULT_SIZE)
 	{
-		sum_hashlist(result[i], &unique, &duplicate);
+		if (print_missing(control[i], &test[i]))
+			return (1);
+		sum_hashlist(control[i], &control_un, &control_dup);
+		sum_hashlist(test[i], &unique, &duplicate);
 		i++;
 	}
-	if (ft_printf("Unique: %p\nDuplicate: %p\n", unique, duplicate) == -1)
+	if (ft_printf("Unique: %p -> %p\nDuplicate: %p -> %p\n",
+		control_un, unique, control_dup, duplicate) == -1)
 		return (1);
 	return (0);
 }

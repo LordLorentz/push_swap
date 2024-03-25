@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/31 13:50:28 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/22 17:58:46 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/25 12:25:37 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static inline unsigned char	deref_crazebase(t_dsc dsc)
 	return (g_crazebase[dsc >> DSC_SIZE & DSC_LAST][dsc & DSC_LAST]);
 }
 
-t_dsc	inc_dsc(t_dsc discriminant)
+static t_dsc	recurse_dsc(t_dsc discriminant)
 {
 	unsigned char	current;
 
@@ -59,9 +59,17 @@ t_dsc	inc_dsc(t_dsc discriminant)
 	{
 		if ((discriminant >> DSC_SIZE & DSC_LAST) == NON)
 			return (DSC_END);
-		discriminant = inc_dsc(discriminant >> DSC_SIZE) << DSC_SIZE;
+		discriminant = recurse_dsc(discriminant >> DSC_SIZE) << DSC_SIZE;
 		current = deref_crazebase(discriminant);
 	}
 	discriminant = (discriminant & DSC_BODY) | current;
 	return (discriminant);
+}
+
+t_dsc	inc_dsc(t_dsc discriminant)
+{
+	t_dsc	out;
+
+	out = recurse_dsc(discriminant);
+	return (out);
 }

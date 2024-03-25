@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 17:56:37 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/22 18:04:08 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/25 13:11:51 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	test_cycle(t_stack *a, t_stack *b, t_dsc start, t_hashlist **result)
 	current_dsc = iter_dsc(prev_dsc);
 	while (__builtin_expect(current_dsc != DSC_END, 1))
 	{
-		while (scuttle_dsc(a, b, prev_dsc, current_dsc))//might reach DSC_END
+		while (scuttle_dsc(a, b, prev_dsc, current_dsc))
 			current_dsc = iter_dsc(current_dsc);
 		hash = hash_stacks(a, b);
 		if (insert_hash(&result[hash % RESULT_SIZE], hash, current_dsc))
@@ -43,17 +43,16 @@ int	test_cycle(t_stack *a, t_stack *b, t_dsc start, t_hashlist **result)
 int	test_rifle(t_stack *a, t_stack *b, t_uint depth, t_hashlist **result)
 {
 	t_uint	size;
+	t_hash	hash;
 
+	hash = hash_stacks(a, b);
+	if (insert_hash(&result[hash % RESULT_SIZE], hash, DSC_EMPTY))
+		return (1);
 	size = 1;
 	while (size <= depth)
 	{
 		if (test_cycle(a, b, mk_dsc(size), result))
-		{
-			free_hashlist_arr(result, RESULT_SIZE);
-			free_stack(a);
-			free_stack(b);
 			return (1);
-		}
 		size++;
 	}
 	return (0);
