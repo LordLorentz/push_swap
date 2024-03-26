@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/29 14:21:10 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/02/06 15:44:15 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/25 22:21:21 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	sa(t_stack *a, t_stack *b)
 
 	(void)b;
 	if (__builtin_expect(a->start == END_OF_STACK || a->start == a->end
-		|| (a->val[a->start] & STACK_RIGHT) == a->end, 0))
+			|| (a->val[a->start] & STACK_RIGHT) == a->end, 0))
 		return (1);
 	tmp = a->val[a->start] & STACK_RIGHT;
 	a->val[a->val[tmp] & STACK_RIGHT] = (t_ulong)a->start << 32

@@ -6,14 +6,11 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/31 13:50:28 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/25 12:24:47 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/26 22:35:15 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-//Discriminant specifications:
-//--
 
 //Variable base for the discriminant.
 //For this grid:
@@ -24,7 +21,7 @@
 //and should increment the previous digit.
 //I shan't be held accountable for any optometric costs you incur in trying to
 //read it.
-static const unsigned char	g_crazebase[16][16]
+static const t_inum	g_crazebase[16][16]
 	= {
 {_PA, _SA, _SB, _SS, _RA, _RB, _RR, RRR, RRB, RRA, _PB, NON, NON, NON, END},
 {_PA, _SA, _SB, _SS, _RA, _RB, _RR, RRR, RRB, RRA, END},
@@ -45,28 +42,12 @@ static const unsigned char	g_crazebase[16][16]
 };
 
 //!!!THIS VERSION LOSES ONE UNIQUE SOLUTION AT 3 ITERATIONS!!!
+//No it doesn't. Obscure bug in my evaluation, didn't consider starting pos.
 
 //You made it through!
 //You may now laugh, scream, or turn into a murder of crows and peck my eyes out
 
-// static inline t_dsc	cull_associative(t_dsc dsc)
-// {
-// 	t_uint			i;
-// 	unsigned char	current;
-
-// 	i = 0;
-// 	current = dsc >> (i * DSC_SIZE) & DSC_LAST;
-// 	while (current != NON)
-// 	{
-// 		if (current == _RA)
-// 			;
-// 		i++;
-// 		current = dsc >> (i * DSC_SIZE) & DSC_LAST;
-// 	}
-// 	return (dsc);
-// }
-
-static inline unsigned char	deref_crazebase(t_dsc dsc)
+static inline t_inum	deref_crazebase(t_dsc dsc)
 {
 	return (g_crazebase[dsc >> DSC_SIZE & DSC_LAST][dsc & DSC_LAST]);
 }
@@ -76,7 +57,7 @@ static inline unsigned char	deref_crazebase(t_dsc dsc)
 
 static t_dsc	recurse_dsc(t_dsc discriminant)
 {
-	unsigned char	current;
+	t_inum	current;
 
 	current = deref_crazebase(discriminant);
 	if (current == END)
@@ -90,6 +71,13 @@ static t_dsc	recurse_dsc(t_dsc discriminant)
 	return (discriminant);
 }
 
+//Iter_dsc specifications:
+//--Takes any discriminant (moveset).
+//--Returns the next valid discriminant.
+//--__Should be able to find ALL movesets with a unique effect on the stacks.
+//		Example: `ra pb` and `pb ra` have unique effects.
+//--__Should find as few movesets with duplicate effects as possible.
+//		Example: `ra rrb` and `rrb ra` have duplicate effects.
 t_dsc	iter_dsc(t_dsc discriminant)
 {
 	t_dsc	out;
@@ -100,7 +88,7 @@ t_dsc	iter_dsc(t_dsc discriminant)
 
 t_dsc	mk_dsc(t_uint depth)
 {
-	t_dsc out;
+	t_dsc	out;
 
 	out = 0;
 	while (depth--)

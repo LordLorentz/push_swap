@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/18 13:56:42 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/25 12:22:13 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/25 22:23:28 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 
 int	manage_test(t_stack *a, t_stack *b);
 
-//horrible sane array mixed with my evil
 t_stack	*fill_stack(t_uint size, t_ulong start, t_ulong end)
 {
-	t_stack *stack;
+	t_stack	*stack;
 	t_ulong	i;
 
 	stack = create_stack(size, start, end, (end - start) + 1);
@@ -28,14 +27,14 @@ t_stack	*fill_stack(t_uint size, t_ulong start, t_ulong end)
 	i = start + 1;
 	while (i < end)
 	{
-		stack->val[i] = ((i - 1) << 32) | (i + 1); 
+		stack->val[i] = ((i - 1) << 32) | (i + 1);
 		i++;
 	}
 	stack->val[end] = ((end - 1) << 32UL) | END_OF_STACK;
 	return (stack);
 }
 
-int main(void)
+int	main(void)
 {
 	t_stack		*a;
 	t_stack		*b;
@@ -58,7 +57,7 @@ int	manage_test(t_stack *a, t_stack *b)
 	t_hashlist	**control;
 	t_hashlist	**test;
 	int			out;
-	
+
 	control = malloc(RESULT_SIZE * sizeof(t_hashlist *));
 	if (control == NULL)
 		return (1);

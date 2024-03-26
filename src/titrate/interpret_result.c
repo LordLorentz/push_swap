@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/21 14:32:13 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/25 13:04:57 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/26 12:36:49 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,39 @@ int	print_missing(t_hashlist *control, t_hashlist **test)
 	{
 		if (is_present(control, *test) == 0)
 			if (ft_printf("--Unique hash missing!\n--_Hash: %p, dsc: %p\n",
-				(t_ulong)control->hash, control->dsclist->dsc) == -1)
+					(t_ulong)control->hash, control->dsclist->dsc) == -1)
 				return (1);
 		control = control->next;
 	}
 	return (0);
 }
 
-int interpret_result(t_hashlist **control, t_hashlist **test)
+int	print_duplicate(t_hashlist *test)
+{
+	t_dsclist	*dsclist;
+
+	while (test != NULL)
+	{
+		if (test->count != 1)
+		{
+			dsclist = test->dsclist;
+			if (ft_printf("--Dulicate hash: %p\n", (t_ulong)test->hash) == -1)
+				return (1);
+			while (dsclist != NULL)
+			{
+				if (print_horizontal(dsclist->dsc))
+					return (1);
+				dsclist = dsclist->next;
+			}
+			if (ft_printf("\n") == -1)
+				return (1);
+		}
+		test = test->next;
+	}
+	return (0);
+}
+
+int	interpret_result(t_hashlist **control, t_hashlist **test)
 {
 	size_t	i;
 	t_ulong	control_un;
@@ -63,12 +88,14 @@ int interpret_result(t_hashlist **control, t_hashlist **test)
 	{
 		if (print_missing(control[i], &test[i]))
 			return (1);
+		if (print_duplicate(test[i]))
+			return (1);
 		sum_hashlist(control[i], &control_un, &control_dup);
 		sum_hashlist(test[i], &unique, &duplicate);
 		i++;
 	}
 	if (ft_printf("Unique: %p -> %p\nDuplicate: %p -> %p\n",
-		control_un, unique, control_dup, duplicate) == -1)
+			control_un, unique, control_dup, duplicate) == -1)
 		return (1);
 	return (0);
 }

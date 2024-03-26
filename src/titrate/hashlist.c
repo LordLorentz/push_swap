@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/04 21:52:04 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/25 13:12:15 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/25 22:22:11 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	free_hashlist(t_hashlist *list)
 
 void	free_hashlist_arr(t_hashlist **arr, size_t size)
 {
-	t_uint i;
+	t_uint	i;
 
 	i = 0;
 	while (i < size)
@@ -54,7 +54,7 @@ void	free_hashlist_arr(t_hashlist **arr, size_t size)
 
 int	append_hashlist(t_hashlist **head, t_hash hash, t_dsc dsc)
 {
-	t_hashlist *current;
+	t_hashlist	*current;
 
 	if (*head == NULL)
 	{

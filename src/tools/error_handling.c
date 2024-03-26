@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 13:33:29 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/11 18:33:40 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/25 22:20:34 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	print_stacks(t_stack *a, t_stack *b)
 	{
 		if (current_a != END_OF_STACK)
 			current_a = print_val("-_%8u    |", a, current_a, 1);
-			
 		else
 			ft_printf("-_%8c    |", '-');
 		if (current_b != END_OF_STACK)

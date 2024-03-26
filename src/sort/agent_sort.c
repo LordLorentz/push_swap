@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/04 21:52:04 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/21 20:59:31 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/25 22:23:37 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_stackstate	run_cycle(t_stack *a, t_stack *b, t_dsc start, t_uint size)
 	{
 		while (scuttle_dsc(a, b, prev_dsc, current.dsc))
 			current.dsc = iter_dsc(current.dsc);
-		current.dpp = inquisit(a, b, size);//dangerous
+		current.dpp = inquisit(a, b, size);
 		if (current.dpp < best.dpp)
 			best = current;
 		prev_dsc = current.dsc;

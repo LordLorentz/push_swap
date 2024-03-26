@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 19:33:29 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/15 12:25:40 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/25 22:20:08 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_proposal	init_proposal(t_dsc dsc, t_ulong dpp, t_uint parent_branch)
 
 void	init_panel(t_proposal *panel, size_t panel_size)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i < panel_size)
@@ -36,7 +36,7 @@ void	init_panel(t_proposal *panel, size_t panel_size)
 
 int	insert_proposal(t_proposal *panel, size_t panel_size, t_proposal proposal)
 {
-	size_t i;
+	size_t	i;
 
 	if (panel[panel_size - 1].dpp > proposal.dpp)
 		return (0);

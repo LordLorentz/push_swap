@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/20 14:52:47 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/26 12:35:59 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef unsigned long	t_ulong;
 
 typedef unsigned long	t_dsc;
 
-typedef enum
+typedef enum dir
 {
 	STACK_A = 0,
 	STACK_B = 1
@@ -131,6 +131,7 @@ typedef int				(*t_inst)(t_stack *a, t_stack *b);
 ////////////					Output functions					////////////
 
 int				print_dsc(t_dsc dsc);
+int				print_horizontal(t_dsc dsc);
 void			print_stacks(t_stack *a, t_stack *b);
 
 ////////////					Input handling						////////////

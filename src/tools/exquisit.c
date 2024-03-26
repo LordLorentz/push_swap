@@ -6,9 +6,8 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 17:21:25 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/22 17:21:49 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/25 22:20:57 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-

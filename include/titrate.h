@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/20 16:01:47 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/25 13:26:08 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/26 14:20:07 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,23 @@
 #  define MAX_FACTORIAL 120ULL
 
 #  ifndef TITRATE_DEPTH
-#   define TITRATE_DEPTH 5
+#   define TITRATE_DEPTH 4
 #  endif
 
 typedef __int128_t	t_hash;
 
-# else
+// # else
 
-#  define STACK_SIZE 16UL
-#  define MAX_FRAG 15UL
-#  define RESULT_SIZE 0x1000UL
-#  define MAX_FACTORIAL 48UL
+// #  define STACK_SIZE 16UL
+// #  define MAX_FRAG 15UL
+// #  define RESULT_SIZE 0x1000UL
+// #  define MAX_FACTORIAL 48UL
 
-#  ifndef TITRATE_DEPTH
-#   define TITRATE_DEPTH 3
-#  endif
+// #  ifndef TITRATE_DEPTH
+// #   define TITRATE_DEPTH 3
+// #  endif
 
-typedef unsigned long		t_hash;
+// typedef unsigned long	t_hash;
 
 # endif
 
@@ -54,7 +54,7 @@ typedef struct s_hashlist
 ////////////					Logic								////////////
 
 t_hash		hash_stacks(t_stack *a, t_stack *b);
-int 		interpret_result(t_hashlist **control, t_hashlist **test);
+int			interpret_result(t_hashlist **control, t_hashlist **test);
 
 ////////////					Control systems						////////////
 
