@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/18 13:56:42 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/28 12:29:40 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/28 12:34:17 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	interlace(t_stack *stack, t_stack *interface, t_dir dir)
 	if (prev != END_OF_STACK)
 		interface->val[prev] = (interface->val[prev] & STACK_LEFT) | current;
 	i = 0;
-	while (i < INTERFACE_SIZE / 4)
+	while (i++ < INTERFACE_SIZE / 4)
 	{
 		if (dir == DOWN)
 			next = stack->val[current] & STACK_RIGHT;
@@ -70,9 +70,9 @@ void	interlace(t_stack *stack, t_stack *interface, t_dir dir)
 		interface->val[current] = ((t_ulong)prev << 32UL) | next;
 		prev = current;
 		current = next;
-		i++;
 	}
 	interface->val[prev] = (interface->val[prev] & STACK_LEFT) | END_OF_STACK;
+	interface->end = prev;
 }
 
 //O(n) = 1/2 * n^2 + n
@@ -97,6 +97,7 @@ t_hash	hash_interface(t_stack *a, t_stack *b, t_uint size, t_mode mode)
 	}
 	if (a->count < INTERFACE_SIZE / 2 || b->count < INTERFACE_SIZE / 2)
 		return (HASH_INVALID);
+	interface->start = a->start;
 	interlace(a, interface, DOWN);
 	interlace(a, interface, UP);
 	interlace(b, interface, DOWN);
