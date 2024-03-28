@@ -33,6 +33,7 @@ FILES := \
 	tools/branch.c \
 	tools/curse_stack.c \
 	tools/dsclist.c \
+	tools/hash_interface.c \
 	tools/jumptable.c \
 	tools/print_discriminant.c \
 	tools/error_handling.c \

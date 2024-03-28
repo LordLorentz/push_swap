@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/20 16:01:47 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/26 14:20:07 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/27 15:21:01 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # if 1
 
 #  define STACK_SIZE 32ULL
-#  define MAX_FRAG 31ULL
+#  define FRAG_MAX 31ULL
 #  define RESULT_SIZE 0x1000UL
 #  define MAX_FACTORIAL 120ULL
 
@@ -26,12 +26,12 @@
 #   define TITRATE_DEPTH 4
 #  endif
 
-typedef __int128_t	t_hash;
+typedef __uint128_t	t_hash;
 
 // # else
 
 // #  define STACK_SIZE 16UL
-// #  define MAX_FRAG 15UL
+// #  define FRAG_MAX 15UL
 // #  define RESULT_SIZE 0x1000UL
 // #  define MAX_FACTORIAL 48UL
 

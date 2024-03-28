@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/21 14:32:13 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/26 12:36:49 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/27 12:12:17 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,15 @@ int	print_missing(t_hashlist *control, t_hashlist **test)
 	while (control != NULL)
 	{
 		if (is_present(control, *test) == 0)
-			if (ft_printf("--Unique hash missing!\n--_Hash: %p, dsc: %p\n",
-					(t_ulong)control->hash, control->dsclist->dsc) == -1)
+		{
+			if (ft_printf("--Unique hash missing: %p\n",
+					(t_ulong)control->hash) == -1)
 				return (1);
+			if (print_horizontal(control->dsclist->dsc))
+				return (1);
+			if (ft_printf("\n") == -1)
+				return (1);
+		}
 		control = control->next;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/31 13:50:28 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/26 22:35:15 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/27 13:57:08 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static inline t_inum	deref_crazebase(t_dsc dsc)
 //ft_printf("__-Current: %X\n--_Cut: %X\n", (unsigned long)current, 
 //(discriminant & DSC_BODY));
 
+//perhaps I shouldn't have written this recursively. No clue.
 static t_dsc	recurse_dsc(t_dsc discriminant)
 {
 	t_inum	current;
@@ -80,10 +81,9 @@ static t_dsc	recurse_dsc(t_dsc discriminant)
 //		Example: `ra rrb` and `rrb ra` have duplicate effects.
 t_dsc	iter_dsc(t_dsc discriminant)
 {
-	t_dsc	out;
-
-	out = recurse_dsc(discriminant);
-	return (out);
+	discriminant = recurse_dsc(discriminant);
+	discriminant = distil(discriminant);
+	return (discriminant);
 }
 
 t_dsc	mk_dsc(t_uint depth)

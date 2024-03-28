@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/26 12:35:59 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/27 21:32:40 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,12 @@
 # define DSC_SIZE 4
 
 # define MAX_DEPTH 6
-# define JOLT 0x8888888888888888UL
+
+# define FRAG_MAX 31ULL
+# define INTERFACE_SIZE 32ULL
+# define HASH_INVALID 0
+
+// # define JOLT 0x8888888888888888UL
 
 # define EMPTY_DISAPPROVAL 0xFFFFFFFFFFFFFFFFUL
 
@@ -58,13 +63,21 @@
 typedef unsigned int	t_uint;
 typedef unsigned long	t_ulong;
 
-typedef unsigned long	t_dsc;
+typedef t_ulong			t_dsc;
+typedef	__uint128_t		t_hash;
 
 typedef enum dir
 {
-	STACK_A = 0,
-	STACK_B = 1
+	DOWN = 0,
+	UP = 1
 }	t_dir;
+
+typedef enum mode
+{
+	INIT = 0,
+	RUN = 1,
+	FREE = 2
+}	t_mode;
 
 typedef enum inum
 {
@@ -145,10 +158,12 @@ t_ulong			inquisit(t_stack *a, t_stack *b, t_uint size);
 int				scuttle_dsc(t_stack *a, t_stack *b, t_dsc prev, t_dsc next);
 t_stackstate	run_cycle(t_stack *a, t_stack *b, t_dsc start, t_uint size);
 void			agent_sort(t_stack *a, t_stack *b, t_uint size, t_uint depth);
+t_hash			hash_interface(t_stack *a, t_stack *b, t_uint size, t_mode mde);
 
 ////////////					Discriminant functions				////////////
 
 t_dsc			mk_dsc(t_uint depth);
+t_dsc			distil(t_dsc dsc);
 t_dsc			iter_dsc(t_dsc discriminant);
 
 ////////////					Discriminant lists					////////////

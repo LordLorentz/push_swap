@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/18 13:56:42 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/22 15:06:07 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/27 21:27:46 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 // |a| * x! = factorial digit
 
-t_hash	normalize_val(t_stack *stack, t_uint val)
+static t_hash	normalize_val(t_stack *stack, t_uint val)
 {
 	t_uint	current;
 	t_hash	out;
@@ -34,14 +34,14 @@ t_hash	normalize_val(t_stack *stack, t_uint val)
 	return (out);
 }
 
-t_hash	factorialize_stack(t_stack *stack)
+static t_hash	factorialize_stack(t_stack *stack)
 {
 	t_uint	current;
 	t_hash	out;
 	t_hash	frag;
 
 	out = 0;
-	frag = MAX_FRAG;
+	frag = FRAG_MAX;
 	current = stack->start;
 	while (current != END_OF_STACK)
 	{

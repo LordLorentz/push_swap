@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/18 13:56:42 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/25 22:23:28 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/27 21:23:47 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ int	main(void)
 	b = fill_stack(STACK_SIZE, STACK_SIZE / 2, STACK_SIZE - 1);
 	if (b == NULL)
 		return (free_stack(a), 1);
+	hash_interface(a, b, STACK_SIZE, INIT);
 	out = manage_test(a, b);
+	hash_interface(a, b, STACK_SIZE, FREE);
 	free_stack(a);
 	free_stack(b);
 	return (out);
