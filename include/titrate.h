@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/20 16:01:47 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/27 15:21:01 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/28 12:45:18 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 # if 1
 
-#  define STACK_SIZE 32ULL
+#  define STACK_SIZE 48ULL
 #  define FRAG_MAX 31ULL
 #  define RESULT_SIZE 0x1000UL
 #  define MAX_FACTORIAL 120ULL

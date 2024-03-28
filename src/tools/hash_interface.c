@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/18 13:56:42 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/28 12:34:17 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/28 12:46:39 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,33 +46,21 @@ static t_hash	factorialize_stack(t_stack *stack)
 	return (out);
 }
 
-void	interlace(t_stack *stack, t_stack *interface, t_dir dir)
+//Hallelujah.
+void	wrap(t_stack *a, t_stack *b, t_stack *interface)
 {
-	t_uint	prev;
-	t_uint	current;
-	t_uint	next;
-	t_uint	i;
+	scuttle_dsc(interface, a, DSC_EMPTY, 0x0000000011111111UL);
+	scuttle_dsc(interface, a, DSC_EMPTY, 0xA1A1A1A1A1A1A1A1UL);
+	scuttle_dsc(interface, b, DSC_EMPTY, 0x0000000011111111UL);
+	scuttle_dsc(interface, b, DSC_EMPTY, 0xA1A1A1A1A1A1A1A1UL);
+}
 
-	if (dir == DOWN)
-		current = stack->start;
-	else
-		current = stack->end;
-	prev = interface->end;
-	if (prev != END_OF_STACK)
-		interface->val[prev] = (interface->val[prev] & STACK_LEFT) | current;
-	i = 0;
-	while (i++ < INTERFACE_SIZE / 4)
-	{
-		if (dir == DOWN)
-			next = stack->val[current] & STACK_RIGHT;
-		else if (dir == UP)
-			next = (stack->val[current] & STACK_LEFT) >> 32UL;
-		interface->val[current] = ((t_ulong)prev << 32UL) | next;
-		prev = current;
-		current = next;
-	}
-	interface->val[prev] = (interface->val[prev] & STACK_LEFT) | END_OF_STACK;
-	interface->end = prev;
+void	unwrap(t_stack *a, t_stack *b, t_stack *interface)
+{
+	scuttle_dsc(interface, b, 0xA1A1A1A1A1A1A1A1UL, DSC_EMPTY);
+	scuttle_dsc(interface, b, 0x0000000011111111UL, DSC_EMPTY);
+	scuttle_dsc(interface, a, 0xA1A1A1A1A1A1A1A1UL, DSC_EMPTY);
+	scuttle_dsc(interface, a, 0x0000000011111111UL, DSC_EMPTY);
 }
 
 //O(n) = 1/2 * n^2 + n
@@ -97,11 +85,8 @@ t_hash	hash_interface(t_stack *a, t_stack *b, t_uint size, t_mode mode)
 	}
 	if (a->count < INTERFACE_SIZE / 2 || b->count < INTERFACE_SIZE / 2)
 		return (HASH_INVALID);
-	interface->start = a->start;
-	interlace(a, interface, DOWN);
-	interlace(a, interface, UP);
-	interlace(b, interface, DOWN);
-	interlace(b, interface, UP);
+	wrap(a, b, interface);
 	hash = factorialize_stack(interface);
+	unwrap(a, b, interface);
 	return (hash);
 }
