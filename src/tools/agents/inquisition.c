@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/03 20:04:07 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/27 21:24:38 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/28 13:13:53 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,19 @@
 //	It may be detrimental to have active at the start of sorting.
 //A "break" is a sequence in which two numbers follow in the wrong order.
 //		Example: 2 1 (in stack A)
-//Tracking breaks might be less effective than tracking shifts,
+//Tracking breaks might be less effective than tracking fractures,
 //	because inverting a part of the list is not that expensive compared to
 //	braiding two gapped lists together (at least on stack B).
-//A "shift" is a reversal in the order in which a stack is sorted.
+//A "fracture" is a reversal in the order in which a stack is sorted.
 //		Example: 4 5 6 3 2 1
-//Removing shifts makes a stack easier to sort, but disapproving it becomes
+//Removing fractures makes a stack easier to sort, but disapproving it becomes
 //	counterproductive once a few cohesive lists have popped up, because to
-//	remove a shift in that situation, some temporary ones need to be created,
+//	remove a fracture in that situation, some temporary ones need to be created,
 //	and that would cause peaks in the disapproval graph.
 //The "reach" is the idea of disapprovable items in the middle of the stack
 //	weighing more heavily than at the edges, as only the edges of the stacks
 //	can be manipulated. Useful to apply on any fault that can be directly solved
+//	Should be additive, not multiplicative.
 
 //Simple cost (in moves) per entry.
 //	Should be very stable.
@@ -90,44 +91,6 @@
 // //--_-Returns EMPTY_DISAPPROVAL if the stack is empty.
 // //--Should show smooth improvement within 6-8 instructions.
 // //--Speed is paramount.
-// static inline t_ulong	get_disapproval(t_stack *stack, /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        ::::::::            */
-// /*   inquisition.c                                      :+:    :+:            */
-// /*                                                     +:+                    */
-// /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
-// /*                                                   +#+                      */
-// /*   Created: 2024/02/03 20:04:07 by mmosk         #+#    #+#                 */
-// /*   Updated: 2024/03/20 14:49:28 by mmosk         ########   odam.nl         */
-// /*                                                                            */
-// /* ************************************************************************** */
-
-// #include "push_swap.h"
-
-// //Multi-step heuristics??!
-
-// //Heuristics:
-// //The "interface" is the connection between the two stacks, currently
-// //	implemented as the difference between the topmost numbers of the two stacks.
-// //Disapproving the interface seems like a good thing in any situation.
-// //A "gap" is a sequence in which a number is missing.
-// //		Example: 1 3 (in stack A)
-// //Disapproving gaps should cause the algorithm to finely sort numbers.
-// //	It may be detrimental to have active at the start of sorting.
-// //A "break" is a sequence in which two numbers follow in the wrong order.
-// //		Example: 2 1 (in stack A)
-// //Tracking breaks might be less effective than tracking shifts,
-// //	because inverting a part of the list is not that expensive compared to
-// //	braiding two gapped lists together (at least on stack B).
-// //A "shift" is a reversal in the order in which a stack is sorted.
-// //		Example: 4 5 6 3 2 1
-// //Removing shifts makes a stack easier to sort, but disapproving it becomes
-// //	counterproductive once a few cohesive lists have popped up, because to
-// //	remove a shift in that situation, some temporary ones need to be created,
-// //	and that would cause peaks in the disapproval graph.
-// //The "reach" is the idea of disapprovable items in the middle of the stack
-// //	weighing more heavily than at the edges, as only the edges of the stacks
-// //	can be manipulated. Useful to apply on any fault that can be directly solved
 
 // //Simple cost (in moves) per entry.
 // //	Should be very stable.

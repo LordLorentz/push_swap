@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 17:56:37 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/27 20:52:09 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/28 13:01:09 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	test_cycle(t_stack *a, t_stack *b, t_dsc start, t_hashlist **result)
 
 	while (scuttle_dsc(a, b, DSC_EMPTY, start))
 		start = iter_dsc(start);
-	hash = hash_interface(a, b, STACK_SIZE, RUN);
+	hash = hash_stacks(a, b);
 	if (insert_hash(&result[hash % RESULT_SIZE], hash, start))
 		return (1);
 	prev_dsc = start;
@@ -30,7 +30,7 @@ int	test_cycle(t_stack *a, t_stack *b, t_dsc start, t_hashlist **result)
 	{
 		while (scuttle_dsc(a, b, prev_dsc, current_dsc))
 			current_dsc = iter_dsc(current_dsc);
-		hash = hash_interface(a, b, STACK_SIZE, RUN);
+		hash = hash_stacks(a, b);
 		if (insert_hash(&result[hash % RESULT_SIZE], hash, current_dsc))
 			return (1);
 		prev_dsc = current_dsc;
@@ -45,7 +45,7 @@ int	test_rifle(t_stack *a, t_stack *b, t_uint depth, t_hashlist **result)
 	t_uint	size;
 	t_hash	hash;
 
-	hash = hash_interface(a, b, STACK_SIZE, RUN);
+	hash = hash_stacks(a, b);
 	if (insert_hash(&result[hash % RESULT_SIZE], hash, DSC_EMPTY))
 		return (1);
 	size = 1;
