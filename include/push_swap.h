@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/28 13:07:21 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/29 15:08:41 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,16 @@
 
 # define B_DISAPPROVAL 0x200
 
-# define RIFLE_START 0x8000
+# define PANEL_SIZE 3
+# define HEDGE_SIZE 3
+
+# define ORPHAN UINT_MAX
 
 typedef unsigned int	t_uint;
 typedef unsigned long	t_ulong;
 
 typedef t_ulong			t_dsc;
+typedef t_ulong			t_dpp;
 
 typedef enum dir
 {
@@ -67,9 +71,8 @@ typedef enum dir
 
 typedef enum mode
 {
-	INIT = 0,
-	RUN = 1,
-	FREE = 2
+	A = 0,
+	B = 1
 }	t_mode;
 
 typedef enum inum
@@ -101,8 +104,8 @@ typedef struct s_stack
 typedef struct s_proposal
 {
 	t_dsc	dsc;
-	t_ulong	dpp;
-	t_uint	parent_branch;
+	t_dpp	dpp[PANEL_SIZE];
+	t_uint	parent;
 }	t_proposal;
 
 typedef struct s_dsclist
@@ -124,13 +127,6 @@ typedef struct s_stackstate
 	t_dsc	dsc;
 	t_ulong	dpp;
 }	t_stackstate;
-
-//Bite me.
-typedef struct s_twoint
-{
-	t_uint	stack;
-	t_uint	panel;
-}	t_twoint;
 
 typedef int				(*t_inst)(t_stack *a, t_stack *b);
 
@@ -174,6 +170,10 @@ int				insert_proposal(t_proposal *panel, size_t pn_sz, t_proposal p);
 
 ////////////					Hedge and branch					////////////
 
+t_branch		*make_branch(t_stack *a, t_stack *b, t_uint location, t_uint s);
+void			free_branch(t_branch *branch);
+t_branch		**make_hedge(t_stack *a, t_stack *b, t_uint hedge_sz, t_uint s);
+void			free_hedge(t_branch **hedge, t_uint hedge_size);
 
 
 ////////////					Stack manipulation					////////////

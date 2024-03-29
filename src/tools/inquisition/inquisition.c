@@ -6,13 +6,14 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/03 20:04:07 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/28 13:13:53 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/29 12:44:20 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 //Multi-step heuristics??!
+//Multi-cellular heuristics.
 
 //Heuristics:
 //The "interface" is the connection between the two stacks, currently
@@ -38,8 +39,8 @@
 //	can be manipulated. Useful to apply on any fault that can be directly solved
 //	Should be additive, not multiplicative.
 
-//Simple cost (in moves) per entry.
-//	Should be very stable.
+//Simple cost (in moves) per /entry/ fault.
+//	Should be very stable. 
 
 //O(n) = n
 

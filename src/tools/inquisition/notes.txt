@@ -1,0 +1,36 @@
+
+
+Heuristics:
+The "interface" is the connection between the two stacks, currently
+	implemented as the difference between the topmost numbers of the two stacks.
+Disapproving the interface seems like a good thing in any situation.
+A "gap" is a sequence in which a number is missing.
+		Example: 1 3 (in stack A)
+Disapproving gaps should cause the algorithm to finely sort numbers.
+	It may be detrimental to have active at the start of sorting.
+A "break" is a sequence in which two numbers follow in the wrong order.
+		Example: 2 1 (in stack A)
+Tracking breaks might be less effective than tracking fractures,
+	because inverting a part of the list is not that expensive compared to
+	braiding two gapped lists together (at least on stack B).
+A "fracture" is a reversal in the order in which a stack is sorted.
+		Example: 4 5 6 3 2 1
+Removing fractures makes a stack easier to sort, but disapproving it becomes
+	counterproductive once a few cohesive lists have popped up, because to
+	remove a fracture in that situation, some temporary ones need to be created,
+	and that would cause peaks in the disapproval graph.
+The "reach" is the idea of disapprovable items in the middle of the stack
+	weighing more heavily than at the edges, as only the edges of the stacks
+	can be manipulated. Useful to apply on any fault that can be directly solved
+	Should be additive, not multiplicative.
+
+Simple cost (in moves) per fault.
+	Should be very stable.
+
+Cell function specifications:
+--Takes current value, stack count, stack size, and a mode (either A or B)
+--__Any other values can be inferred with static variables.
+--Will be given END_OF_STACK once the end of the stack is reached.
+--Returns an unsigned long (t_dpp) value that represents sorting cost per entry.
+--__Should always sum 0 when the stack is perfectly sorted.
+

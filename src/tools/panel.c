@@ -1,54 +1,60 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   proposal.c                                         :+:    :+:            */
+/*   panel.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 19:33:29 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/25 22:20:08 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/03/29 15:20:57 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_proposal	init_proposal(t_dsc dsc, t_ulong dpp, t_uint parent_branch)
+void	init_panel(t_proposal panel[], t_uint panel_size)
 {
-	t_proposal	out;
-
-	out.dsc = dsc;
-	out.dpp = dpp;
-	out.parent_branch = parent_branch;
-	return (out);
-}
-
-void	init_panel(t_proposal *panel, size_t panel_size)
-{
-	size_t	i;
+	t_uint	i;
+	t_uint	j;
 
 	i = 0;
 	while (i < panel_size)
 	{
-		panel[i] = init_proposal(DSC_EMPTY, EMPTY_DISAPPROVAL, 0);
-		i++;
-	}
-}
-
-int	insert_proposal(t_proposal *panel, size_t panel_size, t_proposal proposal)
-{
-	size_t	i;
-
-	if (panel[panel_size - 1].dpp > proposal.dpp)
-		return (0);
-	i = 0;
-	while (i < panel_size)
-	{
-		if (panel[i].dpp > proposal.dpp)
+		panel[i].dsc = DSC_EMPTY;
+		panel[i].parent = ORPHAN;
+		j = 0;
+		while (j < panel_size)
 		{
-			panel[i] = proposal;
-			return (1);
+			panel[i].dpp[j] = EMPTY_DISAPPROVAL;
+			j++;
 		}
 		i++;
 	}
-	return (-1);
 }
+
+void	insert_proposal(t_proposal panel[], t_proposal proposal)
+{
+	t_uint	i;
+	t_uint	j;
+	t_uint	identity;
+
+	i = 0;
+	while (i < PANEL_SIZE)
+	{
+		j = 0;
+		identity = 1;
+		while (j < PANEL_SIZE)
+		{
+			identity += (panel[i].dpp[j] == proposal.dpp[j]);
+			j++;
+		}
+		if (identity == PANEL_SIZE)
+			return ;
+		if (panel[i].dpp[i] > proposal.dpp[i])
+		{
+			panel[i] = proposal;
+			return ;
+		}
+		i++;
+	}
+}//move this?

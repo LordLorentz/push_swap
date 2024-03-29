@@ -48,7 +48,7 @@ FILES := \
 	tools/instructions/rra.c \
 	tools/instructions/rrb.c \
 	tools/instructions/rrr.c \
-	tools/proposal.c \
+	tools/panel.c \
 	tools/inquisition.c \
 	tools/read_stack.c \
 	tools/normalize_stack.c
