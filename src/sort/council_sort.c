@@ -6,53 +6,90 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/12 14:02:57 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/29 15:04:04 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/03 21:35:04 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	extend_hedge(t_branch **dst, t_branch **src, t_proposal *panel, t_uint size)
+void	inspect(t_branch **hedge, t_proposal panel[], t_dsc next, t_uint size)
 {
-	t_uint	i;
-	t_uint	src_branch;
+	t_uint		i;
+	t_branch	*branch;
+	t_proposal	proposal;
 
 	i = 0;
 	while (i < PANEL_SIZE)
 	{
-		src_branch = panel[i].parent_branch;
-		copy_stack(dst[i]->a, src[src_branch]->a, size);
-		copy_stack(dst[i]->b, src[src_branch]->b, size);
-		if (overwrite_dsclist(dst[i]->dsclist, src[src_branch]->dsclist));
-			return (1);
-		scuttle_dsc(dst[i]->a, dst[i]->b, DSC_EMPTY, panel[i].dsc);
-		if (append_dsclist(dst[i]->dsclist, panel[i].dsc))
-			return (1);
+		branch = hedge[i];
+		if (scuttle_dsc(branch->a, branch->b, branch->current, next))
+			continue ;
+		else
+			branch->current = next;
+		proposal = inquisit(branch->a, branch->b, size);
+		proposal.dsc = branch->current;
+		proposal.parent = branch->location;
+		insert_proposal(panel, proposal);
 		i++;
 	}
+}
+
+//Sets panel[] to the proper set of proposals for the next cycle.
+void	discuss(t_branch **hedge, t_proposal panel[], t_uint size)
+{
+	t_uint	depth;
+	t_dsc	next;
+
+	init_panel(panel, PANEL_SIZE);
+	inspect(hedge, panel, DSC_EMPTY, size);
+	depth = 1;
+	while (depth <= MAX_DEPTH)
+	{
+		next = mk_dsc(depth);
+		while (next != DSC_END)
+		{
+			inspect(hedge, panel, next, size);
+			next = iter_dsc(next);
+		}
+		depth++;
+	}
+	inspect(hedge, panel, DSC_EMPTY, size);
+}
+
+int	administrate(
+		t_branch **hedge_root,
+		t_branch **hedge_graft,
+		t_proposal panel[],
+		t_uint size)
+{
+	discuss(hedge_root, panel, size);
+	while (is_sorted(panel) == false)
+	{
+		if (extend_hedge(hedge_root, hedge_graft, panel, size))
+			return (1);
+		ft_swap((void **)&hedge_root, (void **)&hedge_graft);
+		discuss(hedge_root, panel, size);
+	}
+	if (print_dsclist(hedge_root[0]->dsclist) == -1)
+		return (1);
 	return (0);
 }
 
-t_proposal	proliferate_branch(t_branch *branch, t_dsc prev, t_uint size)
+int	convene(t_stack *a, t_stack *b, t_uint size)
 {
-	t_proposal	out;
-
-	out.dsc = iter_dsc(prev);
-	out.parent_branch = branch->location;
-	
-}
-
-int	run_council(t_stack *a, t_stack *b, t_uint size)
-{
-	t_branch	**left_hedge;
-	t_branch	**right_hedge;
+	t_branch	**hedge_root;
+	t_branch	**hedge_graft;
 	t_proposal	panel[PANEL_SIZE];
+	t_uint		out;
 
-	left_hedge = make_hedge(a, b, HEDGE_SIZE, size);
-	if (left_hedge == NULL)
+	hedge_root = make_hedge(a, b, HEDGE_SIZE, size);
+	if (hedge_root == NULL)
 		return (1);
-	right_hedge = make_hedge(a, b, HEDGE_SIZE, size);
-	if (right_hedge == NULL)
-		return (free_hedge(left_hedge, HEDGE_SIZE), 1);
-
+	hedge_graft = make_hedge(a, b, HEDGE_SIZE, size);
+	if (hedge_graft == NULL)
+		return (free_hedge(hedge_root, HEDGE_SIZE), 1);
+	out = administrate(hedge_root, hedge_graft, panel, size);
+	free_hedge(hedge_root, HEDGE_SIZE);
+	free_hedge(hedge_graft, HEDGE_SIZE);
+	return (out);
 }

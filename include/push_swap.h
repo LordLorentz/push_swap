@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/29 15:08:41 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/05 15:07:21 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <stdint.h>
+# include <stdbool.h>
 # include "libft.h"
 # include "ft_printf.h"
 # include "ft_math.h"
@@ -33,6 +34,7 @@
 # define MAX_DEPTH 6
 
 # define EMPTY_DISAPPROVAL 0xFFFFFFFFFFFFFFFFUL
+# define SORTED_DISAPPROVAL 0x0UL
 
 # define GAP_ALLOTMENT 0x02
 # define GAP_INCREMENT 0x08
@@ -117,6 +119,7 @@ typedef struct s_dsclist
 typedef struct s_branch
 {
 	t_dsclist	*dsclist;
+	t_dsc		current;
 	t_uint		location;
 	t_stack		*a;
 	t_stack		*b;
@@ -128,7 +131,9 @@ typedef struct s_stackstate
 	t_ulong	dpp;
 }	t_stackstate;
 
-typedef int				(*t_inst)(t_stack *a, t_stack *b);
+typedef int				(*t_inst)(t_stack *, t_stack *);
+
+typedef t_dpp			(*t_inquisitor)(t_uint, t_uint, t_uint, t_mode);
 
 ////////////					Output functions					////////////
 
@@ -141,12 +146,17 @@ void			print_stacks(t_stack *a, t_stack *b);
 t_uint			*read_stack(char **input, t_uint size);
 t_uint			*normalize_stack(int *stack, t_uint size);
 
+////////////					Inquisition							////////////
+
+t_proposal		inquisit(t_stack *a, t_stack *b, t_uint size);
+
+t_dpp			technoblade(t_uint val, t_uint count, t_uint size, t_mode mode);
+t_dpp			eskarina(t_uint val, t_uint count, t_uint size, t_mode mode);
+t_dpp			gossman(t_uint val, t_uint count, t_uint size, t_mode mode);
+
 ////////////					Inane Wizardry						////////////
 
-t_ulong			inquisit(t_stack *a, t_stack *b, t_uint size);
 int				scuttle_dsc(t_stack *a, t_stack *b, t_dsc prev, t_dsc next);
-t_stackstate	run_cycle(t_stack *a, t_stack *b, t_dsc start, t_uint size);
-void			agent_sort(t_stack *a, t_stack *b, t_uint size, t_uint depth);
 
 ////////////					Discriminant functions				////////////
 
@@ -164,9 +174,9 @@ int				print_dsclist(t_dsclist *list);
 
 ////////////					Panel and proposal					////////////
 
-t_proposal		init_proposal(t_dsc dsc, t_ulong dpp, t_uint parent_branch);
-void			init_panel(t_proposal *panel, size_t panel_size);
-int				insert_proposal(t_proposal *panel, size_t pn_sz, t_proposal p);
+t_proposal		init_proposal(t_uint panel_size);
+void			init_panel(t_proposal panel[], t_uint panel_size);
+void			insert_proposal(t_proposal panel[], t_proposal proposal);
 
 ////////////					Hedge and branch					////////////
 

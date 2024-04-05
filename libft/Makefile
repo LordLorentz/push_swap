@@ -56,6 +56,7 @@ FILES := \
 	libc/ft_strrchr.c \
 	libc/ft_strtrim.c \
 	libc/ft_substr.c \
+	libc/ft_swap.c \
 	libc/ft_sz_digits.c \
 	libc/ft_sztoa_base.c \
 	libc/ft_tolower.c \

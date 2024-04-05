@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/03 20:04:07 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/29 12:44:20 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/05 15:42:49 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,34 +15,67 @@
 //Multi-step heuristics??!
 //Multi-cellular heuristics.
 
-//Heuristics:
-//The "interface" is the connection between the two stacks, currently
-//	implemented as the difference between the topmost numbers of the two stacks.
-//Disapproving the interface seems like a good thing in any situation.
-//A "gap" is a sequence in which a number is missing.
-//		Example: 1 3 (in stack A)
-//Disapproving gaps should cause the algorithm to finely sort numbers.
-//	It may be detrimental to have active at the start of sorting.
-//A "break" is a sequence in which two numbers follow in the wrong order.
-//		Example: 2 1 (in stack A)
-//Tracking breaks might be less effective than tracking fractures,
-//	because inverting a part of the list is not that expensive compared to
-//	braiding two gapped lists together (at least on stack B).
-//A "fracture" is a reversal in the order in which a stack is sorted.
-//		Example: 4 5 6 3 2 1
-//Removing fractures makes a stack easier to sort, but disapproving it becomes
-//	counterproductive once a few cohesive lists have popped up, because to
-//	remove a fracture in that situation, some temporary ones need to be created,
-//	and that would cause peaks in the disapproval graph.
-//The "reach" is the idea of disapprovable items in the middle of the stack
-//	weighing more heavily than at the edges, as only the edges of the stacks
-//	can be manipulated. Useful to apply on any fault that can be directly solved
-//	Should be additive, not multiplicative.
+// static const t_inquisitor	g_inquisition[]
+// 	= {
+// &technoblade,
+// &eskarina,
+// &gossman
+// };
 
-//Simple cost (in moves) per /entry/ fault.
-//	Should be very stable. 
+t_dpp	chucklenuts(t_uint val, t_uint count, t_uint size, t_mode mode);
+t_dpp	dingy(t_uint val, t_uint count, t_uint size, t_mode mode);
+t_dpp	carter(t_uint val, t_uint count, t_uint size, t_mode mode);
 
-//O(n) = n
+static const t_inquisitor	g_inquisition[]
+	= {
+&chucklenuts,
+&dingy,
+&carter
+};
+//O(n) = 3n
+
+static inline t_proposal	sum_stack(
+		t_proposal proposal,
+		t_stack *stack,
+		t_uint size,
+		t_mode mode)
+{
+	t_uint	count;
+	t_uint	current;
+	t_uint	i;
+
+	count = stack->count;
+	current = stack->start;
+	while (current != END_OF_STACK)
+	{
+		i = 0;
+		while (i < PANEL_SIZE)
+		{
+			proposal.dpp[i] += g_inquisition[i](current, count, size, mode);
+			i++;
+		}
+		current = stack->val[current] & STACK_RIGHT;
+	}
+	i = 0;
+	while (i < PANEL_SIZE)
+	{
+		proposal.dpp[i] += g_inquisition[i](END_OF_STACK, count, size, mode);
+		i++;
+	}
+	return (proposal);
+}
+
+t_proposal	inquisit(t_stack *a, t_stack *b, t_uint size)
+{
+	t_proposal	out;
+	t_uint		current;
+	t_uint		i;
+
+	out = init_proposal(PANEL_SIZE);
+	out = sum_stack(out, a, size, A);
+	out = sum_stack(out, b, size, B);
+	return (out);
+}
 
 // //Arithmetic function to properly map absolute difference to circular difference
 // static inline t_uint	wrap_dif(t_uint dif, t_uint size)
@@ -56,6 +89,7 @@
 // //Equation specifications:
 // //--Takes the amount of entries in a stack, and the position of the query point.
 // //--Returns a value that is higher the closer i is to count / 2.
+// //--Is folly.
 // static inline t_ulong	get_reach(t_uint size, t_uint i)
 // {
 // 	const t_ulong	step_height = (MAX_OUTREACH_COST / (size / 2));

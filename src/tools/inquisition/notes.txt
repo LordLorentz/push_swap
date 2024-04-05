@@ -1,5 +1,6 @@
 
 
+
 Heuristics:
 The "interface" is the connection between the two stacks, currently
 	implemented as the difference between the topmost numbers of the two stacks.
@@ -26,6 +27,22 @@ The "reach" is the idea of disapprovable items in the middle of the stack
 
 Simple cost (in moves) per fault.
 	Should be very stable.
+
+Technoblade:
+	Assertive, should try to prioritize short-term improvement,
+	while (somehow) not sacrificing long-term sustainability.
+	Similar to what I've been trying to build in the deprecated file.
+
+Eskarina:
+	Intelligent, should disapprove fractures in a complex manner.
+	Reach + distance to intended position in sublist?
+	May well be interesting.
+	Ideally, something that can swap or braid entire sublists at a time,
+	while still being capable of sorting fully random lists.
+
+Gossman:
+	Timid, should run away from perceived "obstacles"
+	Achievable by only looking at range cohesion (viscosity)? Expensive, though.
 
 Cell function specifications:
 --Takes current value, stack count, stack size, and a mode (either A or B)

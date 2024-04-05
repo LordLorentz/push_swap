@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/14 13:05:51 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/29 14:44:14 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/02 14:33:32 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_branch	*make_branch(t_stack *a, t_stack *b, t_uint location, t_uint size)
 	if (out->b == NULL)
 		return (free(out->a), free(out), NULL);
 	out->dsclist = NULL;
+	out->current = DSC_EMPTY;
 	out->location = location;
 	return (out);
 }

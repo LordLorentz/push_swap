@@ -1,40 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   panel.c                                            :+:    :+:            */
+/*   eskarina.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/03/13 19:33:29 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/02 14:03:27 by mmosk         ########   odam.nl         */
+/*   Created: 2024/03/28 13:20:36 by mmosk         #+#    #+#                 */
+/*   Updated: 2024/04/05 15:30:55 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_proposal	init_proposal(t_uint panel_size)
+t_dpp	eskarina(t_uint val, t_uint count, t_uint size, t_mode mode)
 {
-	t_proposal	out;
-	t_uint i;
-
-	out.dsc = DSC_EMPTY;
-	out.parent = ORPHAN;
-	i = 0;
-	while (i < panel_size)
-	{
-		out.dpp[i] = EMPTY_DISAPPROVAL;
-		i++;
-	}
-}
-
-void	init_panel(t_proposal panel[], t_uint panel_size)
-{
-	t_uint	i;
-
-	i = 0;
-	while (i < panel_size)
-	{
-		panel[i] = init_proposal(panel_size);
-		i++;
-	}
+	
 }
