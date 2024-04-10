@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/03 20:04:07 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/05 15:42:49 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/10 13:22:08 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,18 @@ static inline t_proposal	sum_stack(
 		t_uint size,
 		t_mode mode)
 {
-	t_uint	count;
 	t_uint	current;
 	t_uint	i;
+	t_dpp	tmp;
 
-	count = stack->count;
 	current = stack->start;
 	while (current != END_OF_STACK)
 	{
 		i = 0;
 		while (i < PANEL_SIZE)
 		{
-			proposal.dpp[i] += g_inquisition[i](current, count, size, mode);
+			tmp = g_inquisition[i](current, stack->count, size, mode);
+			proposal.dpp[i] += tmp;
 			i++;
 		}
 		current = stack->val[current] & STACK_RIGHT;
@@ -59,7 +59,8 @@ static inline t_proposal	sum_stack(
 	i = 0;
 	while (i < PANEL_SIZE)
 	{
-		proposal.dpp[i] += g_inquisition[i](END_OF_STACK, count, size, mode);
+		tmp = g_inquisition[i](END_OF_STACK, stack->count, size, mode);
+		proposal.dpp[i] += tmp;
 		i++;
 	}
 	return (proposal);
@@ -68,10 +69,14 @@ static inline t_proposal	sum_stack(
 t_proposal	inquisit(t_stack *a, t_stack *b, t_uint size)
 {
 	t_proposal	out;
-	t_uint		current;
 	t_uint		i;
 
-	out = init_proposal(PANEL_SIZE);
+	i = 0;
+	while (i < PANEL_SIZE)
+	{
+		out.dpp[i] = 0;
+		i++;
+	}
 	out = sum_stack(out, a, size, A);
 	out = sum_stack(out, b, size, B);
 	return (out);

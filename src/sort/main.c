@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:15:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/11 18:39:59 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/08 17:50:15 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,20 @@ int	main(int argc, char **argv)
 	t_uint			*temp;
 	t_stack			*a;
 	t_stack			*b;
+	t_uint			out;
 
 	if (argc < 2)
 		exit_wrapper();
+	if (argc < 3)
+		return (0);
 	temp = read_stack(argv + 1, size);
 	if (temp == NULL)
 		exit_wrapper();
 	a = curse_stack(temp, size);
 	b = create_stack(size, END_OF_STACK, END_OF_STACK, 0);
 	free(temp);
-	agent_sort(a, b, size, MAX_DEPTH);
+	out = convene(a, b, size);
 	free_stack(a);
 	free_stack(b);
-	return (0);
+	return (out);
 }

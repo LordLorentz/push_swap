@@ -62,7 +62,9 @@ FILES := \
 	libc/ft_tolower.c \
 	libc/ft_toupper.c \
 	math/bit_not.c \
+	math/dif.c \
 	math/factorial.c \
+	math/wrap.c \
 	printf/converters_char.c \
 	printf/converters_dec.c \
 	printf/converters_hex.c \

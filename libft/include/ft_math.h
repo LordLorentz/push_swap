@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/19 12:29:42 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/19 13:15:51 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/08 17:06:41 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,9 @@
 
 unsigned long	factorial(unsigned long in);
 unsigned long	bit_not(unsigned long in);
+
+unsigned int 	wrap(unsigned int in, unsigned int size);
+unsigned int	dif(unsigned int a, unsigned int b);
+
 
 #endif

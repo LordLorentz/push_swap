@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/05 15:07:21 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/09 13:16:37 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define DSC_BODY 0xFFFFFFFFFFFFFFF0UL
 # define DSC_SIZE 4
 
-# define MAX_DEPTH 6
+# define MAX_DEPTH 4
 
 # define EMPTY_DISAPPROVAL 0xFFFFFFFFFFFFFFFFUL
 # define SORTED_DISAPPROVAL 0x0UL
@@ -140,6 +140,7 @@ typedef t_dpp			(*t_inquisitor)(t_uint, t_uint, t_uint, t_mode);
 int				print_dsc(t_dsc dsc);
 int				print_horizontal(t_dsc dsc);
 void			print_stacks(t_stack *a, t_stack *b);
+void			print_proposal(t_proposal proposal, char *prefix);
 
 ////////////					Input handling						////////////
 
@@ -148,28 +149,27 @@ t_uint			*normalize_stack(int *stack, t_uint size);
 
 ////////////					Inquisition							////////////
 
+int				convene(t_stack *a, t_stack *b, t_uint size);
+
 t_proposal		inquisit(t_stack *a, t_stack *b, t_uint size);
 
 t_dpp			technoblade(t_uint val, t_uint count, t_uint size, t_mode mode);
 t_dpp			eskarina(t_uint val, t_uint count, t_uint size, t_mode mode);
 t_dpp			gossman(t_uint val, t_uint count, t_uint size, t_mode mode);
 
-////////////					Inane Wizardry						////////////
-
-int				scuttle_dsc(t_stack *a, t_stack *b, t_dsc prev, t_dsc next);
-
 ////////////					Discriminant functions				////////////
 
 t_dsc			mk_dsc(t_uint depth);
 t_dsc			distil(t_dsc dsc);
 t_dsc			iter_dsc(t_dsc discriminant);
+int				scuttle_dsc(t_stack *a, t_stack *b, t_dsc prev, t_dsc next);
 
 ////////////					Discriminant lists					////////////
 
 t_dsclist		*make_dsclist(t_dsc dsc);
 void			free_dsclist(t_dsclist **head);
-t_dsclist		*append_dsclist(t_dsclist **head, t_dsc dsc);
-int				overwrite_dsclist(t_dsclist *dst, t_dsclist *src);
+int				append_dsclist(t_dsclist **head, t_dsc dsc);
+int				overwrite_dsclist(t_dsclist **dst, t_dsclist *src);
 int				print_dsclist(t_dsclist *list);
 
 ////////////					Panel and proposal					////////////
@@ -177,6 +177,7 @@ int				print_dsclist(t_dsclist *list);
 t_proposal		init_proposal(t_uint panel_size);
 void			init_panel(t_proposal panel[], t_uint panel_size);
 void			insert_proposal(t_proposal panel[], t_proposal proposal);
+bool			is_sorted(t_proposal panel[]);
 
 ////////////					Hedge and branch					////////////
 
@@ -184,6 +185,7 @@ t_branch		*make_branch(t_stack *a, t_stack *b, t_uint location, t_uint s);
 void			free_branch(t_branch *branch);
 t_branch		**make_hedge(t_stack *a, t_stack *b, t_uint hedge_sz, t_uint s);
 void			free_hedge(t_branch **hedge, t_uint hedge_size);
+int				extend_hedge(t_branch **, t_branch **, t_proposal [], t_uint );
 
 
 ////////////					Stack manipulation					////////////

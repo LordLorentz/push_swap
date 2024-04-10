@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/12 14:02:57 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/03 21:35:04 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/10 13:25:55 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ void	inspect(t_branch **hedge, t_proposal panel[], t_dsc next, t_uint size)
 	{
 		branch = hedge[i];
 		if (scuttle_dsc(branch->a, branch->b, branch->current, next))
+		{
+			i++;
 			continue ;
+		}
 		else
 			branch->current = next;
 		proposal = inquisit(branch->a, branch->b, size);
@@ -65,6 +68,7 @@ int	administrate(
 	discuss(hedge_root, panel, size);
 	while (is_sorted(panel) == false)
 	{
+		ft_printf("Extending!\n");
 		if (extend_hedge(hedge_root, hedge_graft, panel, size))
 			return (1);
 		ft_swap((void **)&hedge_root, (void **)&hedge_graft);

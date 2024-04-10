@@ -6,21 +6,23 @@ CFLAGS	= -Wall -Wextra -Werror -O3 -march=native -g
 CC		= cc
 ARCHIVE = ar -rcs
 
-LIBFT	= ./libft
+LIBFT_DIR	= ./libft
 
 LINKERS	= -lm
 
-LIBS	= $(LIBFT)/build/libft.a
+LIBFT	= $(LIBFT_DIR)/build/libft.a
 
-INCLUDE_DIRS = -I $(LIBFT)/include -I include
+INCLUDE_DIRS = -I $(LIBFT_DIR)/include -I include
 
 HEADER = include/push_swap.h
 TITRATE_HEADER = include/titrate.h
 
 FILES := \
-	sort/agent_sort.c \
+	sort/inquisitors/fools.c \
 	sort/council_sort.c \
+	sort/inquisition.c \
 	sort/main.c \
+	sort/specialists.c \
 	titrate/control_dsc.c \
 	titrate/control_cycle.c \
 	titrate/hash_stacks.c \
@@ -33,7 +35,6 @@ FILES := \
 	tools/branch.c \
 	tools/curse_stack.c \
 	tools/dsclist.c \
-	tools/hash_interface.c \
 	tools/jumptable.c \
 	tools/print_discriminant.c \
 	tools/error_handling.c \
@@ -49,7 +50,6 @@ FILES := \
 	tools/instructions/rrb.c \
 	tools/instructions/rrr.c \
 	tools/panel.c \
-	tools/inquisition.c \
 	tools/read_stack.c \
 	tools/normalize_stack.c
 
@@ -67,17 +67,18 @@ all: $(NAME)
 bonus: all
 
 $(LIBFT):
-	make -C $(LIBFT) all
+	make -C $(LIBFT_DIR) all
 
-$(NAME): $(LIBFT) build $(SORT_OBJ) $(TOOLS_OBJ) $(LIBS) $(HEADER)
-	$(CC) $(CFLAGS) $(SORT_OBJ) $(TOOLS_OBJ) $(LIBS) $(LINKERS) -o $(NAME)
+$(NAME): $(LIBFT) build $(SORT_OBJ) $(TOOLS_OBJ) $(HEADER)
+	$(CC) $(CFLAGS) $(SORT_OBJ) $(TOOLS_OBJ) $(LIBFT) $(LINKERS) -o $(NAME)
 
-$(TITRATE): $(LIBFT) build $(TITRATE_OBJ) $(TOOLS_OBJ) $(LIBS) $(HEADER) $(TITRATE_HEADER)
-	$(CC) $(CFLAGS) $(TITRATE_OBJ) $(TOOLS_OBJ) $(LIBS) $(LINKERS) -o $(TITRATE).out
+$(TITRATE): $(LIBFT) build $(TITRATE_OBJ) $(TOOLS_OBJ) $(HEADER) $(TITRATE_HEADER)
+	$(CC) $(CFLAGS) $(TITRATE_OBJ) $(TOOLS_OBJ) $(LIBFT) $(LINKERS) -o $(TITRATE).out
 
 build:
 	mkdir build
 	mkdir build/sort
+	mkdir build/sort/inquisitors
 	mkdir build/titrate
 	mkdir build/tools
 	mkdir build/tools/instructions
@@ -89,11 +90,11 @@ build/titrate/%.o: src/titrate/%.c $(HEADER) $(TITRATE_HEADER)
 	$(CC) -c $(INCLUDE_DIRS) $(CFLAGS) $(CPPFLAGS) $< -o $@
 
 clean:
-	make -C $(LIBFT) clean
+	make -C $(LIBFT_DIR) clean
 	rm -rf $(OBJECTS)
 
 fclean: clean
-	make -C $(LIBFT) fclean
+	make -C $(LIBFT_DIR) fclean
 	rm -rf $(NAME)
 	rm -rf $(TITRATE)
 	rm -rf build
@@ -102,4 +103,4 @@ re: fclean all
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re libft
+.PHONY: all bonus clean fclean re

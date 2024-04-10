@@ -6,27 +6,19 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/28 13:20:36 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/05 16:13:18 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/10 13:30:10 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//Arithmetic function to properly map absolute difference to circular difference
-//put in math library?
-static inline t_uint	wrap_dif(t_uint dif, t_uint size)
-{
-	return (
-		(dif <= (size / 2)) * dif
-		+ (dif > (size / 2)) * (size - dif)
-		);
-}
-
 //Let's see if the Fools can beat Vorbis, the Exquisitor.
 
 //Gotta add a->start increment.
-//Write dif
+//The fools are foolish, whad'ya know.
 
+//Is not recognizing 0 5 4 3 2 1.
+//Deserves punishment.
 t_dpp	chucklenuts(t_uint val, t_uint count, t_uint size, t_mode mode)
 {
 	static t_uint	i = 0;
@@ -40,21 +32,24 @@ t_dpp	chucklenuts(t_uint val, t_uint count, t_uint size, t_mode mode)
 		return (0);
 	}
 	out = 0;
-	if (prev + 1 < val && mode == A)
+	if (prev == END_OF_STACK && val != END_OF_STACK)
+		out = wrap(val, size);
+	else if (((prev + 1 != val ^ mode == B) && (prev - 1 != val ^ mode == A))
+			&& (((prev < val && dif(prev, val) < size / 2)
+			|| (prev > val && dif(prev, val) > size / 2))
+			^ (mode == B)))
 	{
-		out += wrap_dif(val - prev + 1, count);
-		out += wrap_dif(i, count);
-	}
-	if (prev + 1 > val && mode == B)
-	{
-		out += wrap_dif(prev + 1 - val, count);
-		out += wrap_dif(i, count);
+		out = wrap(dif(prev, val), size);
+		if (out != 0)
+			out += wrap(i, count);
 	}
 	i++;
 	prev = val;
 	return (out);
 }
 
+//chucklenuts ate dingy wat do?
+//mitosis.
 t_dpp	dingy(t_uint val, t_uint count, t_uint size, t_mode mode)
 {
 	static t_uint	i = 0;
@@ -68,15 +63,16 @@ t_dpp	dingy(t_uint val, t_uint count, t_uint size, t_mode mode)
 		return (0);
 	}
 	out = 0;
-	if (prev + 1 > val && mode == A)
+	if (prev == END_OF_STACK && val != END_OF_STACK)
+		out = wrap(val, size);
+	else if (((prev + 1 != val ^ mode == B) && (prev - 1 != val ^ mode == A))
+			&& (((prev > val && dif(prev, val) < size / 2)
+			|| (prev < val && dif(prev, val) > size / 2))
+			^ (mode == B)))
 	{
-		out += wrap_dif(prev + 1 - val, count);
-		out += wrap_dif(i, count);
-	}
-	if (prev + 1 < val && mode == B)
-	{
-		out += wrap_dif(val - prev + 1, count);
-		out += wrap_dif(i, count);
+		out = wrap(dif(prev, val), size);
+		if (out != 0)
+			out += wrap(i, count);
 	}
 	i++;
 	prev = val;
@@ -89,12 +85,16 @@ t_dpp	carter(t_uint val, t_uint count, t_uint size, t_mode mode)
 	static t_uint	a_prime;
 	t_dpp			out;
 
+	(void)count;
 	out = 0;
+	if (prev == END_OF_STACK && val != END_OF_STACK)
+		out += wrap(val, size);
 	if (prev == END_OF_STACK && mode == A)
 		a_prime = val;
 	if (prev == END_OF_STACK && mode == B)
 	{
-		out = wrap_dif()
+		if (a_prime != END_OF_STACK && val != END_OF_STACK)
+			out += wrap(dif(a_prime, val), size);
 		a_prime = 0;
 	}
 	prev = val;

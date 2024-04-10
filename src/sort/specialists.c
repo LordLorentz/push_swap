@@ -6,11 +6,18 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/02 13:24:27 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/03 14:56:43 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/10 13:25:49 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+//Identity test is deterministic, as even though it loops through the panel
+//	parallel to the insertion check, any proposal near the end of the panel
+//	that may cause the identity test to fail will be reached, because if that
+//	proposal could have been inserted sooner, it would have been, and in the
+//	case of a failed identity test the proposal being evaluated is identical
+//	to it.
 
 void	insert_proposal(t_proposal panel[], t_proposal proposal)
 {
@@ -22,7 +29,7 @@ void	insert_proposal(t_proposal panel[], t_proposal proposal)
 	while (i < PANEL_SIZE)
 	{
 		j = 0;
-		identity = 1;
+		identity = 0;
 		while (j < PANEL_SIZE)
 		{
 			identity += (panel[i].dpp[j] == proposal.dpp[j]);
@@ -39,7 +46,11 @@ void	insert_proposal(t_proposal panel[], t_proposal proposal)
 	}
 }
 
-int	extend_hedge(t_branch **dst, t_branch **src, t_proposal panel[], t_uint size)
+int	extend_hedge(
+		t_branch **dst,
+		t_branch **src,
+		t_proposal panel[],
+		t_uint size)
 {
 	t_uint	i;
 	t_uint	src_branch;
@@ -50,16 +61,17 @@ int	extend_hedge(t_branch **dst, t_branch **src, t_proposal panel[], t_uint size
 		src_branch = panel[i].parent;
 		copy_stack(dst[i]->a, src[src_branch]->a, size);
 		copy_stack(dst[i]->b, src[src_branch]->b, size);
-		if (overwrite_dsclist(dst[i]->dsclist, src[src_branch]->dsclist));
-			return (1);
+		if (overwrite_dsclist(&dst[i]->dsclist, src[src_branch]->dsclist))
+			return (ft_printf("OVERWRITE\n"), 1);
 		scuttle_dsc(dst[i]->a, dst[i]->b, DSC_EMPTY, panel[i].dsc);
-		if (append_dsclist(dst[i]->dsclist, panel[i].dsc))
-			return (1);
+		if (append_dsclist(&dst[i]->dsclist, panel[i].dsc))
+			return (ft_printf("APPEND\n"), 1);
 		i++;
 	}
 	return (0);
 }
 
+//Only checks agent #1.
 bool	is_sorted(t_proposal panel[])
 {
 	t_uint i;
@@ -67,8 +79,15 @@ bool	is_sorted(t_proposal panel[])
 	i = 0;
 	while (i < PANEL_SIZE)
 	{
+		print_proposal(panel[i], "");
+		i++;
+	}
+	i = 0;
+	while (i < PANEL_SIZE)
+	{
 		if (panel[i].dsc == DSC_EMPTY && panel[i].dpp[0] == SORTED_DISAPPROVAL)
 			return (true);
+		i++;
 	}
 	return (false);
 }

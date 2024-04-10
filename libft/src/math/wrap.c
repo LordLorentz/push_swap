@@ -1,41 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   panel.c                                            :+:    :+:            */
+/*   wrap.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/03/13 19:33:29 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/08 17:43:33 by mmosk         ########   odam.nl         */
+/*   Created: 2024/04/08 17:01:14 by mmosk         #+#    #+#                 */
+/*   Updated: 2024/04/09 23:03:04 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "ft_math.h"
 
-t_proposal	init_proposal(t_uint panel_size)
+// in < size
+unsigned int wrap(unsigned int in, unsigned int size)
 {
-	t_proposal	out;
-	t_uint i;
-
-	out.dsc = DSC_EMPTY;
-	out.parent = ORPHAN;
-	i = 0;
-	while (i < panel_size)
-	{
-		out.dpp[i] = EMPTY_DISAPPROVAL;
-		i++;
-	}
-	return (out);
-}
-
-void	init_panel(t_proposal panel[], t_uint panel_size)
-{
-	t_uint	i;
-
-	i = 0;
-	while (i < panel_size)
-	{
-		panel[i] = init_proposal(panel_size);
-		i++;
-	}
+	if (in >= size)
+		ft_printf();
+	return (
+		(in <= (size / 2)) * in
+		+ (in > (size / 2)) * (size - in)
+		);
 }
