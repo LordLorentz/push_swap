@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   titrate.c                                          :+:    :+:            */
+/*   elucidate.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/18 13:56:42 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/12 13:15:56 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/12 15:50:46 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "titrate.h"
+#include "elucidate.h"
 
 int	manage_test(t_stack *a, t_stack *b);
 
@@ -40,10 +40,10 @@ int	main(void)
 	t_stack		*b;
 	int			out;
 
-	a = fill_stack(STACK_SIZE, 0, (STACK_SIZE / 2) - 1);
+	a = fill_stack(STACK_SIZE, 0, STACK_SIZE - 1);
 	if (a == NULL)
 		return (1);
-	b = fill_stack(STACK_SIZE, STACK_SIZE / 2, STACK_SIZE - 1);
+	b = create_stack(STACK_SIZE, END_OF_STACK, END_OF_STACK, 0);
 	if (b == NULL)
 		return (free_stack(a), 1);
 	out = manage_test(a, b);
@@ -54,24 +54,16 @@ int	main(void)
 
 int	manage_test(t_stack *a, t_stack *b)
 {
-	t_hashlist	**control;
-	t_hashlist	**test;
+	t_dpplist	**test;
 	int			out;
 
-	control = malloc(RESULT_SIZE * sizeof(t_hashlist *));
-	if (control == NULL)
-		return (1);
-	test = malloc(RESULT_SIZE * sizeof(t_hashlist *));
+	test = malloc(RESULT_SIZE * sizeof(t_dpplist *));
 	if (test == NULL)
-		return (free(control), 1);
-	ft_memset(control, 0, RESULT_SIZE * sizeof(t_hashlist *));
-	ft_memset(test, 0, RESULT_SIZE * sizeof(t_hashlist *));
-	if (control_rifle(a, b, TITRATE_DEPTH, control))
-		return (free_hashlist_arr(control, RESULT_SIZE), free(test), 1);
+		return (1);
+	ft_memset(test, 0, RESULT_SIZE * sizeof(t_dpplist *));
 	out = test_rifle(a, b, TITRATE_DEPTH, test);
 	if (out == 0)
-		out = interpret_result(control, test);
-	free_hashlist_arr(control, RESULT_SIZE);
-	free_hashlist_arr(test, RESULT_SIZE);
+		out = interpret_result(test);
+	free_dpplist_arr(test, RESULT_SIZE);
 	return (out);
 }

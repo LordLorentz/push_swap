@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   hashlist.c                                         :+:    :+:            */
+/*   dpplist.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
@@ -11,54 +11,54 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "titrate.h"
+#include "elucidate.h"
 
-t_hashlist	*make_hashlist(t_hash hash, t_dsc dsc)
+t_dpplist	*make_dpplist(t_dpp dpp, t_dsc dsc)
 {
-	t_hashlist	*out;
+	t_dpplist	*out;
 
-	out = malloc(sizeof(t_hashlist));
+	out = malloc(sizeof(t_dpplist));
 	if (out == NULL)
 		return (NULL);
 	out->dsclist = make_dsclist(dsc);
 	if (out->dsclist == NULL)
 		return (free(out), NULL);
-	out->hash = hash;
+	out->dpp = dpp;
 	out->count = 1;
 	out->next = NULL;
 	return (out);
 }
 
-void	free_hashlist(t_hashlist *list)
+void	free_dpplist(t_dpplist *list)
 {
 	if (list == NULL)
 		return ;
 	if (list->next != NULL)
-		free_hashlist(list->next);
+		free_dpplist(list->next);
 	free_dsclist(&list->dsclist);
 	free(list);
 }
 
-void	free_hashlist_arr(t_hashlist **arr, size_t size)
+void	free_dpplist_arr(t_dpplist **arr, size_t size)
 {
 	t_uint	i;
 
 	i = 0;
 	while (i < size)
 	{
-		free_hashlist(arr[i]);
+		free_dpplist(arr[i]);
 		i++;
 	}
 	free(arr);
 }
 
-int	append_hashlist(t_hashlist **head, t_hash hash, t_dsc dsc)
+int	append_dpplist(t_dpplist **head, t_dpp dpp, t_dsc dsc)
 {
-	t_hashlist	*current;
+	t_dpplist	*current;
 
 	if (*head == NULL)
 	{
-		*head = make_hashlist(hash, dsc);
+		*head = make_dpplist(dpp, dsc);
 		if (*head == NULL)
 			return (1);
 		return (0);
@@ -66,20 +66,20 @@ int	append_hashlist(t_hashlist **head, t_hash hash, t_dsc dsc)
 	current = *head;
 	while (current->next != NULL)
 		current = current->next;
-	current->next = make_hashlist(hash, dsc);
+	current->next = make_dpplist(dpp, dsc);
 	if (current->next == NULL)
 		return (1);
 	return (0);
 }
 
-int	insert_hash(t_hashlist **head, t_hash hash, t_dsc dsc)
+int	insert_dpp(t_dpplist **head, t_dpp dpp, t_dsc dsc)
 {
-	t_hashlist	*current;
+	t_dpplist	*current;
 
 	current = *head;
 	while (current != NULL)
 	{
-		if (current->hash == hash)
+		if (current->dpp == dpp)
 		{
 			current->count += 1;
 			if (append_dsclist(&current->dsclist, dsc))
@@ -88,5 +88,5 @@ int	insert_hash(t_hashlist **head, t_hash hash, t_dsc dsc)
 		}
 		current = current->next;
 	}
-	return (append_hashlist(head, hash, dsc));
+	return (append_dpplist(head, dpp, dsc));
 }

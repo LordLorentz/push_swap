@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/03 20:04:07 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/10 13:22:08 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/11 13:27:01 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static inline t_proposal	sum_stack(
 		while (i < PANEL_SIZE)
 		{
 			tmp = g_inquisition[i](current, stack->count, size, mode);
+			// ft_printf("__--i: %u, val: %u, dpp: %p\n", i, current, tmp);
 			proposal.dpp[i] += tmp;
 			i++;
 		}
@@ -60,6 +61,7 @@ static inline t_proposal	sum_stack(
 	while (i < PANEL_SIZE)
 	{
 		tmp = g_inquisition[i](END_OF_STACK, stack->count, size, mode);
+		// ft_printf("__--i: %u, val: %u, dpp: %p\n", i, current, tmp);
 		proposal.dpp[i] += tmp;
 		i++;
 	}

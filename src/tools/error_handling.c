@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 13:33:29 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/09 13:17:46 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/10 22:46:17 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	print_proposal(t_proposal proposal, char *prefix)
 		ft_printf("|%u: %p-", i, proposal.dpp[i]);
 		i++;
 	}
-	ft_printf("\n%s|--dsc: %p\n", prefix, proposal.dsc);
+	ft_printf("\n%s|--parent: %u, dsc: %p\n", prefix, proposal.parent,
+			proposal.dsc);
 }
 
 // void	debug_stacks(t_stack *a, t_stack *b)

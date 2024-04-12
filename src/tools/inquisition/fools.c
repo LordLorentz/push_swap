@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/28 13:20:36 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/10 13:30:10 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/12 16:37:36 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,9 @@ t_dpp	chucklenuts(t_uint val, t_uint count, t_uint size, t_mode mode)
 	out = 0;
 	if (prev == END_OF_STACK && val != END_OF_STACK)
 		out = wrap(val, size);
-	else if (((prev + 1 != val ^ mode == B) && (prev - 1 != val ^ mode == A))
-			&& (((prev < val && dif(prev, val) < size / 2)
-			|| (prev > val && dif(prev, val) > size / 2))
-			^ (mode == B)))
+	else if ((dif(prev, val) != 1
+			&& (prev < val ^ mode == B))
+			|| (prev > val ^ mode == B))
 	{
 		out = wrap(dif(prev, val), size);
 		if (out != 0)
@@ -65,10 +64,7 @@ t_dpp	dingy(t_uint val, t_uint count, t_uint size, t_mode mode)
 	out = 0;
 	if (prev == END_OF_STACK && val != END_OF_STACK)
 		out = wrap(val, size);
-	else if (((prev + 1 != val ^ mode == B) && (prev - 1 != val ^ mode == A))
-			&& (((prev > val && dif(prev, val) < size / 2)
-			|| (prev < val && dif(prev, val) > size / 2))
-			^ (mode == B)))
+	else if (prev > val ^ mode == B)
 	{
 		out = wrap(dif(prev, val), size);
 		if (out != 0)

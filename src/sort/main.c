@@ -6,25 +6,11 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:15:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/08 17:50:15 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/12 13:06:21 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-// static inline void	test_scuttle(t_stack *a, t_stack *b)
-// {
-// 	const t_ulong	prev = 0xee;
-// 	const t_ulong	next = 0xe2;
-
-// 	print_stacks(a, b);
-// 	scuttle_dsc(a, b, 0, prev);
-// 	print_stacks(a, b);
-// 	scuttle_dsc(a, b, prev, next);
-// 	print_stacks(a, b);
-// 	scuttle_dsc(a, b, next, 0);
-// 	print_stacks(a, b);
-// }
 
 int	main(int argc, char **argv)
 {

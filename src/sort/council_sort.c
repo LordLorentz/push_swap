@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/12 14:02:57 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/10 13:25:55 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/12 12:49:38 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	inspect(t_branch **hedge, t_proposal panel[], t_dsc next, t_uint size)
 		proposal = inquisit(branch->a, branch->b, size);
 		proposal.dsc = branch->current;
 		proposal.parent = branch->location;
+		// print_proposal(proposal, "__-");
 		insert_proposal(panel, proposal);
 		i++;
 	}
@@ -72,6 +73,9 @@ int	administrate(
 		if (extend_hedge(hedge_root, hedge_graft, panel, size))
 			return (1);
 		ft_swap((void **)&hedge_root, (void **)&hedge_graft);
+		print_stacks(hedge_root[0]->a, hedge_root[0]->b);
+		print_stacks(hedge_root[1]->a, hedge_root[1]->b);
+		print_stacks(hedge_root[2]->a, hedge_root[2]->b);
 		discuss(hedge_root, panel, size);
 	}
 	if (print_dsclist(hedge_root[0]->dsclist) == -1)
@@ -92,6 +96,7 @@ int	convene(t_stack *a, t_stack *b, t_uint size)
 	hedge_graft = make_hedge(a, b, HEDGE_SIZE, size);
 	if (hedge_graft == NULL)
 		return (free_hedge(hedge_root, HEDGE_SIZE), 1);
+	init_panel(panel, PANEL_SIZE);
 	out = administrate(hedge_root, hedge_graft, panel, size);
 	free_hedge(hedge_root, HEDGE_SIZE);
 	free_hedge(hedge_graft, HEDGE_SIZE);

@@ -1,6 +1,7 @@
 
 NAME	= push_swap
 TITRATE	= titrate
+ELUCIDATE	= elucidate
 
 CFLAGS	= -Wall -Wextra -Werror -O3 -march=native -g
 CC		= cc
@@ -16,11 +17,15 @@ INCLUDE_DIRS = -I $(LIBFT_DIR)/include -I include
 
 HEADER = include/push_swap.h
 TITRATE_HEADER = include/titrate.h
+ELUCIDATE_HEADER = include/elucidate.h
 
 FILES := \
-	sort/inquisitors/fools.c \
+	elucidate/dpplist.c \
+	elucidate/elucidate.c \
+	elucidate/interpret_result.c \
+	elucidate/investigate.c \
+	elucidate/test_cycle.c \
 	sort/council_sort.c \
-	sort/inquisition.c \
 	sort/main.c \
 	sort/specialists.c \
 	titrate/control_dsc.c \
@@ -49,6 +54,8 @@ FILES := \
 	tools/instructions/rra.c \
 	tools/instructions/rrb.c \
 	tools/instructions/rrr.c \
+	tools/inquisition/fools.c \
+	tools/inquisition/inquisition.c \
 	tools/panel.c \
 	tools/read_stack.c \
 	tools/normalize_stack.c
@@ -58,6 +65,7 @@ OBJECTS := $(FILES:.c=.o)
 FILES := $(patsubst %.c, src/%.c, $(FILES))
 OBJECTS := $(patsubst %.o, build/%.o, $(OBJECTS))
 
+ELUCIDATE_OBJ := $(filter build/elucidate/%, $(OBJECTS))
 SORT_OBJ := $(filter build/sort/%, $(OBJECTS))
 TITRATE_OBJ := $(filter build/titrate/%, $(OBJECTS))
 TOOLS_OBJ := $(filter build/tools/%, $(OBJECTS))
@@ -75,13 +83,17 @@ $(NAME): $(LIBFT) build $(SORT_OBJ) $(TOOLS_OBJ) $(HEADER)
 $(TITRATE): $(LIBFT) build $(TITRATE_OBJ) $(TOOLS_OBJ) $(HEADER) $(TITRATE_HEADER)
 	$(CC) $(CFLAGS) $(TITRATE_OBJ) $(TOOLS_OBJ) $(LIBFT) $(LINKERS) -o $(TITRATE).out
 
+$(ELUCIDATE): $(LIBFT) build $(ELUCIDATE_OBJ) $(TOOLS_OBJ) $(HEADER) $(ELUCIDATE_HEADER)
+	$(CC) $(CFLAGS) $(ELUCIDATE_OBJ) $(TOOLS_OBJ) $(LIBFT) $(LINKERS) -o $(ELUCIDATE).out
+
 build:
 	mkdir build
+	mkdir build/elucidate
 	mkdir build/sort
-	mkdir build/sort/inquisitors
 	mkdir build/titrate
 	mkdir build/tools
 	mkdir build/tools/instructions
+	mkdir build/tools/inquisition
 
 build/%.o: src/%.c $(HEADER)
 	$(CC) -c $(INCLUDE_DIRS) $(CFLAGS) $(CPPFLAGS) $< -o $@
