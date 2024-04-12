@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/12 14:02:57 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/12 12:49:38 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/12 17:53:45 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	discuss(t_branch **hedge, t_proposal panel[], t_uint size)
 	inspect(hedge, panel, DSC_EMPTY, size);
 }
 
+//1 0 4 2 3 gives... Interesting output.
 int	administrate(
 		t_branch **hedge_root,
 		t_branch **hedge_graft,
@@ -70,9 +71,10 @@ int	administrate(
 	while (is_sorted(panel) == false)
 	{
 		ft_printf("Extending!\n");
-		if (extend_hedge(hedge_root, hedge_graft, panel, size))
+		if (extend_hedge(hedge_graft, hedge_root, panel, size))
 			return (1);
 		ft_swap((void **)&hedge_root, (void **)&hedge_graft);
+		//First outputs the original state of the stacks???? how?
 		print_stacks(hedge_root[0]->a, hedge_root[0]->b);
 		print_stacks(hedge_root[1]->a, hedge_root[1]->b);
 		print_stacks(hedge_root[2]->a, hedge_root[2]->b);
