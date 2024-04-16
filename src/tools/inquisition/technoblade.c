@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   eskarina.c                                         :+:    :+:            */
+/*   technoblade.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2024/03/28 13:20:36 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/16 15:01:56 by mmosk         ########   odam.nl         */
+/*   Created: 2024/04/16 15:01:03 by mmosk         #+#    #+#                 */
+/*   Updated: 2024/04/16 15:01:24 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_dpp	eskarina(t_uint val, t_uint count, t_uint size, t_mode mode)
+t_dpp	technoblade(t_uint val, t_uint count, t_uint size, t_mode mode)
 {
 	static t_uint	i = 0;
 	static t_uint	prev = END_OF_STACK;

@@ -6,13 +6,14 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/28 13:20:36 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/12 17:59:16 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/16 14:49:29 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 //Let's see if the Fools can beat Vorbis, the Exquisitor.
+//An even match, in the end.
 
 //Gotta add a->start increment.
 //The fools are foolish, whad'ya know.
@@ -40,7 +41,7 @@ t_dpp	chucklenuts(t_uint val, t_uint count, t_uint size, t_mode mode)
 			|| (prev > val ^ mode == B))
 	{
 		out = wrap(dif(prev, val), size);
-		if (out != 0)
+		if (prev > val)
 			out += wrap(i, count);
 	}
 	i++;
