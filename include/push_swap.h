@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/09 13:16:37 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/16 15:47:40 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,12 @@ typedef enum inum
 	_PB = 0xE,
 	END = 0xF
 }	t_inum;
+
+typedef struct s_item
+{
+	t_uint	prev : 24;
+	t_uint	next : 24;
+}	t_item;
 
 //Braid this chain (pain)
 typedef struct s_stack
