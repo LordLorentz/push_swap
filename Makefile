@@ -25,9 +25,7 @@ FILES := \
 	elucidate/interpret_result.c \
 	elucidate/investigate.c \
 	elucidate/test_cycle.c \
-	sort/council_sort.c \
 	sort/main.c \
-	sort/specialists.c \
 	titrate/control_dsc.c \
 	titrate/control_cycle.c \
 	titrate/hash_stacks.c \
@@ -35,28 +33,8 @@ FILES := \
 	titrate/interpret_result.c \
 	titrate/test_cycle.c \
 	titrate/titrate.c \
-	tools/discriminant.c \
-	tools/distillate.c \
-	tools/branch.c \
 	tools/curse_stack.c \
-	tools/dsclist.c \
-	tools/jumptable.c \
-	tools/print_discriminant.c \
 	tools/error_handling.c \
-	tools/instructions/sa.c \
-	tools/instructions/sb.c \
-	tools/instructions/ss.c \
-	tools/instructions/pa.c \
-	tools/instructions/pb.c \
-	tools/instructions/ra.c \
-	tools/instructions/rb.c \
-	tools/instructions/rr.c \
-	tools/instructions/rra.c \
-	tools/instructions/rrb.c \
-	tools/instructions/rrr.c \
-	tools/inquisition/fools.c \
-	tools/inquisition/inquisition.c \
-	tools/panel.c \
 	tools/read_stack.c \
 	tools/normalize_stack.c
 

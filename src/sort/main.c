@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:15:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/12 13:06:21 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/18 14:42:05 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ int	main(int argc, char **argv)
 {
 	const t_uint	size = argc - 1;
 	t_uint			*temp;
-	t_stack			*a;
-	t_stack			*b;
+	t_stack			*stack;
 	t_uint			out;
 
 	if (argc < 2)
@@ -27,11 +26,10 @@ int	main(int argc, char **argv)
 	temp = read_stack(argv + 1, size);
 	if (temp == NULL)
 		exit_wrapper();
-	a = curse_stack(temp, size);
-	b = create_stack(size, END_OF_STACK, END_OF_STACK, 0);
+	stack = curse_stack(temp, size);
 	free(temp);
-	out = convene(a, b, size);
-	free_stack(a);
-	free_stack(b);
+	out = 0;
+	print_stacks(stack);
+	free_stack(stack);
 	return (out);
 }

@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 13:33:29 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/10 22:46:17 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/18 14:36:54 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,14 @@
 static t_uint	print_val(char *format, t_stack *stack, t_uint current, int f)
 {
 	t_uint	next;
-	t_uint	circular_next;
 	int		val;
 
-	next = stack->val[current] & STACK_RIGHT;
-	circular_next = next;
-	if (next == END_OF_STACK)
-		circular_next = stack->start;
-	if ((current + f < circular_next) ^ (f == -1))
+	next = stack->val[current].next;
+	if ((current + f < next) ^ (f == -1))
 		val = write(1, "\x1b[32m", 5);
-	if ((current + f > circular_next) ^ (f == -1))
+	if ((current + f > next) ^ (f == -1))
 		val = write(1, "\x1b[31m", 5);
-	if ((current + f == circular_next))
+	if ((current + f == next) || next == END_OF_STACK)
 		val = write(1, "\x1b[0m", 5);
 	ft_printf(format, current);
 	val = write(1, "\x1b[0m", 5);
@@ -34,22 +30,22 @@ static t_uint	print_val(char *format, t_stack *stack, t_uint current, int f)
 	return (next);
 }
 
-void	print_stacks(t_stack *a, t_stack *b)
+void	print_stacks(t_stack *stack)
 {
-	unsigned int	current_a;
-	unsigned int	current_b;
+	t_uint	current_a;
+	t_uint	current_b;
 
-	current_a = a->start;
-	current_b = b->start;
+	current_a = stack->head[A];
+	current_b = stack->head[B];
 	ft_printf("////     A    --    B     \\\\\\\\\n");
 	while (current_a != END_OF_STACK || current_b != END_OF_STACK)
 	{
 		if (current_a != END_OF_STACK)
-			current_a = print_val("-_%8u    |", a, current_a, 1);
+			current_a = print_val("-_%8u    |", stack, current_a, 1);
 		else
 			ft_printf("-_%8c    |", '-');
 		if (current_b != END_OF_STACK)
-			current_b = print_val("|    %-8u_-\n", b, current_b, -1);
+			current_b = print_val("|    %-8u_-\n", stack, current_b, -1);
 		else
 			ft_printf("|    %-8c_-\n", '-');
 	}

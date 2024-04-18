@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/16 15:47:40 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/18 14:43:07 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include "ft_printf.h"
 # include "ft_math.h"
 
-# define END_OF_STACK 0xFFFFFFFFUL
+# define END_OF_STACK 0xFFFFFFUL
 # define STACK_RIGHT 0x00000000FFFFFFFFUL
 # define STACK_LEFT 0xFFFFFFFF00000000UL
 
@@ -98,15 +98,17 @@ typedef struct s_item
 {
 	t_uint	prev : 24;
 	t_uint	next : 24;
+	t_mode	container : 1;
 }	t_item;
 
 //Braid this chain (pain)
 typedef struct s_stack
 {
-	t_ulong	*val;
-	t_uint	start;
-	t_uint	end;
-	t_uint	count;
+	t_item	*val;
+
+	t_uint	head[2];
+	t_uint	tail[2];
+	t_uint	count[2];
 }	t_stack;
 
 typedef struct s_proposal
@@ -137,7 +139,7 @@ typedef struct s_stackstate
 	t_ulong	dpp;
 }	t_stackstate;
 
-typedef int				(*t_inst)(t_stack *, t_stack *);
+typedef int				(*t_inst)(t_stack *);
 
 typedef t_dpp			(*t_inquisitor)(t_uint, t_uint, t_uint, t_mode);
 
@@ -145,7 +147,7 @@ typedef t_dpp			(*t_inquisitor)(t_uint, t_uint, t_uint, t_mode);
 
 int				print_dsc(t_dsc dsc);
 int				print_horizontal(t_dsc dsc);
-void			print_stacks(t_stack *a, t_stack *b);
+void			print_stacks(t_stack *stack);
 void			print_proposal(t_proposal proposal, char *prefix);
 
 ////////////					Input handling						////////////
@@ -196,7 +198,7 @@ int				extend_hedge(t_branch **, t_branch **, t_proposal [], t_uint );
 
 ////////////					Stack manipulation					////////////
 
-t_stack			*create_stack(t_uint size, t_uint start, t_uint end, t_uint cn);
+t_stack			*create_stack(t_uint size);
 t_stack			*clone_stack(t_uint size, t_stack *stack);
 t_stack			*copy_stack(t_stack *dst, t_stack *src, t_uint size);
 t_stack			*curse_stack(t_uint *stack, t_uint size);
