@@ -6,27 +6,28 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/29 14:21:10 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/10 23:23:34 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/19 14:30:27 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	pb(t_stack *a, t_stack *b)
+int	pb(t_stack *stack)
 {
-	if (__builtin_expect(a->start == END_OF_STACK, 0))
+	if (stack->head[A] == END_OF_STACK)
 		return (1);
-	if (__builtin_expect(b->start != END_OF_STACK, 1))
-		b->val[b->start]
-			= (t_ulong)a->start << 32 | (b->val[b->start] & STACK_RIGHT);
+	if (stack->head[B] == END_OF_STACK)
+		stack->tail[B] = stack->head[A];
 	else
-		b->end = a->start;
-	b->val[a->start] = END_OF_STACK << 32 | (t_ulong)b->start;
-	b->start = a->start;
-	a->start = a->val[a->start] & STACK_RIGHT;
-	if (__builtin_expect(a->start != END_OF_STACK, 1))
-		a->val[a->start] |= END_OF_STACK << 32;
-	b->count++;
-	a->count--;
+		stack->val[stack->head[B]].prev = stack->head[A];
+	stack->val[stack->head[A]].prev = END_OF_STACK;
+	stack->val[stack->head[A]].next = stack->head[B];
+	stack->head[B] = stack->head[A];
+	stack->head[A] = stack->val[stack->head[A]].next;
+	if (stack->head[A] != END_OF_STACK)
+		stack->val[stack->head[A]].prev = END_OF_STACK;
+	stack->count[B]++;
+	stack->count[A]--;
+	stack->val[stack->head[B]].container = B;
 	return (0);
 }
