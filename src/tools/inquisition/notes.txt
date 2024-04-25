@@ -32,6 +32,8 @@ Technoblade:
 	Assertive, should try to prioritize short-term improvement,
 	while (somehow) not sacrificing long-term sustainability.
 	Similar to what I've been trying to build in the deprecated file.
+	Possible algorithm: neighbour-search.
+	Disapprove distance to neighbours.
 
 Eskarina:
 	Intelligent, should disapprove fractures in a complex manner.

@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 13:33:29 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/18 14:36:54 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/23 12:36:01 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,6 @@ void	print_proposal(t_proposal proposal, char *prefix)
 
 void	exit_wrapper(void)
 {
-	ft_printf("Error!\n");
+	write(2, "Error!\n", 8);
 	exit(1);
 }

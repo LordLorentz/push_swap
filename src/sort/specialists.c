@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/02 13:24:27 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/10 13:25:49 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/19 17:12:48 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,12 @@ int	extend_hedge(
 	while (i < PANEL_SIZE)
 	{
 		src_branch = panel[i].parent;
-		copy_stack(dst[i]->a, src[src_branch]->a, size);
-		copy_stack(dst[i]->b, src[src_branch]->b, size);
+		if (src_branch == ORPHAN)
+			src_branch = 0;
+		copy_stack(dst[i]->stack, src[src_branch]->stack, size);
 		if (overwrite_dsclist(&dst[i]->dsclist, src[src_branch]->dsclist))
 			return (ft_printf("OVERWRITE\n"), 1);
-		scuttle_dsc(dst[i]->a, dst[i]->b, DSC_EMPTY, panel[i].dsc);
+		scuttle_dsc(dst[i]->stack, DSC_EMPTY, panel[i].dsc);
 		if (append_dsclist(&dst[i]->dsclist, panel[i].dsc))
 			return (ft_printf("APPEND\n"), 1);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/18 14:43:07 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/25 13:08:25 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,7 @@ typedef struct s_branch
 	t_dsclist	*dsclist;
 	t_dsc		current;
 	t_uint		location;
-	t_stack		*a;
-	t_stack		*b;
+	t_stack		*stack;
 }	t_branch;
 
 typedef struct s_stackstate
@@ -141,14 +140,7 @@ typedef struct s_stackstate
 
 typedef int				(*t_inst)(t_stack *);
 
-typedef t_dpp			(*t_inquisitor)(t_uint, t_uint, t_uint, t_mode);
-
-////////////					Output functions					////////////
-
-int				print_dsc(t_dsc dsc);
-int				print_horizontal(t_dsc dsc);
-void			print_stacks(t_stack *stack);
-void			print_proposal(t_proposal proposal, char *prefix);
+typedef t_dpp			(*t_inquisitor)(t_stack *, t_uint);
 
 ////////////					Input handling						////////////
 
@@ -157,20 +149,21 @@ t_uint			*normalize_stack(int *stack, t_uint size);
 
 ////////////					Inquisition							////////////
 
-int				convene(t_stack *a, t_stack *b, t_uint size);
+int				convene(t_stack *stack, t_uint size);
 
-t_proposal		inquisit(t_stack *a, t_stack *b, t_uint size);
+t_proposal		inquisit(t_stack *stack, t_uint size);
 
-t_dpp			technoblade(t_uint val, t_uint count, t_uint size, t_mode mode);
-t_dpp			eskarina(t_uint val, t_uint count, t_uint size, t_mode mode);
-t_dpp			gossman(t_uint val, t_uint count, t_uint size, t_mode mode);
+t_dpp			technoblade(t_stack *stack, t_uint size);
+t_dpp			eskarina(t_stack *stack, t_uint size);
+t_dpp			gossman(t_stack *stack, t_uint size);
 
 ////////////					Discriminant functions				////////////
 
 t_dsc			mk_dsc(t_uint depth);
 t_dsc			distil(t_dsc dsc);
 t_dsc			iter_dsc(t_dsc discriminant);
-int				scuttle_dsc(t_stack *a, t_stack *b, t_dsc prev, t_dsc next);
+int				scuttle_dsc(t_stack *stack, t_dsc prev, t_dsc next);
+int				print_dsc(t_dsc dsc);
 
 ////////////					Discriminant lists					////////////
 
@@ -189,9 +182,9 @@ bool			is_sorted(t_proposal panel[]);
 
 ////////////					Hedge and branch					////////////
 
-t_branch		*make_branch(t_stack *a, t_stack *b, t_uint location, t_uint s);
+t_branch		*make_branch(t_stack *stack, t_uint location, t_uint s);
 void			free_branch(t_branch *branch);
-t_branch		**make_hedge(t_stack *a, t_stack *b, t_uint hedge_sz, t_uint s);
+t_branch		**make_hedge(t_stack *stack, t_uint hedge_sz, t_uint s);
 void			free_hedge(t_branch **hedge, t_uint hedge_size);
 int				extend_hedge(t_branch **, t_branch **, t_proposal [], t_uint );
 
@@ -206,17 +199,25 @@ void			free_stack(t_stack *stack);
 
 ////////////					Push_Swap instructions				////////////
 
-int				pa(t_stack *a, t_stack *b);
-int				pb(t_stack *a, t_stack *b);
-int				ra(t_stack *a, t_stack *b);
-int				rb(t_stack *a, t_stack *b);
-int				rr(t_stack *a, t_stack *b);
-int				rra(t_stack *a, t_stack *b);
-int				rrb(t_stack *a, t_stack *b);
-int				rrr(t_stack *a, t_stack *b);
-int				sa(t_stack *a, t_stack *b);
-int				sb(t_stack *a, t_stack *b);
-int				ss(t_stack *a, t_stack *b);
+int				pa(t_stack *stack);
+int				pb(t_stack *stack);
+int				ra(t_stack *stack);
+int				rb(t_stack *stack);
+int				rr(t_stack *stack);
+int				rra(t_stack *stack);
+int				rrb(t_stack *stack);
+int				rrr(t_stack *stack);
+int				sa(t_stack *stack);
+int				sb(t_stack *stack);
+int				ss(t_stack *stack);
+
+////////////					Debugging							////////////
+
+int				print_horizontal(t_dsc dsc);
+void			print_stacks(t_stack *stack);
+void			print_proposal(t_proposal proposal, char *prefix);
+int				print_cycle(t_stack *stack, t_dsc start);
+int				print_rifle(t_stack *stack, t_uint depth);
 
 ////////////					Error management					////////////
 

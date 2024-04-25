@@ -6,36 +6,77 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/16 15:01:03 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/16 15:01:24 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/25 13:11:15 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_dpp	technoblade(t_uint val, t_uint count, t_uint size, t_mode mode)
+//finds the amount of moves it takes to get query to the interface.
+t_dpp	interface(t_stack *stack, t_uint query)
 {
-	static t_uint	i = 0;
-	static t_uint	prev = END_OF_STACK;
-	t_dpp			out;
+	t_uint	count;
+	t_uint	current;
+	t_uint	i;
 
-	if (val == END_OF_STACK)
+	count = stack->count[stack->val[query].container];
+	current = stack->val[query].prev;
+	i = 0;
+	while (current != END_OF_STACK)
 	{
-		i = 0;
-		prev = val;
-		return (0);
+		current = stack->val[current].prev;
+		i++;
 	}
-	out = (mode == B);
-	if (prev == END_OF_STACK && val != END_OF_STACK)
-		out = wrap(val, size);
-	else if ((dif(prev, val) != 1
-			&& (prev < val ^ mode == B))
-			|| (prev > val ^ mode == B))
+	return (wrap(i, count));
+}
+
+t_dpp	concatenate(t_stack *stack, t_uint size, t_uint current, t_uint i, bool up)
+{
+	t_uint	count;
+	t_uint	query;
+	t_dpp	out;
+
+	count = stack->count[stack->val[current].container];
+	if (up == true)
+		query = (current + 1) % size;
+	else
+		query = (current - 1) % size;
+	out = 0;
+	out += interface(stack, query);
+	out += wrap(i, count);
+	return (out);
+}
+
+t_dpp	stack_loop(t_stack *stack, t_uint size, t_mode mode)
+{
+	t_uint	current;
+	t_dpp	out;
+	t_uint	i;
+
+	current = stack->head[mode];
+	out = 0;
+	i = 0;
+	while (current != END_OF_STACK)
 	{
-		out = wrap(dif(prev, val), size);
-		if (prev > val)
-			out += wrap(i, count);
+		if (dif(stack->val[current].next, current) != 1
+			&& (stack->val[current].next > current) ^ (mode == A))
+			out += concatenate(stack, size, current, i, (mode == A) ^ false);
+		if (dif(stack->val[current].prev, current) != 1
+			&& (stack->val[current].prev < current) ^ (mode == A))
+			out += concatenate(stack, size, current, i, (mode == A) ^ true);
+		current = stack->val[current].next;
+		i++;
 	}
-	i++;
-	prev = val;
+	return (out);
+}//needs more
+
+t_dpp	technoblade(t_stack *stack, t_uint size)
+{
+	t_dpp	out;
+
+	out = 0;
+	out += wrap(stack->head[A], size);
+	out += stack_loop(stack, size, A);
+	out += stack_loop(stack, size, B);
 	return (out);
 }

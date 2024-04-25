@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/03 20:04:07 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/11 13:27:01 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/19 17:01:56 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,60 +15,14 @@
 //Multi-step heuristics??!
 //Multi-cellular heuristics.
 
-// static const t_inquisitor	g_inquisition[]
-// 	= {
-// &technoblade,
-// &eskarina,
-// &gossman
-// };
-
-t_dpp	chucklenuts(t_uint val, t_uint count, t_uint size, t_mode mode);
-t_dpp	dingy(t_uint val, t_uint count, t_uint size, t_mode mode);
-t_dpp	carter(t_uint val, t_uint count, t_uint size, t_mode mode);
-
 static const t_inquisitor	g_inquisition[]
 	= {
-&chucklenuts,
-&dingy,
-&carter
+&technoblade,
+&eskarina,
+&gossman
 };
-//O(n) = 3n
 
-static inline t_proposal	sum_stack(
-		t_proposal proposal,
-		t_stack *stack,
-		t_uint size,
-		t_mode mode)
-{
-	t_uint	current;
-	t_uint	i;
-	t_dpp	tmp;
-
-	current = stack->start;
-	while (current != END_OF_STACK)
-	{
-		i = 0;
-		while (i < PANEL_SIZE)
-		{
-			tmp = g_inquisition[i](current, stack->count, size, mode);
-			// ft_printf("__--i: %u, val: %u, dpp: %p\n", i, current, tmp);
-			proposal.dpp[i] += tmp;
-			i++;
-		}
-		current = stack->val[current] & STACK_RIGHT;
-	}
-	i = 0;
-	while (i < PANEL_SIZE)
-	{
-		tmp = g_inquisition[i](END_OF_STACK, stack->count, size, mode);
-		// ft_printf("__--i: %u, val: %u, dpp: %p\n", i, current, tmp);
-		proposal.dpp[i] += tmp;
-		i++;
-	}
-	return (proposal);
-}
-
-t_proposal	inquisit(t_stack *a, t_stack *b, t_uint size)
+t_proposal	inquisit(t_stack *stack, t_uint size)
 {
 	t_proposal	out;
 	t_uint		i;
@@ -76,11 +30,9 @@ t_proposal	inquisit(t_stack *a, t_stack *b, t_uint size)
 	i = 0;
 	while (i < PANEL_SIZE)
 	{
-		out.dpp[i] = 0;
+		out.dpp[i] = g_inquisition[i](stack, size);
 		i++;
 	}
-	out = sum_stack(out, a, size, A);
-	out = sum_stack(out, b, size, B);
 	return (out);
 }
 

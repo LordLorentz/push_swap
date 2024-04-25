@@ -6,25 +6,25 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/29 14:21:10 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/25 22:21:29 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/19 16:21:55 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	sb(t_stack *a, t_stack *b)
+int	sb(t_stack *stack)
 {
 	t_uint	tmp;
 
-	(void)a;
-	if (__builtin_expect(b->start == END_OF_STACK || b->start == b->end
-			|| (b->val[b->start] & STACK_RIGHT) == b->end, 0))
+	if (stack->head[B] == END_OF_STACK || stack->head[B] == stack->tail[B]
+			|| stack->val[stack->head[B]].next == stack->tail[B])
 		return (1);
-	tmp = b->val[b->start] & STACK_RIGHT;
-	b->val[b->val[tmp] & STACK_RIGHT] = (t_ulong)b->start << 32
-		| (b->val[b->val[tmp] & STACK_RIGHT] & STACK_RIGHT);
-	b->val[b->start] = (t_ulong)tmp << 32 | (b->val[tmp] & STACK_RIGHT);
-	b->val[tmp] = END_OF_STACK << 32 | (t_ulong)b->start;
-	b->start = tmp;
+	tmp = stack->val[stack->head[B]].next;
+	stack->val[stack->val[tmp].next].prev = stack->head[B];
+	stack->val[stack->head[B]].prev = tmp;
+	stack->val[stack->head[B]].next = stack->val[tmp].next;
+	stack->val[tmp].prev = END_OF_STACK;
+	stack->val[tmp].next = stack->head[B];
+	stack->head[B] = tmp;
 	return (0);
 }

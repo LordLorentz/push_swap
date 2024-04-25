@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/12 14:02:57 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/15 15:05:02 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/19 16:55:02 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	inspect(t_branch **hedge, t_proposal panel[], t_dsc next, t_uint size)
 	while (i < PANEL_SIZE)
 	{
 		branch = hedge[i];
-		if (scuttle_dsc(branch->a, branch->b, branch->current, next))
+		if (scuttle_dsc(branch->stack, branch->current, next))
 		{
 			i++;
 			continue ;
 		}
 		else
 			branch->current = next;
-		proposal = inquisit(branch->a, branch->b, size);
+		proposal = inquisit(branch->stack, size);
 		proposal.dsc = branch->current;
 		proposal.parent = branch->location;
 		// print_proposal(proposal, "__-");
@@ -73,9 +73,9 @@ int	administrate(
 		if (extend_hedge(hedge_graft, hedge_root, panel, size))
 			return (1);
 		ft_swap((void **)&hedge_root, (void **)&hedge_graft);
-		print_stacks(hedge_root[0]->a, hedge_root[0]->b);
-		print_stacks(hedge_root[1]->a, hedge_root[1]->b);
-		print_stacks(hedge_root[2]->a, hedge_root[2]->b);
+		print_stacks(hedge_root[0]->stack);
+		print_stacks(hedge_root[1]->stack);
+		print_stacks(hedge_root[2]->stack);
 		discuss(hedge_root, panel, size);
 	}
 	if (print_dsclist(hedge_root[0]->dsclist) == -1)
@@ -83,17 +83,17 @@ int	administrate(
 	return (0);
 }
 
-int	convene(t_stack *a, t_stack *b, t_uint size)
+int	convene(t_stack *stack, t_uint size)
 {
 	t_branch	**hedge_root;
 	t_branch	**hedge_graft;
 	t_proposal	panel[PANEL_SIZE];
 	t_uint		out;
 
-	hedge_root = make_hedge(a, b, HEDGE_SIZE, size);
+	hedge_root = make_hedge(stack, HEDGE_SIZE, size);
 	if (hedge_root == NULL)
 		return (1);
-	hedge_graft = make_hedge(a, b, HEDGE_SIZE, size);
+	hedge_graft = make_hedge(stack, HEDGE_SIZE, size);
 	if (hedge_graft == NULL)
 		return (free_hedge(hedge_root, HEDGE_SIZE), 1);
 	init_panel(panel, PANEL_SIZE);
