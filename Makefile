@@ -43,6 +43,7 @@ FILES := \
 	tools/dsclist.c \
 	tools/jumptable.c \
 	tools/print_discriminant.c \
+	tools/print_stack.c \
 	tools/error_handling.c \
 	tools/instructions/sa.c \
 	tools/instructions/sb.c \

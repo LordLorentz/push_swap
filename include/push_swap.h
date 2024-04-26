@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/25 13:08:25 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/26 15:34:13 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@
 # include "ft_printf.h"
 # include "ft_math.h"
 
-# define END_OF_STACK 0xFFFFFFUL
-# define STACK_RIGHT 0x00000000FFFFFFFFUL
-# define STACK_LEFT 0xFFFFFFFF00000000UL
+# define END_OF_STACK 0x3FFFFFUL
 
 # define DSC_EMPTY 0x0000000000000000UL
 # define DSC_END 0xFFFFFFFFFFFFFFFFUL
@@ -94,11 +92,14 @@ typedef enum inum
 	END = 0xF
 }	t_inum;
 
+//The "user" field should be considered uninitialized for any implementation.
+//Use may differ per implementation.
 typedef struct s_item
 {
-	t_uint	prev : 24;
-	t_uint	next : 24;
+	t_uint	prev : 22;
+	t_uint	next : 22;
 	t_mode	container : 1;
+	t_uint	user : 22;
 }	t_item;
 
 //Braid this chain (pain)

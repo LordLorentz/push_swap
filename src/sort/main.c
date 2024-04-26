@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:15:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/25 13:10:07 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/04/26 15:44:37 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 	stack = curse_stack(temp, size);
 	free(temp);
 	out = 0;
-	convene(stack, size);
+	print_stacks(stack);
 	free_stack(stack);
 	return (out);
 }
