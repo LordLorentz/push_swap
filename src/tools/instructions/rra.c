@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/31 12:27:54 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/19 14:26:06 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/03 15:02:56 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,9 @@
 
 int	rra(t_stack *stack)
 {
-	t_uint	tmp;
-
-	if (stack->head[A] == END_OF_STACK || stack->head[A] == stack->tail[A])
+	if (stack->count[A] < 2)
 		return (1);
-	tmp = stack->val[stack->tail[A]].prev;
-	stack->val[stack->head[A]].prev = stack->tail[A];
-	stack->val[stack->tail[A]].prev = END_OF_STACK;
-	stack->val[stack->tail[A]].next = stack->head[A];
 	stack->head[A] = stack->tail[A];
-	stack->tail[A] = tmp;
-	stack->val[stack->tail[A]].next = END_OF_STACK;
+	stack->tail[A] = stack->val[stack->tail[A]].prev;
 	return (0);
 }

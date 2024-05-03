@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 15:01:46 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/26 15:44:54 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/03 15:02:17 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_stack	*curse_stack(t_uint *stack, t_uint size)
 	i = 0;
 	while (i < size)
 	{
-		out->val[stack[i]].prev = stack[(i - 1) % size];
+		out->val[stack[i]].prev = stack[(i + size - 1) % size];
 		out->val[stack[i]].next = stack[(i + 1) % size];
 		out->val[stack[i]].container = A;
 		i++;

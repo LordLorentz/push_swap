@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:15:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/26 15:44:37 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/03 15:07:47 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,15 @@ int	main(int argc, char **argv)
 	free(temp);
 	out = 0;
 	print_stacks(stack);
+	scuttle_dsc(stack, DSC_EMPTY, 0xE);
+	print_stacks(stack);
+	scuttle_dsc(stack, 0xE, DSC_EMPTY);
+	print_stacks(stack);
+	scuttle_dsc(stack, DSC_EMPTY, 0xA2);
+	print_stacks(stack);
+	scuttle_dsc(stack, 0xA2, DSC_EMPTY);
+	print_stacks(stack);
+	// print_rifle(stack, 2);
 	free_stack(stack);
 	return (out);
 }
