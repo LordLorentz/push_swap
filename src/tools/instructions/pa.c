@@ -6,13 +6,12 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/29 14:21:10 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/03 15:08:20 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/03 17:18:18 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//tail gets mangled??
 int	pa(t_stack *stack)
 {
 	t_uint	tmp;
@@ -26,6 +25,7 @@ int	pa(t_stack *stack)
 	tmp = stack->val[stack->head[B]].next;
 	stack->val[stack->head[B]].prev = stack->tail[A];
 	stack->val[stack->head[B]].next = stack->head[A];
+	stack->val[stack->tail[A]].next = stack->head[B];
 	stack->head[A] = stack->head[B];
 	stack->head[B] = tmp;
 	if (stack->count[B] > 1)

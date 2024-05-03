@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/22 17:56:37 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/03 14:23:56 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/03 17:26:14 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,21 @@ int	print_cycle(t_stack *stack, t_dsc start)
 	t_dsc	prev_dsc;
 
 	while (scuttle_dsc(stack, DSC_EMPTY, start))
+	{
+		ft_printf("__--dsc: %p\n", start);
 		start = iter_dsc(start);
-	print_stacks(stack);
-	print_horizontal(start);
-	ft_printf("\n");
+	}
+	ft_printf("--dsc: %p\n", start);
 	prev_dsc = start;
 	current_dsc = iter_dsc(prev_dsc);
 	while (__builtin_expect(current_dsc != DSC_END, 1))
 	{
 		while (scuttle_dsc(stack, prev_dsc, current_dsc))
+		{
+			ft_printf("__--dsc: %p\n", current_dsc);
 			current_dsc = iter_dsc(current_dsc);
-		print_stacks(stack);
-		print_horizontal(current_dsc);
-		ft_printf("\n");
+		}
+		ft_printf("--dsc: %p\n", current_dsc);
 		prev_dsc = current_dsc;
 		current_dsc = iter_dsc(prev_dsc);
 	}

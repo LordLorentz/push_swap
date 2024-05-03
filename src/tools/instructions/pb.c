@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/29 14:21:10 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/03 15:04:58 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/03 17:18:36 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	pb(t_stack *stack)
 	tmp = stack->val[stack->head[A]].next;
 	stack->val[stack->head[A]].prev = stack->tail[B];
 	stack->val[stack->head[A]].next = stack->head[B];
+	stack->val[stack->tail[B]].next = stack->head[A];
 	stack->head[B] = stack->head[A];
 	stack->head[A] = tmp;
 	if (stack->count[A] > 1)
