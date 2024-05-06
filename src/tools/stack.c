@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/19 13:57:31 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/19 14:00:23 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/06 14:40:23 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,12 @@ t_stack	*create_stack(t_uint size)
 	out->val = malloc(size * sizeof(t_item));
 	if (out->val == NULL)
 		return (free(out), NULL);
+	out->size = size;
 	return (out);
 }
 
-t_stack	*clone_stack(t_uint size, t_stack *src)
-{
-	t_stack	*out;
-
-	out = create_stack(size);
-	if (out == NULL)
-		return (NULL);
-	out->head[A] = src->head[A];
-	out->tail[A] = src->tail[A];
-	out->count[A] = src->count[A];
-	out->head[B] = src->head[B];
-	out->tail[B] = src->tail[B];
-	out->count[B] = src->count[B];
-	ft_memcpy(out->val, src->val, size * sizeof(t_item));
-	return (out);
-}
-
-t_stack	*copy_stack(t_stack *dst, t_stack *src, t_uint size)
+//size is assumed to be equal.
+t_stack	*copy_stack(t_stack *dst, t_stack *src)
 {
 	dst->head[A] = src->head[A];
 	dst->tail[A] = src->tail[A];
@@ -50,8 +35,19 @@ t_stack	*copy_stack(t_stack *dst, t_stack *src, t_uint size)
 	dst->head[B] = src->head[B];
 	dst->tail[B] = src->tail[B];
 	dst->count[B] = src->count[B];
-	ft_memcpy(dst->val, src->val, size * sizeof(t_item));
+	ft_memcpy(dst->val, src->val, src->size * sizeof(t_item));
 	return (dst);
+}
+
+t_stack	*clone_stack(t_stack *src)
+{
+	t_stack	*out;
+
+	out = create_stack(src->size);
+	if (out == NULL)
+		return (NULL);
+	copy_stack(out, src);
+	return (out);
 }
 
 void	free_stack(t_stack *stack)

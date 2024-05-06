@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/03 20:04:07 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/19 17:01:56 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/06 15:12:07 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static const t_inquisitor	g_inquisition[]
 &gossman
 };
 
-t_proposal	inquisit(t_stack *stack, t_uint size)
+t_proposal	inquisit(t_stack *stack)
 {
 	t_proposal	out;
 	t_uint		i;
@@ -30,7 +30,7 @@ t_proposal	inquisit(t_stack *stack, t_uint size)
 	i = 0;
 	while (i < PANEL_SIZE)
 	{
-		out.dpp[i] = g_inquisition[i](stack, size);
+		out.dpp[i] = g_inquisition[i](stack);
 		i++;
 	}
 	return (out);

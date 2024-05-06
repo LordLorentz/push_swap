@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/02 13:24:27 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/19 17:12:48 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/06 14:42:37 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,7 @@ void	insert_proposal(t_proposal panel[], t_proposal proposal)
 	}
 }
 
-int	extend_hedge(
-		t_branch **dst,
-		t_branch **src,
-		t_proposal panel[],
-		t_uint size)
+int	extend_hedge(t_branch **dst, t_branch **src, t_proposal panel[])
 {
 	t_uint	i;
 	t_uint	src_branch;
@@ -61,7 +57,7 @@ int	extend_hedge(
 		src_branch = panel[i].parent;
 		if (src_branch == ORPHAN)
 			src_branch = 0;
-		copy_stack(dst[i]->stack, src[src_branch]->stack, size);
+		copy_stack(dst[i]->stack, src[src_branch]->stack);
 		if (overwrite_dsclist(&dst[i]->dsclist, src[src_branch]->dsclist))
 			return (ft_printf("OVERWRITE\n"), 1);
 		scuttle_dsc(dst[i]->stack, DSC_EMPTY, panel[i].dsc);

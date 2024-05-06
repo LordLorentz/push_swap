@@ -6,20 +6,20 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/14 13:05:51 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/19 16:52:36 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/06 15:13:50 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_branch	*make_branch(t_stack *stack, t_uint location, t_uint size)
+t_branch	*make_branch(t_stack *stack, t_uint location)
 {
 	t_branch	*out;
 
 	out = malloc(sizeof(t_branch));
 	if (out == NULL)
 		return (NULL);
-	out->stack = clone_stack(size, stack);
+	out->stack = clone_stack(stack);
 	if (out->stack == NULL)
 		return (free(out), NULL);
 	out->dsclist = NULL;
@@ -36,7 +36,7 @@ void	free_branch(t_branch *branch)
 	free(branch);
 }
 
-t_branch	**make_hedge(t_stack *stack, t_uint hedge_size, t_uint size)
+t_branch	**make_hedge(t_stack *stack, t_uint hedge_size)
 {
 	t_branch	**hedge;
 	t_uint		i;
@@ -47,7 +47,7 @@ t_branch	**make_hedge(t_stack *stack, t_uint hedge_size, t_uint size)
 	i = 0;
 	while (i < hedge_size)
 	{
-		hedge[i] = make_branch(stack, i, size);
+		hedge[i] = make_branch(stack, i);
 		if (hedge[i] == NULL)
 			return (free_hedge(hedge, i), NULL);
 		i++;

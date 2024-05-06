@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/06 13:02:01 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/06 15:13:27 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ typedef struct s_stack
 	t_uint	head[2];
 	t_uint	tail[2];
 	t_uint	count[2];
+	t_uint	size;
 }	t_stack;
 
 typedef struct s_proposal
@@ -141,7 +142,7 @@ typedef struct s_stackstate
 
 typedef int				(*t_inst)(t_stack *);
 
-typedef t_dpp			(*t_inquisitor)(t_stack *, t_uint);
+typedef t_dpp			(*t_inquisitor)(t_stack *);
 
 ////////////					Input handling						////////////
 
@@ -150,15 +151,15 @@ t_uint			*normalize_stack(int *stack, t_uint size);
 
 ////////////					Inquisition							////////////
 
-int				convene(t_stack *stack, t_uint size);
+int				convene(t_stack *stack);
 
-t_proposal		inquisit(t_stack *stack, t_uint size);
+t_proposal		inquisit(t_stack *stack);
 
-t_dpp			technoblade(t_stack *stack, t_uint size);
-void			index(t_stack *stack, t_mode mode);
+t_dpp			technoblade(t_stack *stack);
+void			index_stack(t_stack *stack, t_mode mode);
 
-t_dpp			eskarina(t_stack *stack, t_uint size);
-t_dpp			gossman(t_stack *stack, t_uint size);
+t_dpp			eskarina(t_stack *stack);
+t_dpp			gossman(t_stack *stack);
 
 ////////////					Discriminant functions				////////////
 
@@ -185,18 +186,18 @@ bool			is_sorted(t_proposal panel[]);
 
 ////////////					Hedge and branch					////////////
 
-t_branch		*make_branch(t_stack *stack, t_uint location, t_uint s);
+t_branch		*make_branch(t_stack *stack, t_uint location);
 void			free_branch(t_branch *branch);
-t_branch		**make_hedge(t_stack *stack, t_uint hedge_sz, t_uint s);
+t_branch		**make_hedge(t_stack *stack, t_uint hedge_size);
 void			free_hedge(t_branch **hedge, t_uint hedge_size);
-int				extend_hedge(t_branch **, t_branch **, t_proposal [], t_uint );
+int				extend_hedge(t_branch **dst, t_branch **src, t_proposal p[]);
 
 
 ////////////					Stack manipulation					////////////
 
 t_stack			*create_stack(t_uint size);
-t_stack			*clone_stack(t_uint size, t_stack *stack);
-t_stack			*copy_stack(t_stack *dst, t_stack *src, t_uint size);
+t_stack			*clone_stack(t_stack *stack);
+t_stack			*copy_stack(t_stack *dst, t_stack *src);
 t_stack			*curse_stack(t_uint *stack, t_uint size);
 void			free_stack(t_stack *stack);
 

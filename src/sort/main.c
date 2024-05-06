@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:15:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/03 17:19:53 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/06 15:14:43 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,7 @@ int	main(int argc, char **argv)
 		exit_wrapper();
 	stack = curse_stack(temp, size);
 	free(temp);
-	out = 0;
-	// printf("head next %d\n head prev %d\n tail next %d\n tail prev %d\n",
-	// 	stack->val[stack->head[A]].next,
-	// 	stack->val[stack->head[A]].prev,
-	// 	stack->val[stack->tail[A]].next,
-	// 	stack->val[stack->tail[A]].prev);
-	// print_stacks(stack);
-	// scuttle_dsc(stack, DSC_EMPTY, 0xEE1);
-	// print_stacks(stack);
-	// printf("head next %d\n head prev %d\n tail next %d\n tail prev %d\n",
-	// 	stack->val[stack->head[A]].next,
-	// 	stack->val[stack->head[A]].prev,
-	// 	stack->val[stack->tail[A]].next,
-	// 	stack->val[stack->tail[A]].prev);
-	// // scuttle_dsc(stack, 0xEE1, DSC_EMPTY);
-	// // print_stacks(stack);
-	// scuttle_dsc(stack, DSC_EMPTY, 0xA);
-	// print_stacks(stack);
-	// // scuttle_dsc(stack, 0xA2, DSC_EMPTY);
-	// // print_stacks(stack);
-	print_rifle(stack, 8);
+	out = convene(stack);
 	free_stack(stack);
 	return (out);
 }
