@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/26 15:34:13 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/06 13:02:01 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ typedef struct s_item
 	t_uint	user : 22;
 }	t_item;
 
-//Braid this chain (pain)
+//Add size?
 typedef struct s_stack
 {
 	t_item	*val;
@@ -155,6 +155,8 @@ int				convene(t_stack *stack, t_uint size);
 t_proposal		inquisit(t_stack *stack, t_uint size);
 
 t_dpp			technoblade(t_stack *stack, t_uint size);
+void			index(t_stack *stack, t_mode mode);
+
 t_dpp			eskarina(t_stack *stack, t_uint size);
 t_dpp			gossman(t_stack *stack, t_uint size);
 

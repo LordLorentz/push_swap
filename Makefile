@@ -56,6 +56,7 @@ FILES := \
 	tools/instructions/rra.c \
 	tools/instructions/rrb.c \
 	tools/instructions/rrr.c \
+	tools/inquisition/anarchism.c \
 	tools/inquisition/technoblade.c \
 	tools/inquisition/eskarina.c \
 	tools/inquisition/gossman.c \
