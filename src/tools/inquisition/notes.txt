@@ -41,6 +41,8 @@ Eskarina:
 	May well be interesting.
 	Ideally, something that can swap or braid entire sublists at a time,
 	while still being capable of sorting fully random lists.
+	Iterate down the isle, distance of next island/item? to its position
+	within the current island
 
 Gossman:
 	Timid, should run away from perceived "obstacles"

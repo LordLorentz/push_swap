@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/12 14:02:57 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/06 14:46:15 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/07 13:29:36 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,10 @@ int	administrate(
 	discuss(hedge_root, panel);
 	while (is_sorted(panel) == false)
 	{
-		ft_printf("Extending!\n");
 		if (extend_hedge(hedge_graft, hedge_root, panel))
 			return (1);
 		ft_swap((void **)&hedge_root, (void **)&hedge_graft);
 		print_stacks(hedge_root[0]->stack);
-		print_stacks(hedge_root[1]->stack);
-		print_stacks(hedge_root[2]->stack);
 		discuss(hedge_root, panel);
 	}
 	if (print_dsclist(hedge_root[0]->dsclist) == -1)
