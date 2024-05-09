@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/07 13:38:07 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/09 13:54:33 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,6 @@
 # define EMPTY_DISAPPROVAL 0xFFFFFFFFFFFFFFFFUL
 # define SORTED_DISAPPROVAL 0x0UL
 
-# define GAP_ALLOTMENT 0x02
-# define GAP_INCREMENT 0x08
-
-# define BREAK_ALLOTMENT 0x03
-# define BREAK_INCREMENT 0x010
-
-# define INTERFACE_INCREMENT 0x08
-# define INTERFACE_DISGRACE 4
-# define INTERFACE_GRACE 2
-
-// # define REACH_ANGLE -1
-//Inverse reach angle?
-
-# define MAX_OUTREACH_COST 0x600
-# define BASE_REACH_COST 0xC00
-
-# define B_DISAPPROVAL 0x200
-
 # define PANEL_SIZE 3
 # define HEDGE_SIZE 3
 
@@ -63,11 +45,11 @@ typedef unsigned long	t_ulong;
 typedef t_ulong			t_dsc;
 typedef t_ulong			t_dpp;
 
-typedef enum dir
+typedef enum state
 {
-	DOWN = 0,
-	UP = 1
-}	t_dir;
+	DOWN = 1,
+	UP = 2
+}	t_state;
 
 typedef enum mode
 {
@@ -102,7 +84,6 @@ typedef struct s_item
 	t_uint	user : 22;
 }	t_item;
 
-//Add size?
 typedef struct s_stack
 {
 	t_item	*val;
@@ -157,6 +138,8 @@ t_proposal		inquisit(t_stack *stack);
 
 t_dpp			technoblade(t_stack *stack);
 void			index_stack(t_stack *stack, t_mode mode);
+t_dpp			interface(t_stack *stack, t_uint query);
+t_uint			neighbour(t_stack *stack, t_uint query, t_state dir, t_mode m);
 
 t_dpp			eskarina(t_stack *stack);
 t_dpp			gossman(t_stack *stack);

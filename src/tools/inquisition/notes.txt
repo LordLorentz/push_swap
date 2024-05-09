@@ -54,4 +54,5 @@ Cell function specifications:
 --Will be given END_OF_STACK once the end of the stack is reached.
 --Returns an unsigned long (t_dpp) value that represents sorting cost per entry.
 --__Should always sum 0 when the stack is perfectly sorted.
+//bad idea, didn't work
 
