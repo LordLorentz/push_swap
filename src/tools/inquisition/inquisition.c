@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/02/03 20:04:07 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/06 15:12:07 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/14 13:02:50 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,9 @@
 
 //Multi-step heuristics??!
 //Multi-cellular heuristics.
+//Both.
 
-static const t_inquisitor	g_inquisition[]
-	= {
-&technoblade,
-&eskarina,
-&gossman
-};
-
-t_proposal	inquisit(t_stack *stack)
+t_proposal	inquisit(t_stack *stack, t_lense lense)
 {
 	t_proposal	out;
 	t_uint		i;
@@ -30,7 +24,7 @@ t_proposal	inquisit(t_stack *stack)
 	i = 0;
 	while (i < PANEL_SIZE)
 	{
-		out.dpp[i] = g_inquisition[i](stack);
+		out.dpp[i] = technoblade(stack, lense.bias[i], lense.focus[i]);
 		i++;
 	}
 	return (out);

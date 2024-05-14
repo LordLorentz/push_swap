@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/09 13:54:33 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/14 14:03:25 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define DSC_BODY 0xFFFFFFFFFFFFFFF0UL
 # define DSC_SIZE 4
 
-# define MAX_DEPTH 6
+# define MAX_DEPTH 4
 
 # define EMPTY_DISAPPROVAL 0xFFFFFFFFFFFFFFFFUL
 # define SORTED_DISAPPROVAL 0x0UL
@@ -101,6 +101,12 @@ typedef struct s_proposal
 	t_uint	parent;
 }	t_proposal;
 
+typedef struct s_lense
+{
+	t_uint	bias[PANEL_SIZE];
+	t_uint	focus[PANEL_SIZE];
+}	t_lense;
+
 typedef struct s_dsclist
 {
 	struct s_dsclist	*next;
@@ -134,15 +140,12 @@ t_uint			*normalize_stack(int *stack, t_uint size);
 
 int				convene(t_stack *stack);
 
-t_proposal		inquisit(t_stack *stack);
+t_proposal		inquisit(t_stack *stack, t_lense lense);
 
-t_dpp			technoblade(t_stack *stack);
+t_dpp			technoblade(t_stack *stack, t_uint bias, t_uint focus);
 void			index_stack(t_stack *stack, t_mode mode);
 t_dpp			interface(t_stack *stack, t_uint query);
 t_uint			neighbour(t_stack *stack, t_uint query, t_state dir, t_mode m);
-
-t_dpp			eskarina(t_stack *stack);
-t_dpp			gossman(t_stack *stack);
 
 ////////////					Discriminant functions				////////////
 
@@ -159,6 +162,12 @@ void			free_dsclist(t_dsclist **head);
 int				append_dsclist(t_dsclist **head, t_dsc dsc);
 int				overwrite_dsclist(t_dsclist **dst, t_dsclist *src);
 int				print_dsclist(t_dsclist *list);
+
+////////////					Lensing								////////////
+
+t_lense			make_lense(t_uint size);
+int				align_lense(t_lense lense[], t_proposal panel[]);
+
 
 ////////////					Panel and proposal					////////////
 

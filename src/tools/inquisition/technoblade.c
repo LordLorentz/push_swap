@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/16 15:01:03 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/09 22:28:47 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/14 13:00:11 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 t_dpp	trace(t_stack *stack, t_uint target, t_uint agent, t_mode mode)
 {
 	t_dpp			out;
-	const t_uint	count =stack->count[mode];
+	const t_uint	count = stack->count[mode];
 	const t_uint	target_offset = stack->val[target].user;
 	const t_uint	agent_offset = stack->val[agent].user;
 
@@ -49,7 +49,7 @@ t_dpp	disapprove(t_stack *stack, t_uint query, t_state state, t_mode mode)
 	return (out);
 }
 
-t_dpp	stack_loop(t_stack *stack)
+t_dpp	stack_loop(t_stack *stack, t_uint bias, t_uint focus)
 {
 	t_dpp	out;
 	t_uint	i;
@@ -57,7 +57,7 @@ t_dpp	stack_loop(t_stack *stack)
 	t_mode	mode;
 
 	out = 0;
-	i = 0;
+	i = bias;
 	while (i < stack->size)
 	{
 		state = 0;
@@ -67,19 +67,19 @@ t_dpp	stack_loop(t_stack *stack)
 		if (stack->val[i].next != neighbour(stack, i, UP, mode))
 			state |= UP;
 		out += disapprove(stack, i, state, mode);
-		i += 2;
+		i += focus;
 	}
 	return (out);
 }
 
-t_dpp	technoblade(t_stack *stack)
+t_dpp	technoblade(t_stack *stack, t_uint bias, t_uint focus)
 {
 	t_dpp	out;
 
 	index_stack(stack, A);
 	index_stack(stack, B);
 	out = 0;
-	out += stack_loop(stack);
+	out += stack_loop(stack, bias, focus);
 	out <<= 2;
 	out += wrap(stack->head[A], stack->size);
 	out += stack->count[B];

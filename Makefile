@@ -42,6 +42,7 @@ FILES := \
 	tools/stack.c \
 	tools/dsclist.c \
 	tools/jumptable.c \
+	tools/lense.c \
 	tools/print_discriminant.c \
 	tools/print_stack.c \
 	tools/error_handling.c \
@@ -58,8 +59,6 @@ FILES := \
 	tools/instructions/rrr.c \
 	tools/inquisition/anarchism.c \
 	tools/inquisition/technoblade.c \
-	tools/inquisition/eskarina.c \
-	tools/inquisition/gossman.c \
 	tools/inquisition/inquisition.c \
 	tools/panel.c \
 	tools/read_stack.c \

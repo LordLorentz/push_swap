@@ -6,3 +6,4 @@ push_swap_tester
 checker
 *.log
 *.out
+test.txt
