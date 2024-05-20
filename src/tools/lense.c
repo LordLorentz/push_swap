@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/14 13:05:23 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/14 13:58:35 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/20 13:55:06 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	align_lense(t_lense lense[], t_proposal panel[])
 		if (panel[i].dsc == DSC_EMPTY)
 		{
 			align_target(lense, i);
-			ft_printf("Aligned %u\n", i);
 			out++;
 		}
 		i++;

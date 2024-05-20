@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/14 14:03:25 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/20 13:46:57 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define DSC_BODY 0xFFFFFFFFFFFFFFF0UL
 # define DSC_SIZE 4
 
-# define MAX_DEPTH 4
+# define MAX_DEPTH 6
 
 # define EMPTY_DISAPPROVAL 0xFFFFFFFFFFFFFFFFUL
 # define SORTED_DISAPPROVAL 0x0UL

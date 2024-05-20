@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/02 13:24:27 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/06 14:42:37 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/20 13:54:39 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,6 @@ bool	is_sorted(t_proposal panel[])
 {
 	t_uint i;
 
-	i = 0;
-	while (i < PANEL_SIZE)
-	{
-		print_proposal(panel[i], "");
-		i++;
-	}
 	i = 0;
 	while (i < PANEL_SIZE)
 	{

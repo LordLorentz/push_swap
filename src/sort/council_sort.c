@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/12 14:02:57 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/14 14:10:06 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/20 13:54:53 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	inspect(t_branch **hedge, t_proposal panel[], t_dsc next, t_lense lense)
 		proposal = inquisit(branch->stack, lense);
 		proposal.dsc = branch->current;
 		proposal.parent = branch->location;
-		// print_proposal(proposal, "__-");
 		insert_proposal(panel, proposal);
 		i++;
 	}
@@ -75,7 +74,6 @@ int	administrate(
 		if (extend_hedge(hedge_graft, hedge_root, panel))
 			return (1);
 		ft_swap((void **)&hedge_root, (void **)&hedge_graft);
-		print_stacks(hedge_root[0]->stack);
 		discuss(hedge_root, panel, lense);
 		if (align_lense(&lense, panel))
 			discuss(hedge_root, panel, lense);
@@ -83,7 +81,6 @@ int	administrate(
 	}
 	if (print_dsclist(hedge_root[0]->dsclist) == -1)
 		return (1);
-	ft_printf("Cycles: %u\n", i);
 	return (0);
 }
 

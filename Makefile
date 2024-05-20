@@ -27,6 +27,7 @@ FILES := \
 	elucidate/test_cycle.c \
 	sort/council_sort.c \
 	sort/main.c \
+	sort/radix.c \
 	sort/specialists.c \
 	titrate/control_dsc.c \
 	titrate/control_cycle.c \
