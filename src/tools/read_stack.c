@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 13:15:58 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/11 18:12:22 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/21 12:30:50 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static inline int	str_isnum(char *str)
 {
+	long	in;
+
 	if (*str == '-')
 		str++;
 	while (*str)
@@ -22,6 +24,9 @@ static inline int	str_isnum(char *str)
 			return (0);
 		str++;
 	}
+	in = ft_atol(str);
+	if (in < INT_MIN || in > INT_MAX)
+		return (0);
 	return (1);
 }
 

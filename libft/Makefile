@@ -10,6 +10,7 @@ FILES := \
 	libc/ft_abs.c \
 	libc/ft_atod.c \
 	libc/ft_atoi.c \
+	libc/ft_atol.c \
 	libc/ft_bzero.c \
 	libc/ft_calloc.c \
 	libc/ft_dtoa.c \
