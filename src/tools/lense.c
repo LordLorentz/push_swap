@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/14 13:05:23 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/20 13:55:06 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/22 11:35:13 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_lense	make_lense(t_uint size)
 {
-	t_lense out;
+	t_lense	out;
 	t_uint	i;
 
 	(void)size;

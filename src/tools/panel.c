@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/13 19:33:29 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/08 17:43:33 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/22 11:34:08 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_proposal	init_proposal(t_uint panel_size)
 {
 	t_proposal	out;
-	t_uint i;
+	t_uint		i;
 
 	out.dsc = DSC_EMPTY;
 	out.parent = ORPHAN;

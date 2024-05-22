@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/03 18:57:46 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/21 12:28:21 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/22 11:32:31 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 long	ft_atol(const char *nptr)
 {
 	int		i;
-	long		sign;
+	long	sign;
 	long	num;
 
 	i = 0;

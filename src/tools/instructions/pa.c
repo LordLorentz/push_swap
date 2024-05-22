@@ -6,11 +6,17 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/29 14:21:10 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/03 17:18:18 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/22 11:36:53 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static inline void	empty_stack(t_stack *stack, t_mode mode)
+{
+	stack->head[mode] = END_OF_STACK;
+	stack->tail[mode] = END_OF_STACK;
+}
 
 int	pa(t_stack *stack)
 {
@@ -34,10 +40,7 @@ int	pa(t_stack *stack)
 		stack->val[stack->tail[B]].next = stack->head[B];
 	}
 	else
-	{
-		stack->head[B] = END_OF_STACK;
-		stack->tail[B] = END_OF_STACK;
-	}
+		empty_stack(stack, B);
 	stack->count[A]++;
 	stack->count[B]--;
 	stack->val[stack->head[A]].container = A;

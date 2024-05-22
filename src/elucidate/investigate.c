@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/12 15:24:56 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/12 16:36:02 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/22 11:40:12 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ static inline t_dpp	sum_stack(
 	while (current != END_OF_STACK)
 	{
 		tmp = chucklenuts(current, stack->count, size, mode);
-			ft_printf("__--val: %u, dpp: %p\n", current, tmp);
+		ft_printf("__--val: %u, dpp: %p\n", current, tmp);
 		in += tmp;
 		current = stack->val[current] & STACK_RIGHT;
 	}
 	tmp = chucklenuts(END_OF_STACK, stack->count, size, mode);
-		ft_printf("__--val: %u, dpp: %p\n", current, tmp);
+	ft_printf("__--val: %u, dpp: %p\n", current, tmp);
 	in += tmp;
 	return (in);
 }

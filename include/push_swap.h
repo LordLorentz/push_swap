@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:44:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/20 13:46:57 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/22 11:41:07 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,6 @@ int				print_dsclist(t_dsclist *list);
 t_lense			make_lense(t_uint size);
 int				align_lense(t_lense lense[], t_proposal panel[]);
 
-
 ////////////					Panel and proposal					////////////
 
 t_proposal		init_proposal(t_uint panel_size);
@@ -183,7 +182,6 @@ void			free_branch(t_branch *branch);
 t_branch		**make_hedge(t_stack *stack, t_uint hedge_size);
 void			free_hedge(t_branch **hedge, t_uint hedge_size);
 int				extend_hedge(t_branch **dst, t_branch **src, t_proposal p[]);
-
 
 ////////////					Stack manipulation					////////////
 

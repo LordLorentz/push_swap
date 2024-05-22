@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/02 13:24:27 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/20 13:54:39 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/22 11:39:31 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	extend_hedge(t_branch **dst, t_branch **src, t_proposal panel[])
 //Only checks agent #1.
 bool	is_sorted(t_proposal panel[])
 {
-	t_uint i;
+	t_uint	i;
 
 	i = 0;
 	while (i < PANEL_SIZE)

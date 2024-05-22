@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/11 12:04:54 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/27 21:29:13 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/22 11:33:46 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 static inline int	is_associative(t_inum inum)
 {
 	if (inum == _RA || inum == _RB || inum == _RR
-			|| inum == RRR || inum == RRB || inum == RRA)
+		|| inum == RRR || inum == RRB || inum == RRA)
 		return (1);
 	else
 		return (0);

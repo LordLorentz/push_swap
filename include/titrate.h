@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/20 16:01:47 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/28 13:00:33 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/22 11:43:02 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,17 @@ typedef struct s_hashlist
 
 ////////////					Logic								////////////
 
-t_hash		hash_stacks(t_stack *a, t_stack *b);
+t_hash		hash_stacks(t_stack *stack);
 int			interpret_result(t_hashlist **control, t_hashlist **test);
 
 ////////////					Control systems						////////////
 
 t_dsc		inc_dsc(t_dsc discriminant);
-int			control_rifle(t_stack *a, t_stack *b, t_uint depth, t_hashlist **s);
+int			control_rifle(t_stack *stack, t_uint depth, t_hashlist **s);
 
 ////////////					Test systems						////////////
 
-int			test_rifle(t_stack *a, t_stack *b, t_uint depth, t_hashlist **s);
+int			test_rifle(t_stack *stack, t_uint depth, t_hashlist **s);
 
 ////////////					Hashlists							////////////
 

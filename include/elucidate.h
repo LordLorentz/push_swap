@@ -6,12 +6,12 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/20 16:01:47 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/12 15:49:44 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/22 11:40:58 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TITRATE_H
-# define TITRATE_H
+#ifndef ELUCIDATE_H
+# define ELUCIDATE_H
 
 # include <stdint.h>
 
@@ -21,7 +21,6 @@
 # ifndef TITRATE_DEPTH
 #  define TITRATE_DEPTH 4
 # endif
-
 
 typedef struct s_dpplist
 {

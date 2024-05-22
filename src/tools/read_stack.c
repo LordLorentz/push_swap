@@ -6,23 +6,25 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 13:15:58 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/21 12:30:50 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/22 11:30:58 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static inline int	str_isnum(char *str)
+static inline int	str_isint(char *str)
 {
 	long	in;
+	int		i;
 
-	if (*str == '-')
-		str++;
-	while (*str)
+	i = 0;
+	if (str[i] == '-')
+		i++;
+	while (str[i])
 	{
-		if (ft_isdigit(*str) == 0)
+		if (ft_isdigit(str[i]) == 0)
 			return (0);
-		str++;
+		i++;
 	}
 	in = ft_atol(str);
 	if (in < INT_MIN || in > INT_MAX)
@@ -56,7 +58,7 @@ t_uint	*read_stack(char **input, t_uint size)
 	i = 0;
 	while (input[i] && i < size)
 	{
-		if (str_isnum(input[i]) == 0)
+		if (str_isint(input[i]) == 0)
 			return (free(stack), NULL);
 		current = ft_atoi(input[i]);
 		if (does_stack_contain(stack, i, current))

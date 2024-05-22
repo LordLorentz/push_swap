@@ -6,13 +6,13 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/17 12:41:34 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/20 13:46:24 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/22 11:39:09 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static t_uint get_depth(t_uint size)
+static t_uint	get_depth(t_uint size)
 {
 	t_uint	depth;
 	t_uint	i;
@@ -36,10 +36,10 @@ int	execute(t_stack *stack, t_inum instruction)
 
 int	radix_sort(t_stack *stack)
 {
-	t_uint	depth = get_depth(stack->size);
-	t_uint	i;
-	t_uint	j;
-	int		out;
+	const t_uint	depth = get_depth(stack->size);
+	t_uint			i;
+	t_uint			j;
+	int				out;
 
 	i = 0;
 	while (i <= depth)

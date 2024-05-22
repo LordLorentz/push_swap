@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/03/18 13:56:42 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/03/27 21:27:46 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/22 12:09:19 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,18 @@
 static t_hash	normalize_val(t_stack *stack, t_uint val)
 {
 	t_uint	current;
+	t_uint	i;
 	t_hash	out;
 
 	out = 0;
 	current = val;
-	while (current != END_OF_STACK)
+	i = 0;
+	while (i < stack->count[A])
 	{
 		if (current < val)
 			out += 1;
-		current = stack->val[current] & STACK_RIGHT;
+		current = stack->val[current].next;
+		i++;
 	}
 	return (out);
 }
@@ -37,35 +40,38 @@ static t_hash	normalize_val(t_stack *stack, t_uint val)
 static t_hash	factorialize_stack(t_stack *stack)
 {
 	t_uint	current;
+	t_uint	i;
 	t_hash	out;
 	t_hash	frag;
 
 	out = 0;
 	frag = FRAG_MAX;
-	current = stack->start;
-	while (current != END_OF_STACK)
+	current = stack->head[A];
+	i = 0;
+	while (i < stack->count[A])
 	{
 		out += normalize_val(stack, current) * factorial(frag);
-		current = stack->val[current] & STACK_RIGHT;
+		current = stack->val[current].next;
 		frag--;
+		i++;
 	}
 	return (out);
 }
 
-t_hash	hash_stacks(t_stack *a, t_stack *b)
+t_hash	hash_stacks(t_stack *stack)
 {
 	t_hash	hash;
 	t_hash	modifier;
 	t_uint	i;
 
-	modifier = b->count;
+	modifier = stack->count[B];
 	i = 0;
 	while (i++ < modifier)
-		pa(a, b);
-	hash = factorialize_stack(a);
+		pa(stack);
+	hash = factorialize_stack(stack);
 	hash |= modifier << MAX_FACTORIAL;
 	i = 0;
 	while (i++ < modifier)
-		pb(a, b);
+		pb(stack);
 	return (hash);
 }

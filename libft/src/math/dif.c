@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/08 17:03:46 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/04/08 17:06:06 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/22 11:33:12 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,5 @@ unsigned int	dif(unsigned int a, unsigned int b)
 	return (
 		((a > b) * (a - b))
 		+ ((a < b) * (b - a))
-		);
+	);
 }

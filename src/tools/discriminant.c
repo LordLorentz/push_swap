@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/31 13:50:28 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/03 17:27:24 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/22 11:34:21 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ static t_dsc	recurse_dsc(t_dsc discriminant)
 t_dsc	iter_dsc(t_dsc discriminant)
 {
 	discriminant = recurse_dsc(discriminant);
-	// discriminant = distil(discriminant);
 	return (discriminant);
 }
 
