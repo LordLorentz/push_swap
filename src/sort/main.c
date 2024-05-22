@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 16:15:02 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/21 12:34:02 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/22 13:26:14 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 		exit_wrapper();
 	stack = curse_stack(temp, size);
 	free(temp);
-	if (size < 10)
+	if (size < 20)
 		out = convene(stack);
 	else
 		out = radix_sort(stack);

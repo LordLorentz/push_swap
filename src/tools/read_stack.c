@@ -6,7 +6,7 @@
 /*   By: mmosk <mmosk@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 13:15:58 by mmosk         #+#    #+#                 */
-/*   Updated: 2024/05/22 11:30:58 by mmosk         ########   odam.nl         */
+/*   Updated: 2024/05/22 13:24:53 by mmosk         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static inline int	str_isint(char *str)
 	}
 	in = ft_atol(str);
 	if (in < INT_MIN || in > INT_MAX)
+		return (0);
+	if (ft_strlen(str) > 10)
 		return (0);
 	return (1);
 }
